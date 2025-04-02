@@ -1,0 +1,7 @@
+('common\\data\\img\\home\\HOME',
+ 'common\\data\\img\\home\\HOME',
+ [],
+ 'DATA',
+ [('common\\data\\img\\home\\HOME\\HOME0.png',
+   'common\\data\\img\\home\\HOME\\HOME0.png',
+   'DATA')])

@@ -1,0 +1,10 @@
+('common\\data\\img\\config\\CONFIG_BUTTON',
+ 'common\\data\\img\\config\\CONFIG_BUTTON',
+ [],
+ 'DATA',
+ [('common\\data\\img\\config\\CONFIG_BUTTON\\CONFIG_BUTTON0.png',
+   'common\\data\\img\\config\\CONFIG_BUTTON\\CONFIG_BUTTON0.png',
+   'DATA'),
+  ('common\\data\\img\\config\\CONFIG_BUTTON\\CONFIG_BUTTON1.png',
+   'common\\data\\img\\config\\CONFIG_BUTTON\\CONFIG_BUTTON1.png',
+   'DATA')])

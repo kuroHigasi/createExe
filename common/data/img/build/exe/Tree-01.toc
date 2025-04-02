@@ -1,0 +1,10 @@
+('dungeon\\data\\img\\test\\RD',
+ 'dungeon\\data\\img\\test\\RD',
+ [],
+ 'DATA',
+ [('dungeon\\data\\img\\test\\RD\\RD0.png',
+   'dungeon\\data\\img\\test\\RD\\RD0.png',
+   'DATA'),
+  ('dungeon\\data\\img\\test\\RD\\RD1.png',
+   'dungeon\\data\\img\\test\\RD\\RD1.png',
+   'DATA')])

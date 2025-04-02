@@ -1,0 +1,1 @@
+#define TYPE_DANGER     0

@@ -1,0 +1,7 @@
+('common\\data\\fonts',
+ 'common\\data\\fonts',
+ [],
+ 'DATA',
+ [('common\\data\\fonts\\DotGothic16-Regular.ttf',
+   'common\\data\\fonts\\DotGothic16-Regular.ttf',
+   'DATA')])

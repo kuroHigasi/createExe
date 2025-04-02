@@ -1,0 +1,10 @@
+('common\\data\\img\\save\\LIST',
+ 'common\\data\\img\\save\\LIST',
+ [],
+ 'DATA',
+ [('common\\data\\img\\save\\LIST\\LIST0.png',
+   'common\\data\\img\\save\\LIST\\LIST0.png',
+   'DATA'),
+  ('common\\data\\img\\save\\LIST\\LIST1.png',
+   'common\\data\\img\\save\\LIST\\LIST1.png',
+   'DATA')])
