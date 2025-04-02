@@ -1,3 +1,4 @@
+import dungeon.form as DungeonForm
 import common.home.form as HomeForm
 import common.config.form as ConfigForm
 import common.end.form as EndForm
@@ -7,6 +8,7 @@ import common.save.form as SaveForm
 class SystemForm:
     def __init__(self, flash=[]):
         self.__flash = flash
+        self.__DungeonForm = DungeonForm.Form(1)
         self.__ConfigForm = ConfigForm.Form()
         self.__HomeForm = HomeForm.Form()
         self.__EndForm = EndForm.Form()
@@ -18,6 +20,9 @@ class SystemForm:
     def countupFlash(self):
         for i in range(0, len(self.__flash), 1):
             self.__flash[i].countup()
+
+    def DUNGEON_FORM(self):
+        return self.__DungeonForm
 
     def CONFIG_FORM(self):
         return self.__ConfigForm
