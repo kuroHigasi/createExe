@@ -1,11 +1,9 @@
 import common.debug.debug as dbg
 import common.pyd.status as STATUS
-import dungeon.status as DungeonStatus
 import common.home.status as HomeStatus
 import common.config.status as ConfigStatus
 import common.end.status as EndStatus
 import common.save.status as SaveStatus
-import dungeon.convert as convert
 
 
 class Status:
@@ -23,9 +21,6 @@ class Status:
             ConfigStatus.Status.nextStatus(statusForm, operationForm, systemForm.CONFIG_FORM())
         elif (statusForm.NOW_STATUS() == STATUS.SAVE()):
             SaveStatus.Status.nextStatus(statusForm, operationForm, systemForm.SAVE_FORM())
-        elif (nowStatus == STATUS.DUNGEON()):
-            DungeonStatus.Status.nextStatus(statusForm, operationForm, dungeonForm)
-            DungeonStatus.Status.updateLog(dungeonForm)
         else:
             dbg.ERROR_LOG("[Main.STATUS]存在しないステータス: "+str(nowStatus))
             statusForm.updateStatus(STATUS.HOME())

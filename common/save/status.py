@@ -1,5 +1,4 @@
 import common.common as cmn
-import dungeon.convert as convert
 import common.pyd.status as STATUS
 import common.pyd.save as SAVE
 
@@ -37,5 +36,5 @@ class Status:
             head = SAVE.SAVE_HEAD(i)
             tail = SAVE.SAVE_TAIL(i)
             saveMethod = cmn.SaveMethod()
-            dispData = convert.Convert.getDispData(saveMethod.load(head, tail))
+            dispData = saveMethod.load(head, tail)
             saveForm.updateSaveDispList(i, dispData)

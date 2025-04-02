@@ -4,10 +4,10 @@ import pygame.locals
 import common.debug.debug as dbg
 import common.common as cmn
 # SySTEM
-import system.debug as SystemDebug
-import system.display as SystemDisplay
-import system.action as SystemAction
-import system.status as SystemStatus
+from system.debug import Debug
+from system.display import Display
+from system.action import Action
+from system.status import Status
 # FORM
 import common.operation.form as OperationForm
 import system.form as SystemForm
@@ -40,7 +40,7 @@ class Main:
         self.__StatusForm = StatusForm.Form(STATUS.HOME())
 
     def DISP(self, screen):
-        SystemDisplay.Display.execute(screen, self.__StatusForm, self.__SystemForm, self.__OperationForm)
+        Display.execute(screen, self.__StatusForm, self.__SystemForm, self.__OperationForm)
 
     def MOUSE(self, x, y):
         self.__OperationForm.setMouse(x, y)
@@ -90,19 +90,19 @@ class Main:
 
     def RESET(self):
         self.__OperationForm.reset()
-        SystemStatus.Status.init(self.__StatusForm, self.__SystemForm, self.__OperationForm)
+        Status.init(self.__StatusForm, self.__SystemForm, self.__OperationForm)
 
     def COUNT(self):
         self.__SystemForm.countupFlash()
 
     def DEBUG(self, key):
-        SystemDebug.Debug.execute(self.__StatusForm, self.__SystemForm, key)
+        Debug.execute(self.__StatusForm, self.__SystemForm, key)
 
     def ACTION(self):
-        SystemAction.Action.execute(self.__StatusForm, self.__SystemForm, self.__OperationForm)
+        Action.execute(self.__StatusForm, self.__SystemForm, self.__OperationForm)
 
     def STATUS(self):
-        SystemStatus.Status.execute(self.__StatusForm, self.__SystemForm, self.__OperationForm)
+        Status.execute(self.__StatusForm, self.__SystemForm, self.__OperationForm)
 
 
 main = Main()
