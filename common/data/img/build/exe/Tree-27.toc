@@ -1,7 +1,0 @@
-('common\\data\\img\\end\\END',
- 'common\\data\\img\\end\\END',
- [],
- 'DATA',
- [('common\\data\\img\\end\\END\\END0.png',
-   'common\\data\\img\\end\\END\\END0.png',
-   'DATA')])

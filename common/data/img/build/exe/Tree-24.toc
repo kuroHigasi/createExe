@@ -1,7 +1,0 @@
-('common\\data\\img\\config\\CONFIG',
- 'common\\data\\img\\config\\CONFIG',
- [],
- 'DATA',
- [('common\\data\\img\\config\\CONFIG\\CONFIG0.png',
-   'common\\data\\img\\config\\CONFIG\\CONFIG0.png',
-   'DATA')])

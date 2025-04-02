@@ -1,5 +1,8 @@
 import common.common as cmn
 import common.pyd.save as SAVE
+# ゲーム毎
+import dungeon.convert as ConvertDungeon
+# ゲーム毎
 
 
 class Action:
@@ -60,5 +63,5 @@ class Action:
             head = SAVE.SAVE_HEAD(i)
             tail = SAVE.SAVE_TAIL(i)
             saveMethod = cmn.SaveMethod()
-            dispData = saveMethod.load(head, tail)
+            dispData = ConvertDungeon.Convert.getDispData(saveMethod.load(head, tail))
             saveForm.updateSaveDispList(i, dispData)

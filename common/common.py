@@ -157,7 +157,7 @@ class SaveMethod(AES_METHDO.Aes):
                 dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
         dbg.LOG("DELETE処理終了")
 
-    def __folderCheck(self):
+    def __folderCheck():
         if not (os.path.exists(SAVE.FOLDER())):
             dbg.LOG(SAVE.FOLDER() + NOT_FOLDER_LOG)
             os.mkdir(SAVE.FOLDER())

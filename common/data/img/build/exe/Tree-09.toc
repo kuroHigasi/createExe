@@ -1,7 +1,0 @@
-('dungeon\\data\\img\\test\\CU',
- 'dungeon\\data\\img\\test\\CU',
- [],
- 'DATA',
- [('dungeon\\data\\img\\test\\CU\\CU0.png',
-   'dungeon\\data\\img\\test\\CU\\CU0.png',
-   'DATA')])
