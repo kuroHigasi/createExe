@@ -88,7 +88,7 @@ class SaveMethod(AES_METHDO.Aes):
             dbg.LOG(SAVE.FOLDER() + "フォルダを作成しました")
         if not (os.path.isfile(SAVE.PASS())):
             try:
-                with open(SAVE.PASS(), mode='x') as f:
+                with open(SAVE.PASS(), mode='xb') as f:
                     f.write(super().encrypt(head + data + tail))
             except FileExistsError:
                 dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
@@ -138,7 +138,7 @@ class SaveMethod(AES_METHDO.Aes):
         SaveMethod.__folderCheck()
         if not (os.path.isfile(SAVE.PASS())):
             try:
-                with open(SAVE.PASS(), mode='x') as f:
+                with open(SAVE.PASS(), mode='xb') as f:
                     f.write("")
             except FileExistsError:
                 dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
