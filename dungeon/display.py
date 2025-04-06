@@ -1,6 +1,6 @@
 import common.common as cmn
 import common.pyd.hitJudge as hitJudge
-import dungeon.data.img.img as img
+import dungeon.img as img
 import dungeon.data.map.map as map
 import dungeon.pyd.index as INDEX
 import dungeon.pyd.itemType as ITEM
@@ -14,15 +14,15 @@ class Display(cmn.cmnDisplay):
         now_view = dungeonForm.NOW_VIEW()
         imgList = dungeonForm.IMG_LIST()
         if not (dungeonForm.IS_DEATH()):
-            screen.blit(imgList[INDEX.RIGHT()][INDEX.UP_POS()][img.Select.RU(now_view)], (posX+600, posY))
-            screen.blit(imgList[INDEX.RIGHT()][INDEX.CENTER_POS()][img.Select.RC(now_view)], (posX+600, posY+150))
-            screen.blit(imgList[INDEX.RIGHT()][INDEX.DOWN_POS()][img.Select.RD(now_view)], (posX+600, posY+450))
-            screen.blit(imgList[INDEX.CENTER()][INDEX.UP_POS()][img.Select.CU(now_view)], (posX+200, posY))
-            screen.blit(imgList[INDEX.CENTER()][INDEX.CENTER_POS()][img.Select.CC(now_view)], (posX+200, posY+150))
-            screen.blit(imgList[INDEX.CENTER()][INDEX.DOWN_POS()][img.Select.CD(now_view)], (posX+200, posY+450))
+            screen.blit(imgList[INDEX.RIGHT()][INDEX.UP_POS()][img.Select.RU(now_view)], (posX + 600, posY))
+            screen.blit(imgList[INDEX.RIGHT()][INDEX.CENTER_POS()][img.Select.RC(now_view)], (posX + 600, posY + 150))
+            screen.blit(imgList[INDEX.RIGHT()][INDEX.DOWN_POS()][img.Select.RD(now_view)], (posX + 600, posY + 450))
+            screen.blit(imgList[INDEX.CENTER()][INDEX.UP_POS()][img.Select.CU(now_view)], (posX + 200, posY))
+            screen.blit(imgList[INDEX.CENTER()][INDEX.CENTER_POS()][img.Select.CC(now_view)], (posX + 200, posY + 150))
+            screen.blit(imgList[INDEX.CENTER()][INDEX.DOWN_POS()][img.Select.CD(now_view)], (posX + 200, posY + 450))
             screen.blit(imgList[INDEX.LEFT()][INDEX.UP_POS()][img.Select.LU(now_view)], (posX, posY))
-            screen.blit(imgList[INDEX.LEFT()][INDEX.CENTER_POS()][img.Select.LC(now_view)], (posX, posY+150))
-            screen.blit(imgList[INDEX.LEFT()][INDEX.DOWN_POS()][img.Select.LD(now_view)], (posX, posY+450))
+            screen.blit(imgList[INDEX.LEFT()][INDEX.CENTER_POS()][img.Select.LC(now_view)], (posX, posY + 150))
+            screen.blit(imgList[INDEX.LEFT()][INDEX.DOWN_POS()][img.Select.LD(now_view)], (posX, posY + 450))
             screen.blit(imgList[INDEX.FLAME()][img.Select.FLAME(now_view)], (posX, posY))
             # ITEM BOX
             Display.__dispBox(self, screen, imgList, posX+606, posY+526, x, y, dungeonForm)
@@ -142,7 +142,7 @@ class Display(cmn.cmnDisplay):
         imgList = dungeonForm.IMG_LIST()
         if not (dungeonForm.IS_DEATH()):
             screen.blit(imgList[INDEX.BOARD_S()][0], (posX, posY))
-            screen.blit(imgList[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1))+3], (posX + 60, posY + 20))
+            screen.blit(imgList[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (posX + 60, posY + 20))
             # 階段
             if map.Judge.isStairs(dungeonForm.MAP()[dungeonForm.NOW_POS()[0]][dungeonForm.NOW_POS()[1]]):
                 Display.__dispActionButton(screen, imgList, dungeonForm, x, y, posX, posY, ACTION.GO_UP_THE_STAIRS())

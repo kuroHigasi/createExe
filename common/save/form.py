@@ -1,5 +1,5 @@
 import common.save.button.form as ButtonForm
-import common.data.img.img as IMG_LIST
+import common.img as IMG_LIST
 import common.pyd.status as STATUS
 import common.pyd.createPass as cPass
 import common.common as cmn

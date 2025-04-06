@@ -1,4 +1,4 @@
-import dungeon.data.img.img as DungeonImg
+import dungeon.img as DungeonImg
 # Form
 import dungeon.map.form as MapForm
 import dungeon.button.form as ButtonForm
