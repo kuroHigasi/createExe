@@ -98,7 +98,7 @@ class Download:
         for file_name in range(0, 1, 1):
             BOARD_M_load.insert(int(file_name), Download.__loadImg(case, 'BOARD_M', file_name))
         for file_name in range(0, 14, 1):
-            BUTTON_load.insert(int(file_name), pygame.image.load(cmn.resource_path(cPass.getImgPass("common", "common", 'BUTTON', file_name))))
+            BUTTON_load.insert(int(file_name), pygame.image.load(cmn.resource_path(cPass.getImgPass("common", 'BUTTON', file_name))))
         for file_name in range(0, 4, 1):
             ACTION_load.insert(int(file_name), Download.__loadImg(case, 'ACTION', file_name))
         for file_name in range(0, 2, 1):
@@ -225,7 +225,7 @@ class Download:
         return imgList
 
     def __loadImg(case, name, number):
-        return pygame.image.load(cmn.resource_path(cPass.getImgPass("dungeon", case, name, number)))
+        return pygame.image.load(cmn.resource_path(cPass.getImgPass(case, name, number)))
 
 
 class Select:

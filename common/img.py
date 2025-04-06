@@ -140,4 +140,4 @@ class Download:
         return imgList
 
     def __loadImg(case, name, number):
-        return pygame.image.load(cmn.resource_path(cPass.getImgPass("common", case, name, number)))
+        return pygame.image.load(cmn.resource_path(cPass.getImgPass(case, name, number)))

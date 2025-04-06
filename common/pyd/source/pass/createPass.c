@@ -9,10 +9,10 @@ getImgPass (PyObject *self, PyObject *args) {
   int patarn_i = 0;
   char patarn_c[100];
   char return_c[100];
-  if (!PyArg_ParseTuple(args, "sssi", &obj_c, &case_c, &pos_c, &patarn_i))
+  if (!PyArg_ParseTuple(args, "ssi", &case_c, &pos_c, &patarn_i))
     DEBUG_LOG("ARGUMENT IS ERROR!");
   sprintf(patarn_c, "%d", patarn_i);
-  sprintf(return_c, PASS_DATA_IMG ,obj_c ,case_c, pos_c, pos_c, patarn_c);
+  sprintf(return_c, PASS_DATA_IMG ,case_c, pos_c, pos_c, patarn_c);
   return Py_BuildValue("s", return_c);
 }
 
