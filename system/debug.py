@@ -1,4 +1,4 @@
-import common.pyd.status as STATUS
+import lib.status as STATUS
 import common.debug.debug as dbg
 import dungeon.debug as dunDbg
 import pygame

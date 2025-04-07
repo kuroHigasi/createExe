@@ -7,7 +7,7 @@ import dungeon.abnormal.form as AbnormalForm
 import dungeon.log.form as LogForm
 import dungeon.box.form as BoxForm
 # method
-import common.pyd.createPass as cPass
+import lib.createPass as cPass
 import dungeon.pyd.way as WAY
 import dungeon.common as cmnDungeon
 import common.debug.debug as dbg

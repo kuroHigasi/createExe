@@ -1,5 +1,5 @@
 import common.common as cmn
-import common.pyd.hitJudge as hitJudge
+import lib.hitJudge as hitJudge
 import dungeon.img as img
 import dungeon.data.map.map as map
 import dungeon.pyd.index as INDEX

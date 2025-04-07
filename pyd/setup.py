@@ -1,0 +1,10 @@
+from distutils.core import setup, Extension
+
+modules = [Extension('createPass', ['source\\pass\\createPass.c']),
+           Extension('hitJudge', ['source\\hit\\hit.c']),
+           Extension('status', ['source\\status\\status.c']),
+           Extension('save', ['source\\save\\save.c']),
+           Extension('calc', ['source\\calc\\calc.c'])]
+
+
+setup(name='commonPyd', version='1.0', ext_modules=modules)

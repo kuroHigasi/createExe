@@ -1,5 +1,5 @@
 import common.debug.debug as dbg
-import common.pyd.status as STATUS
+import lib.status as STATUS
 import dungeon.status as DungeonStatus
 import common.home.status as HomeStatus
 import common.config.status as ConfigStatus

@@ -1,5 +1,5 @@
 import common.home.pyd.index as index
-import common.pyd.hitJudge as judge
+import lib.hitJudge as judge
 
 
 class Display:

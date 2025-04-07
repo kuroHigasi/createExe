@@ -3,7 +3,7 @@ import common.home.display as homeDisp
 import common.config.display as configDisp
 import common.end.display as endDisp
 import common.save.display as saveDisp
-import common.pyd.status as STATUS
+import lib.status as STATUS
 import common.debug.debug as dbg
 import dungeon.convert as ConvertDungeon
 

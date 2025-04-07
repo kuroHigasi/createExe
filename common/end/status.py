@@ -1,5 +1,5 @@
 import common.common as cmn
-import common.pyd.status as STATUS
+import lib.status as STATUS
 
 
 class Status:

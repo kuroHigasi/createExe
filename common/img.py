@@ -1,4 +1,4 @@
-import common.pyd.createPass as cPass
+import lib.createPass as cPass
 import common.home.pyd.index as HOME_INDEX
 import common.config.pyd.index as CONFIG_INDEX
 import common.end.pyd.index as END_INDEX

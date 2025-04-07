@@ -1,5 +1,5 @@
 import common.common as cmn
-import common.pyd.save as SAVE
+import lib.save as SAVE
 # ゲーム毎
 import dungeon.convert as ConvertDungeon
 # ゲーム毎
