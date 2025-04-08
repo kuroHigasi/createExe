@@ -27,9 +27,26 @@ getFontPass (PyObject *self, PyObject *args) {
   return Py_BuildValue("s", return_c);
 }
 
+
+static PyObject*
+getMp3Pass (PyObject *self, PyObject *args) {
+  char * obj_c = NULL;
+  char * case_c = NULL;
+  char * pos_c = NULL;
+  int patarn_i = 0;
+  char patarn_c[100];
+  char return_c[100];
+  if (!PyArg_ParseTuple(args, "ssi", &case_c, &pos_c, &patarn_i))
+    printf("ARGUMENT IS ERROR!");
+  sprintf(patarn_c, "%d", patarn_i);
+  sprintf(return_c, PASS_DATA_MP3 ,case_c, pos_c, pos_c, patarn_c);
+  return Py_BuildValue("s", return_c);
+}
+
 static PyMethodDef createPassMethods[] = {
   {"getImgPass",   (PyCFunction)getImgPass,   METH_VARARGS | METH_KEYWORDS, "getPass(img)"},
   {"getFontPass",  (PyCFunction)getFontPass,  METH_VARARGS | METH_KEYWORDS, "getPass(font)"},
+  {"getMp3Pass",   (PyCFunction)getMp3Pass,   METH_VARARGS | METH_KEYWORDS, "getPass(mp3)"},
   {NULL}
 };
 
