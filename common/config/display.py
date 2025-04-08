@@ -1,4 +1,4 @@
-import common.config.pyd.index as index
+import lib.indexConfig as index
 import lib.hitJudge as judge
 import common.common as cmn
 

@@ -5,6 +5,7 @@ import lib.calc as CALC
 import lib.save as SAVE
 import lib.status as STATUS
 import lib.indexHome as INDEX_HOME
+import lib.indexConfig as INDEX_CONFIG
 
 
 class TestCreatePass(unittest.TestCase):
@@ -156,6 +157,20 @@ class TestIndexHome(unittest.TestCase):
 
     def test_BUTTON(self):
         self.assertEqual(INDEX_HOME.BUTTON(), 1)
+
+
+class TestIndexConfig(unittest.TestCase):
+    def test_HOME(self):
+        self.assertEqual(INDEX_CONFIG.CONFIG(), 0)
+
+    def test_CONFIG_BUTTON(self):
+        self.assertEqual(INDEX_CONFIG.CONFIG_BUTTON(), 1)
+
+    def test_BUTTON(self):
+        self.assertEqual(INDEX_CONFIG.BUTTON(), 2)
+
+    def test_SET_BUTTON(self):
+        self.assertEqual(INDEX_CONFIG.SET_BUTTON(), 3)
 
 
 unittest.main(argv=['first-arg-is-ignored'], exit=False)
