@@ -1,6 +1,6 @@
-import common.save.pyd.index as INDEX
-import lib.status as STATUS
-import lib.hitJudge as judge
+import pyd.indexSave as INDEX
+import pyd.status as STATUS
+import pyd.hitJudge as judge
 import common.common as cmn
 
 

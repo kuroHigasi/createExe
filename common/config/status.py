@@ -1,7 +1,7 @@
 import common.common as cmn
 import common.config.convert as convert
-import lib.status as STATUS
-import lib.save as SAVE
+import pyd.status as STATUS
+import pyd.save as SAVE
 
 
 class Status:

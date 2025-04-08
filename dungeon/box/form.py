@@ -1,4 +1,4 @@
-import dungeon.pyd.itemType as ITEM_TYPE
+import pyd.typeItem as ITEM_TYPE
 
 
 class Form:

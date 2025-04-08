@@ -1,4 +1,4 @@
-import lib.calc as calc
+import pyd.calc as calc
 
 
 class Form:

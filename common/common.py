@@ -1,6 +1,6 @@
-import lib.hitJudge as jdg
+import pyd.hitJudge as jdg
 import common.debug.debug as dbg
-import lib.save as SAVE
+import pyd.save as SAVE
 import common.save.aes as AES_METHDO
 import os
 import sys

@@ -1,5 +1,5 @@
-import lib.indexConfig as index
-import lib.hitJudge as judge
+import pyd.indexConfig as index
+import pyd.hitJudge as judge
 import common.common as cmn
 
 

@@ -1,7 +1,7 @@
 import common.common as cmn
 import common.debug.debug as dbg
-import dungeon.pyd.action as ACTION
-import dungeon.pyd.enemyType as ENEMY_TYPE
+import pyd.typeAction as ACTION
+import pyd.typeEnemy as ENEMY_TYPE
 
 
 class Action:

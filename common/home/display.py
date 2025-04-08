@@ -1,5 +1,5 @@
-import lib.indexHome as index
-import lib.hitJudge as judge
+import pyd.indexHome as index
+import pyd.hitJudge as judge
 
 
 class Display:
