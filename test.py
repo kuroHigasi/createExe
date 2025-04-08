@@ -4,6 +4,7 @@ import lib.hitJudge as hitJudge
 import lib.calc as CALC
 import lib.save as SAVE
 import lib.status as STATUS
+import lib.indexHome as INDEX_HOME
 
 
 class TestCreatePass(unittest.TestCase):
@@ -147,6 +148,14 @@ class TestSave(unittest.TestCase):
 
     def test_folder_0(self):
         self.assertEqual(SAVE.FOLDER(), "save")
+
+
+class TestIndexHome(unittest.TestCase):
+    def test_HOME(self):
+        self.assertEqual(INDEX_HOME.HOME(), 0)
+
+    def test_BUTTON(self):
+        self.assertEqual(INDEX_HOME.BUTTON(), 1)
 
 
 unittest.main(argv=['first-arg-is-ignored'], exit=False)

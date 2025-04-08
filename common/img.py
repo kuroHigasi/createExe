@@ -1,5 +1,5 @@
 import lib.createPass as cPass
-import common.home.pyd.index as HOME_INDEX
+import lib.indexHome as HOME_INDEX
 import common.config.pyd.index as CONFIG_INDEX
 import common.end.pyd.index as END_INDEX
 import common.save.pyd.index as SAVE_INDEX

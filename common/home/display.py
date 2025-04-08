@@ -1,4 +1,4 @@
-import common.home.pyd.index as index
+import lib.indexHome as index
 import lib.hitJudge as judge
 
 
