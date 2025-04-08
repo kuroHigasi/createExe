@@ -1,9 +1,9 @@
 import common.common as cmn
 import common.debug.debug as dbg
-import common.pyd.createPass as cPass
-import common.pyd.calc as calc
-import dungeon.pyd.index as INDEX
-import dungeon.pyd.mask as mask
+import pyd.createPass as cPass
+import pyd.calc as calc
+import pyd.indexDungeon as INDEX
+import pyd.mask as mask
 import dungeon.data.map.map as map
 import dungeon.debug as dunDbg
 import pygame

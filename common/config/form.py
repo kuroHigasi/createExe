@@ -1,6 +1,6 @@
 import common.img as ConfigImg
-import common.pyd.status as STATUS
-import common.pyd.createPass as cPass
+import pyd.status as STATUS
+import pyd.createPass as cPass
 import common.common as cmn
 import pygame
 

@@ -1,9 +1,9 @@
-import common.pyd.createPass as cPass
-import common.home.pyd.index as HOME_INDEX
-import common.config.pyd.index as CONFIG_INDEX
-import common.end.pyd.index as END_INDEX
-import common.save.pyd.index as SAVE_INDEX
-import common.data.img.pyd.num as IMG_NUM
+import pyd.createPass as cPass
+import pyd.indexHome as HOME_INDEX
+import pyd.indexConfig as CONFIG_INDEX
+import pyd.indexEnd as END_INDEX
+import pyd.indexSave as SAVE_INDEX
+import pyd.imgNum as IMG_NUM
 import common.common as cmn
 import pygame
 import pygame.locals

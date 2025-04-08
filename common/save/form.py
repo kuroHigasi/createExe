@@ -1,7 +1,7 @@
 import common.save.button.form as ButtonForm
 import common.img as IMG_LIST
-import common.pyd.status as STATUS
-import common.pyd.createPass as cPass
+import pyd.status as STATUS
+import pyd.createPass as cPass
 import common.common as cmn
 import pygame
 

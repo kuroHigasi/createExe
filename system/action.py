@@ -1,4 +1,4 @@
-import common.pyd.status as STATUS
+import pyd.status as STATUS
 import common.config.action as ConfigAction
 import dungeon.action as DungeonAction
 import common.save.action as SaveAction

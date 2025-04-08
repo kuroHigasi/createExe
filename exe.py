@@ -13,7 +13,7 @@ import common.operation.form as OperationForm
 import system.form as SystemForm
 import common.status.form as StatusForm
 # DEFINE
-import common.pyd.status as STATUS
+import pyd.status as STATUS
 
 # Initialize Pygame
 pygame.init()

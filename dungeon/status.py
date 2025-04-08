@@ -1,4 +1,4 @@
-import common.pyd.status as STATUS
+import pyd.status as STATUS
 import common.common as cmn
 import dungeon.convert as convert
 

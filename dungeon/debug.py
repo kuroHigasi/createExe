@@ -2,7 +2,7 @@
 import common.debug.debug as dbg
 import common.common as cmn
 import dungeon.data.map.map as map
-import dungeon.pyd.way as WAY
+import pyd.way as WAY
 
 
 class Debug:

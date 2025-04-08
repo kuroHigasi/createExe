@@ -1,10 +1,10 @@
 import common.common as cmn
-import common.pyd.hitJudge as hitJudge
+import pyd.hitJudge as hitJudge
 import dungeon.img as img
 import dungeon.data.map.map as map
-import dungeon.pyd.index as INDEX
-import dungeon.pyd.itemType as ITEM
-import dungeon.pyd.action as ACTION
+import pyd.indexDungeon as INDEX
+import pyd.typeItem as ITEM
+import pyd.typeAction as ACTION
 import pygame
 
 
