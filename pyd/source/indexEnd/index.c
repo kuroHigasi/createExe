@@ -1,4 +1,4 @@
-#include "..\common\common.h"
+#include "..\\common\\common.h"
 #include "index.h"
 
 static PyObject* 
@@ -25,6 +25,6 @@ static struct PyModuleDef indexModule = {
   indexMethods
 };
 
-PyMODINIT_FUNC PyInit_index (void) {
+PyMODINIT_FUNC PyInit_indexEnd (void) {
   return PyModule_Create(&indexModule);
 }

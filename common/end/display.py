@@ -1,4 +1,4 @@
-import common.end.pyd.index as INDEX
+import lib.indexEnd as INDEX
 import lib.hitJudge as judge
 import common.common as cmn
 
