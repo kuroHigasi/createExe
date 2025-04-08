@@ -1,4 +1,4 @@
-#include "..\common\common.h"
+#include "..\\common\\common.h"
 #include "num.h"
 
 static PyObject* 
@@ -67,6 +67,6 @@ static struct PyModuleDef numModule = {
   numMethods
 };
 
-PyMODINIT_FUNC PyInit_num (void) {
+PyMODINIT_FUNC PyInit_imgNum (void) {
   return PyModule_Create(&numModule);
 }

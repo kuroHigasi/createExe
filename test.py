@@ -7,6 +7,7 @@ import lib.status as STATUS
 import lib.indexHome as INDEX_HOME
 import lib.indexConfig as INDEX_CONFIG
 import lib.indexEnd as INDEX_END
+import lib.imgNum as IMG_NUM
 
 
 class TestCreatePass(unittest.TestCase):
@@ -180,6 +181,35 @@ class TestIndexEnd(unittest.TestCase):
 
     def test_BUTTON(self):
         self.assertEqual(INDEX_END.BUTTON(), 1)
+
+
+class TestCreatePass(unittest.TestCase):
+    def test_BUTTON(self):
+        self.assertEqual(IMG_NUM.BUTTON(), 16)
+
+    def test_CONFIG(self):
+        self.assertEqual(IMG_NUM.CONFIG(), 1)
+
+    def test_CONFIG_BUTTON(self):
+        self.assertEqual(IMG_NUM.CONFIG_BUTTON(), 2)
+
+    def test_CONFIG_SET_BUTTON(self):
+        self.assertEqual(IMG_NUM.CONFIG_SET_BUTTON(), 10)
+
+    def test_SAVE_LIST(self):
+        self.assertEqual(IMG_NUM.SAVE_LIST(), 2)
+
+    def test_SAVE(self):
+        self.assertEqual(IMG_NUM.SAVE(), 1)
+
+    def test_SAVE_BUTTON(self):
+        self.assertEqual(IMG_NUM.SAVE_BUTTON(), 9)
+
+    def test_END(self):
+        self.assertEqual(IMG_NUM.END(), 1)
+
+    def test_HOME(self):
+        self.assertEqual(IMG_NUM.HOME(), 1)
 
 
 unittest.main(argv=['first-arg-is-ignored'], exit=False)
