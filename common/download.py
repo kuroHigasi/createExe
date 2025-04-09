@@ -139,5 +139,19 @@ class Download:
         imgList.insert(SAVE_INDEX.SAVE_BUTTON(), SAVE_BUTTON_img)
         return imgList
 
+    @staticmethod
+    def sound() -> list:
+        """
+
+        :rtype: list
+        """
+        soundList: list = []
+        soundList.insert(0, Download.__loadMp3("common", "CLICK", 0))
+        return soundList
+
     def __loadImg(case, name, number):
         return pygame.image.load(cmn.resource_path(cPass.getImgPass(case, name, number)))
+
+    @staticmethod
+    def __loadMp3(case, name, number):
+        return cmn.resource_path(cPass.getMp3Pass(case, name, number))
