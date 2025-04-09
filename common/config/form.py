@@ -1,4 +1,4 @@
-import common.img as ConfigImg
+import common.download as ConfigImg
 import pyd.status as STATUS
 import pyd.createPass as cPass
 import common.common as cmn

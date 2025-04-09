@@ -3,6 +3,7 @@ import common.home.form as HomeForm
 import common.config.form as ConfigForm
 import common.end.form as EndForm
 import common.save.form as SaveForm
+import common.sound.form as SoundForm
 
 
 class SystemForm:
@@ -13,6 +14,7 @@ class SystemForm:
         self.__HomeForm = HomeForm.Form()
         self.__EndForm = EndForm.Form()
         self.__SaveForm = SaveForm.Form()
+        self.__SoundForm = SoundForm.Form()
 
     def FLASH(self, index=0):
         return self.__flash[index].flash()
@@ -35,3 +37,6 @@ class SystemForm:
 
     def SAVE_FORM(self):
         return self.__SaveForm
+
+    def SOUND_FORM(self):
+        return self.__SoundForm

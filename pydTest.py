@@ -25,6 +25,9 @@ class TestCreatePass(unittest.TestCase):
     def test_2(self):
         self.assertEqual(cPass.getFontPass("DotGothic16-Regular.ttf"), "data\\fonts\\DotGothic16-Regular.ttf")
 
+    def test_3(self):
+        self.assertEqual(cPass.getMp3Pass("test", "BUTTON", 0), "data\\mp3\\test\\BUTTON\\BUTTON0.mp3")
+
 
 class TestHitJudge(unittest.TestCase):
     def test_1(self):
@@ -191,7 +194,7 @@ class TestIndexEnd(unittest.TestCase):
         self.assertEqual(INDEX_END.BUTTON(), 1)
 
 
-class TestCreatePass(unittest.TestCase):
+class TestNum(unittest.TestCase):
     def test_BUTTON(self):
         self.assertEqual(IMG_NUM.BUTTON(), 16)
 

@@ -17,6 +17,10 @@ TEST_SIZE = (1000, 800)
 
 
 def resource_path(relative):
+    """
+
+    :rtype: object
+    """
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)

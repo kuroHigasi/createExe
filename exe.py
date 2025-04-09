@@ -8,6 +8,7 @@ from system.debug import Debug
 from system.display import Display
 from system.action import Action
 from system.status import Status
+from system.sound import Sound
 # FORM
 import common.operation.form as OperationForm
 import system.form as SystemForm
@@ -20,6 +21,7 @@ pygame.init()
 dbg.init()
 screen = pygame.display.set_mode(cmn.TEST_SIZE)
 pygame.display.set_caption("game")
+pygame.mixer.init()
 screen.fill(cmn.Colors.black)
 # Game variables
 clock = pygame.time.Clock()
@@ -104,6 +106,9 @@ class Main:
     def STATUS(self):
         Status.execute(self.__StatusForm, self.__SystemForm, self.__OperationForm)
 
+    def SOUND(self):
+        Sound.execute(self.__StatusForm, self.__SystemForm, self.__OperationForm)
+
 
 main = Main()
 
@@ -125,6 +130,7 @@ while main.EXIT_CHECK():
         main.ACTION()
     (left, middle, right) = pygame.mouse.get_pressed()
     main.CLICK(left, right)
+    main.SOUND()
     main.STATUS()
     main.COUNT()
     main.DISP(screen)
