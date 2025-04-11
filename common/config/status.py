@@ -9,20 +9,19 @@ class Status:
         nextStatus = STATUS.CONFIG()
         (x, y) = opeForm.MOUSE()
         (clickX, clickY) = opeForm.leftClickMoveMouse()
-        (okX, okY) = configForm.OK_BUTTON()
-        (buckX, buckY) = configForm.BUCK_BUTTON()
-        if okX != -1 and okY != -1:  # OKボタンは設定が変更されたタイミングしか表示されない
-            if (cmn.Judge.click(okX, okY, 200, 80, x, y, clickX, clickY, opeForm.isLeftClick())):
-                saveMethod = cmn.SaveMethod()
-                saveMethod.save(convert.Convert.createInput(configForm), SAVE.CONF_HEAD(), SAVE.CONF_TAIL())
-                nextStatus = configForm.PRE_STATUS()
-        if (cmn.Judge.click(buckX, buckY, 200, 80, x, y, clickX, clickY, opeForm.isLeftClick())):
+        (ok_x, ok_y, ok_width, ok_height) = configForm.get_ok_button()
+        (back_x, back_y, back_width, back_height) = configForm.get_back_button()
+        if ok_x != -1 and ok_y != -1:  # OKボタンは設定が変更されたタイミングしか表示されない
+            if cmn.Judge.click(ok_x, ok_y, ok_width, ok_height, x, y, clickX, clickY, opeForm.isLeftClick()):
+                cmn.SaveMethod().save(convert.Convert.createInput(configForm), SAVE.CONF_HEAD(), SAVE.CONF_TAIL())
+                nextStatus = configForm.pre_status
+        if cmn.Judge.click(back_x, back_y, back_width, back_height, x, y, clickX, clickY, opeForm.isLeftClick()):
             configForm.buckKeyType()
-            nextStatus = configForm.PRE_STATUS()
+            nextStatus = configForm.pre_status
         statusForm.updateStatus(nextStatus)
 
-    def updatePreStatus(configForm, status):
-        configForm.updatePreStatus(status)
+    def config_form_get_status(configForm, status):
+        configForm.pre_status = status
 
     def loadConfig(configForm):
         saveMethod = cmn.SaveMethod()
