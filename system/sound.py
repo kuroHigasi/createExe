@@ -8,4 +8,4 @@ class Sound:
 		nowStatus = statusForm.NOW_STATUS()
 		# ステータス毎 処理分岐
 		if nowStatus is STATUS.HOME():
-			soundHome.Sound.start(homeForm, opeForm, soundForm)
+			soundHome.Sound.start(homeForm, opeForm, systemForm.CONFIG_FORM(), soundForm)

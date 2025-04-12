@@ -1,7 +1,17 @@
+import dataclasses
+
 import common.button.form as button_form
 
 
+@dataclasses.dataclass
 class Form:
+	_ok_button: button_form
+	_back_button: button_form
+	_way_button_list: list
+	_go_button_list: list
+	_step_button_list: list
+	_tab_list: list
+
 	def __init__(self):
 		# OK BUTTON
 		self._ok_button = button_form.Form(-1, -1, 200, 80)
@@ -18,15 +28,15 @@ class Form:
 			[button_form.Form(-1, -1, 200, 80), button_form.Form(-1, -1, 200, 80)]
 		# TAB
 		self._tab_list = \
-			[button_form.Form(-1, -1, 200, 25), button_form.Form(-1, -1, 200, 25)]
+			[button_form.Form(-1, -1, 250, 25), button_form.Form(-1, -1, 250, 25)]
 
 	def set_ok_button_pos(self, x, y):
 		self._ok_button.x = x
 		self._ok_button.y = y
 
 	def hidden_ok_button(self):
-		self._ok_button.x= -1
-		self._ok_button.y= -1
+		self._ok_button.x = -1
+		self._ok_button.y = -1
 
 	def get_ok_button(self):
 		return \
