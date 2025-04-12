@@ -7,8 +7,8 @@ class Action:
         left_click = ope_form.isLeftClick()
         x, y = ope_form.MOUSE()
         click_x, click_y = ope_form.leftClickMoveMouse()
-        way_key_type = config_form.way_key_type
-        go_key_type = config_form.go_key_type
+        way_key_type = config_form.get_way_key_type()
+        go_key_type = config_form.get_go_key_type()
         way1_x, way1_y, way1_width, way1_height = config_form.get_way_button(0)
         way2_x, way2_y, way2_width, way2_height = config_form.get_way_button(1)
         go1_x, go1_y, go1_width, go1_height = config_form.get_go_button(0)
@@ -46,30 +46,30 @@ class Action:
 
     def _set_way_key_type(config_form, wayKeyType, click1, click2):
         if wayKeyType != 0 and click1:
-            config_form.way_key_type = 0
+            config_form.set_way_key_type(0)
         elif wayKeyType != 1 and click2:
-            config_form.way_key_type = 1
+            config_form.set_way_key_type(1)
         elif click1 or click2:
             dbg.LOG("[ConfigAction._set_way_key_type]" + str(wayKeyType) + "再設定")
             if wayKeyType < 0 or 1 < wayKeyType:
                 dbg.ERROR_LOG("[ConfigAction._set_way_key_type]存在しないKeyType")
 
     def _set_go_key_type(config_form, goKeyType, click1, click2):
-        if (goKeyType != 0 and click1):
-            config_form.go_key_type = 0
-        elif (goKeyType != 1 and click2):
-            config_form.go_key_type = 1
-        elif (click1 or click2):
+        if goKeyType != 0 and click1:
+            config_form.set_go_key_type(0)
+        elif goKeyType != 1 and click2:
+            config_form.set_go_key_type(1)
+        elif click1 or click2:
             dbg.LOG("[ConfigAction._set_go_key_type]" + str(goKeyType) + "再設定")
             if goKeyType < 0 or 2 < goKeyType:
                 dbg.ERROR_LOG("[ConfigAction._set_go_key_type]存在しないKeyType")
 
     def _set_step_key_type(config_form, goKeyType, click1, click2):
-        if (goKeyType != 1 and click1):
-            config_form.go_key_type = 1
-        elif (goKeyType != 0 and click2):
-            config_form.go_key_type = 0
-        elif (click1 or click2):
+        if goKeyType != 1 and click1:
+            config_form.set_go_key_type(1)
+        elif goKeyType != 0 and click2:
+            config_form.set_go_key_type(0)
+        elif click1 or click2:
             dbg.LOG("[ConfigAction._set_step_key_type]" + str(goKeyType) + "再設定")
             if goKeyType < 0 or 2 < goKeyType:
                 dbg.ERROR_LOG("[ConfigAction._set_step_key_type]存在しないKeyType")

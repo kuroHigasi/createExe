@@ -12,23 +12,23 @@ class Display:
         way_type_text_list = ["WASD操作", "方向キー操作"]
         go_type_text_list = ["スペース押下", "エンター押下"]
         step_type_text_list = ["エンター押下", "スペース押下"]
-        wayKeyType = config_form.way_key_type
-        goKeyType = config_form.go_key_type
+        way_key_type = config_form.get_way_key_type()
+        go_key_type = config_form.get_go_key_type()
         screen.blit(img_list[Index.CONFIG()][0], (pos_x, pos_y))
         # Config項目 選択
         Display.__disp_tab_button(screen, img_list, ope_form, config_form, 0, 50, 100)
         Display.__disp_tab_button(screen, img_list, ope_form, config_form, 1, 300, 100)
         if config_form.tab == 0:
             # WAY SET BUTTON
-            Display.__disp_text(screen, font, "方向キー入力タイプ…" + way_type_text_list[wayKeyType], 50, 150)
+            Display.__disp_text(screen, font, "方向キー入力タイプ…" + way_type_text_list[way_key_type], 50, 150)
             Display.__disp_way_key_type_button(screen, img_list, ope_form, config_form, 0, 50, 180)
             Display.__disp_way_key_type_button(screen, img_list, ope_form, config_form, 1, 260, 180)
             # GO SET BUTTON
-            Display.__disp_text(screen, font, "前進入力タイプ…" + go_type_text_list[goKeyType], 50, 285)
+            Display.__disp_text(screen, font, "前進入力タイプ…" + go_type_text_list[go_key_type], 50, 285)
             Display.__disp_go_key_type_button(screen, img_list, ope_form, config_form, 0, 50, 320)
             Display.__disp_go_key_type_button(screen, img_list, ope_form, config_form, 1, 260, 320)
             # STEP SET BUTTON
-            Display.__disp_text(screen, font, "足踏み入力タイプ…" + step_type_text_list[goKeyType], 50, 420)
+            Display.__disp_text(screen, font, "足踏み入力タイプ…" + step_type_text_list[go_key_type], 50, 420)
             Display.__disp_step_key_type_button(screen, img_list, ope_form, config_form, 1, 50, 460)
             Display.__disp_step_key_type_button(screen, img_list, ope_form, config_form, 0, 260, 460)
         else:
@@ -67,7 +67,7 @@ class Display:
 
     def __disp_way_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [1, 3]
-        way_key_type = configForm.way_key_type
+        way_key_type = configForm.get_way_key_type()
         (x, y) = opeForm.MOUSE()
         # ボタン設定
         configForm.set_way_button(type, posX, posY)
@@ -81,7 +81,7 @@ class Display:
 
     def __disp_go_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [1, 3]
-        goKeyType = configForm.go_key_type
+        goKeyType = configForm.get_go_key_type()
         (x, y) = opeForm.MOUSE()
         # ボタン設定
         configForm.set_go_button(type, posX, posY)
@@ -95,7 +95,7 @@ class Display:
 
     def __disp_step_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [3, 1]
-        stepKeyType = configForm.go_key_type
+        stepKeyType = configForm.get_go_key_type()
         (x, y) = opeForm.MOUSE()
         # ボタン設定
         if type == 1:
@@ -125,7 +125,7 @@ class Display:
                 screen.blit(img_list[Index.CONFIG_BUTTON()][2], (pos_x, pos_y))
 
     def __disp_volume_set_slider(screen, config_form, font, pos_x, pos_y):
-        Display.__disp_text(screen, font, "SE", pos_x, pos_y)
+        Display.__disp_text(screen, font, "SE VOLUME", pos_x, pos_y)
         slider = Slider(screen, pos_x, pos_y + 45, 400, 10, min=0, max=99, step=1)
         slider.setValue(config_form.volume)
         slider.draw()

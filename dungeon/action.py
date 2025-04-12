@@ -7,7 +7,7 @@ import pyd.typeEnemy as ENEMY_TYPE
 class Action:
     def go(DungeonForm, opeForm, configForm):
         isDeath = DungeonForm.IS_DEATH()
-        goKeyType = configForm.go_key_type
+        goKeyType = configForm.get_go_key_type()
         if not (isDeath):  # 死亡時は行動しない
             if (opeForm.SPACE() and goKeyType == 0) or (opeForm.ENTER() and goKeyType == 1):
                 opeForm.spaceOff()  # 処理が連続で判定されないように実施

@@ -5,32 +5,23 @@ import pyd.status as status
 import pyd.createPass as cPass
 import common.common as cmn
 import common.debug.debug as dbg
-import common.config.buttons.form as buttons_form
+import common.config.form.buttons.form as buttons_form
+import common.config.form.set.form as set_form
 import pygame
 
 
 @dataclasses.dataclass
 class Form:
     _img_list: list
-    _volume: int
-    _pre_volume: int
-    _way_key_type: int
-    _pre_way_key_type: int
-    _go_key_type: int
-    _pre_go_key_type: int
     _tab: int
+    _set_form: set_form
     _buttons_form: buttons_form
     _pre_status: int
 
     def __init__(self):
         self._img_list = config_img.Download.configImag()
-        self._volume = 30
-        self._pre_volume = 30
-        self._way_key_type = 0
-        self._pre_way_key_type = 0
-        self._go_key_type = 0
-        self._pre_go_key_type = 0
         self._tab = 0
+        self._set_form = set_form.Form()
         self._buttons_form = buttons_form.Form()
         self._pre_status = status.HOME()
 
@@ -42,17 +33,15 @@ class Form:
     def font():
         return pygame.font.Font(str(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf"))), 34)
 
-    @property
-    def volume(self):
-        return self._volume
+    def get_volume(self):
+        return self._set_form.volume
 
-    @volume.setter
-    def volume(self, volume):
+    def set_volume(self, volume):
         if 0 <= volume <= 100:
-            self._volume = volume
+            self._set_form.volume = volume
 
     def update_pre_volume(self):
-        self._pre_volume = self._volume
+        self._set_form.volume_pre = self._set_form.volume
 
     @property
     def tab(self):
@@ -66,33 +55,29 @@ class Form:
             dbg.ERROR_LOG("[configForm.tab] 引数不備")
 
     def reset_config(self):
-        self._way_key_type = self._pre_way_key_type
-        self._go_key_type = self._pre_go_key_type
-        self._volume = self._pre_volume
+        self._set_form.way_key_type = self._set_form.way_key_type_pre
+        self._set_form.go_key_type = self._set_form.go_key_type_pre
+        self._set_form.volume = self._set_form.volume_pre
 
-    @property
-    def go_key_type(self):
-        return self._go_key_type
+    def get_go_key_type(self):
+        return self._set_form.go_key_type
 
-    @go_key_type.setter
-    def go_key_type(self, go_key_type):
+    def set_go_key_type(self, go_key_type):
         if 0 <= go_key_type < 2:
-            self._go_key_type = go_key_type
+            self._set_form.go_key_type = go_key_type
 
     def update_pre_go_key_type(self):
-        self._pre_go_key_type = self._go_key_type
+        self._set_form.go_key_type_pre = self._set_form.go_key_type
 
-    @property
-    def way_key_type(self):
-        return self._way_key_type
+    def get_way_key_type(self):
+        return self._set_form.way_key_type
 
-    @way_key_type.setter
-    def way_key_type(self, way_key_type):
+    def set_way_key_type(self, way_key_type):
         if 0 <= way_key_type < 2:
-            self._way_key_type = way_key_type
+            self._set_form.way_key_type = way_key_type
 
     def update_pre_way_key_type(self):
-        self._pre_way_key_type = self._way_key_type
+        self._set_form.way_key_type_pre = self._set_form.way_key_type
 
     def set_ok_button(self, x, y):
         self._buttons_form.set_ok_button_pos(x, y)
@@ -195,9 +180,12 @@ class Form:
 
     def is_config_different(self):
         return \
-            self._pre_way_key_type != self._way_key_type or \
-            self._pre_go_key_type != self._go_key_type or \
-            self._pre_volume != self._volume
+            self._set_form.way_key_type_pre != self._set_form.way_key_type or \
+            self._set_form.go_key_type_pre != self._set_form.go_key_type or \
+            self._set_form.volume_pre != self._set_form.volume
 
     def create_input_data(self):
-        return str(self._way_key_type) + "," + str(self._go_key_type) + "," + str(self._volume)
+        return \
+            str(self._set_form.way_key_type) + "," + \
+            str(self._set_form.go_key_type) + "," + \
+            str(self._set_form.volume)
