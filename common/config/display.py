@@ -127,9 +127,9 @@ class Display:
     def __disp_volume_set_slider(screen, config_form, font, pos_x, pos_y):
         Display.__disp_text(screen, font, "SE VOLUME", pos_x, pos_y)
         slider = Slider(screen, pos_x, pos_y + 45, 400, 10, min=0, max=99, step=1)
-        slider.setValue(config_form.volume)
+        slider.setValue(config_form.get_volume())
         slider.draw()
-        Display.__disp_text(screen, font, str(config_form.volume), pos_x + 425, pos_y + 40)
+        Display.__disp_text(screen, font, str(config_form.get_volume()), pos_x + 425, pos_y + 40)
 
     def __disp_text(screen, font, text: str, x: int, y: int):
         text_surface = font.render(text, True, cmn.Colors.black)

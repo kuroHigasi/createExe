@@ -46,11 +46,11 @@ class Status:
                 dbg.LOG("[main.END]初期化処理なし")
         elif now_status == STATUS.HOME():
             if pre_status != STATUS.HOME():
-                ConfigStatus.Status.loadConfig(configForm)
+                ConfigStatus.Status.load_config(configForm)
         elif now_status == STATUS.CONFIG():
             if pre_status != STATUS.CONFIG():
                 ConfigStatus.Status.config_form_get_status(configForm, pre_status)
-                ConfigStatus.Status.loadConfig(configForm)
+                ConfigStatus.Status.load_config(configForm)
         elif now_status == STATUS.SAVE():
             if pre_status != STATUS.SAVE():
                 SaveStatus.Status.updatePreStatus(saveForm, pre_status)

@@ -57,7 +57,7 @@ class Form:
     def reset_config(self):
         self._set_form.way_key_type = self._set_form.way_key_type_pre
         self._set_form.go_key_type = self._set_form.go_key_type_pre
-        self._set_form.volume = self._set_form.volume_pre
+        self._set_form.volume_pre = self._set_form.volume
 
     def get_go_key_type(self):
         return self._set_form.go_key_type
