@@ -6,15 +6,15 @@ import dungeon.convert as convert
 class Status:
     def nextStatus(statusForm, opeForm, dungeonForm):
         nextStatus = STATUS.DUNGEON()
-        (x, y) = opeForm.MOUSE()
-        (clickX, clickY) = opeForm.leftClickMoveMouse()
+        (x, y) = opeForm.get_mouse()
+        (clickX, clickY) = opeForm.left_click_move_mouse()
         (configX, configY, configSizeW, configSizeH) = dungeonForm.CONFIG_BUTTON()
         (saveX, saveY, saveSizeW, saveSizeH) = dungeonForm.SAVE_BUTTON()
         if dungeonForm.END_FLAG():
             nextStatus = STATUS.END()
-        elif (cmn.Judge.click(configX, configY, configSizeW, configSizeH, x, y, clickX, clickY, opeForm.isLeftClick())):
+        elif (cmn.Judge.click(configX, configY, configSizeW, configSizeH, x, y, clickX, clickY, opeForm.is_left_click())):
             nextStatus = STATUS.CONFIG()
-        elif (cmn.Judge.click(saveX, saveY, saveSizeW, saveSizeH, x, y, clickX, clickY, opeForm.isLeftClick())):
+        elif (cmn.Judge.click(saveX, saveY, saveSizeW, saveSizeH, x, y, clickX, clickY, opeForm.is_left_click())):
             nextStatus = STATUS.SAVE()
         statusForm.updateStatus(nextStatus)
 

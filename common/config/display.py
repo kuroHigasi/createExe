@@ -52,14 +52,14 @@ class Display:
         config_form.set_back_button(540, 670)
 
     def __disp_ok_button(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
             screen.blit(imgList[Index.SET_BUTTON()][buttonIndex+1], (posX, posY))
         else:
             screen.blit(imgList[Index.SET_BUTTON()][buttonIndex], (posX, posY))
 
     def __disp_back_button(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
             screen.blit(imgList[Index.BUTTON()][buttonIndex+1], (posX, posY))
         else:
@@ -68,7 +68,7 @@ class Display:
     def __disp_way_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [1, 3]
         way_key_type = configForm.get_way_key_type()
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         # ボタン設定
         configForm.set_way_button(type, posX, posY)
         if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
@@ -82,7 +82,7 @@ class Display:
     def __disp_go_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [1, 3]
         goKeyType = configForm.get_go_key_type()
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         # ボタン設定
         configForm.set_go_button(type, posX, posY)
         if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
@@ -96,7 +96,7 @@ class Display:
     def __disp_step_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [3, 1]
         stepKeyType = configForm.get_go_key_type()
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         # ボタン設定
         if type == 1:
             configForm.set_step_button(0, posX, posY)
@@ -114,7 +114,7 @@ class Display:
                 configForm.hidden_step_button(1)
 
     def __disp_tab_button(screen, img_list, ope_form, config_form, tab_index: int, pos_x: int, pos_y: int):
-        (x, y) = ope_form.MOUSE()
+        (x, y) = ope_form.get_mouse()
         config_form.set_tab_button(tab_index, pos_x, pos_y)
         if Judge.hitJudgeSquare(pos_x, pos_y, 250, 25, int(x), int(y)):
             screen.blit(img_list[Index.CONFIG_BUTTON()][1], (pos_x, pos_y))

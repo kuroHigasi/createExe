@@ -7,9 +7,9 @@ class Action:
     @staticmethod
     def execute(config_form, ope_form):
         # INIT
-        left_click = ope_form.isLeftClick()
-        x, y = ope_form.MOUSE()
-        click_x, click_y = ope_form.leftClickMoveMouse()
+        left_click = ope_form.is_left_click()
+        x, y = ope_form.get_mouse()
+        click_x, click_y = ope_form.left_click_move_mouse()
         data_list = Action.create_request_data(config_form, left_click, x, y, click_x, click_y)
         service = sub_action.Action(request.Request(data_list))
         # タブ設定

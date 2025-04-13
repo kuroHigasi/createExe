@@ -55,40 +55,40 @@ class Form:
         now_way = self.__mapForm.NOW_WAY()
         next_way = now_way
         if now_way == WAY.UP:
-            if opeForm.UP():
+            if opeForm.get_up():
                 next_way = WAY.UP
-            elif opeForm.LEFT():
+            elif opeForm.get_left():
                 next_way = WAY.LEFT
-            elif opeForm.RIGHT():
+            elif opeForm.get_right():
                 next_way = WAY.RIGHT
-            elif opeForm.DOWN():
+            elif opeForm.get_down():
                 next_way = WAY.DOWN
         if now_way == WAY.RIGHT:
-            if opeForm.UP():
+            if opeForm.get_up():
                 next_way = WAY.RIGHT
-            elif opeForm.LEFT():
+            elif opeForm.get_left():
                 next_way = WAY.UP
-            elif opeForm.RIGHT():
+            elif opeForm.get_right():
                 next_way = WAY.DOWN
-            elif opeForm.DOWN():
+            elif opeForm.get_down():
                 next_way = WAY.LEFT
         if now_way == WAY.LEFT:
-            if opeForm.UP():
+            if opeForm.get_up():
                 next_way = WAY.LEFT
-            elif opeForm.LEFT():
+            elif opeForm.get_left():
                 next_way = WAY.DOWN
-            elif opeForm.RIGHT():
+            elif opeForm.get_right():
                 next_way = WAY.UP
-            elif opeForm.DOWN():
+            elif opeForm.get_down():
                 next_way = WAY.RIGHT
         if now_way == WAY.DOWN:
-            if opeForm.UP():
+            if opeForm.get_up():
                 next_way = WAY.DOWN
-            elif opeForm.LEFT():
+            elif opeForm.get_left():
                 next_way = WAY.RIGHT
-            elif opeForm.RIGHT():
+            elif opeForm.get_right():
                 next_way = WAY.LEFT
-            elif opeForm.DOWN():
+            elif opeForm.get_down():
                 next_way = WAY.UP
         self.__mapForm.updateWay(next_way)
 
