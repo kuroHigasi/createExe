@@ -1,4 +1,4 @@
-import dungeon.pyd.eventType as EVENT_TYPE
+import pyd.typeEvent as EVENT_TYPE
 import dungeon.data.text.infoText as infoText
 
 

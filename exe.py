@@ -1,5 +1,7 @@
 import pygame
 import pygame.locals
+import pygame_widgets
+
 # 共通処理
 import common.debug.debug as dbg
 import common.common as cmn
@@ -8,18 +10,20 @@ from system.debug import Debug
 from system.display import Display
 from system.action import Action
 from system.status import Status
+from system.sound import Sound
 # FORM
 import common.operation.form as OperationForm
 import system.form as SystemForm
 import common.status.form as StatusForm
 # DEFINE
-import common.pyd.status as STATUS
+import pyd.status as STATUS
 
 # Initialize Pygame
 pygame.init()
 dbg.init()
 screen = pygame.display.set_mode(cmn.TEST_SIZE)
 pygame.display.set_caption("game")
+pygame.mixer.init()
 screen.fill(cmn.Colors.black)
 # Game variables
 clock = pygame.time.Clock()
@@ -46,13 +50,13 @@ class Main:
         self.__OperationForm.setMouse(x, y)
 
     def EXIT_CHECK(self):
-        return (self.__StatusForm.NOW_STATUS() != STATUS.EXIT())
+        return self.__StatusForm.NOW_STATUS() != STATUS.EXIT()
 
     def EXIT_SET(self):
         self.__StatusForm.updateStatus(STATUS.EXIT())
 
     def KEYBOAD(self, key):
-        if self.__SystemForm.CONFIG_FORM().WAY_KEY_TYPE() == 2:
+        if self.__SystemForm.CONFIG_FORM().get_way_key_type() == 1:
             if key == pygame.K_LEFT:
                 self.__OperationForm.leftOn()
             if key == pygame.K_RIGHT:
@@ -61,7 +65,7 @@ class Main:
                 self.__OperationForm.upOn()
             if key == pygame.K_DOWN:
                 self.__OperationForm.downOn()
-        elif self.__SystemForm.CONFIG_FORM().WAY_KEY_TYPE() == 1:
+        elif self.__SystemForm.CONFIG_FORM().get_way_key_type() == 0:
             if key == pygame.K_a:
                 self.__OperationForm.leftOn()
             if key == pygame.K_d:
@@ -71,7 +75,7 @@ class Main:
             if key == pygame.K_s:
                 self.__OperationForm.downOn()
         else:
-            dbg.ERROR_LOG("[main.KEYBOAD]存在しないKEY_TYPE" + str(self.__SystemForm.CONFIG_FORM().WAY_KEY_TYPE()))
+            dbg.ERROR_LOG("[main.KEYBOAD]存在しないKEY_TYPE" + str(self.__SystemForm.CONFIG_FORM().way_key_type()))
         # 前進ボタン
         if key == pygame.K_SPACE:
             self.__OperationForm.spaceOn()
@@ -104,6 +108,9 @@ class Main:
     def STATUS(self):
         Status.execute(self.__StatusForm, self.__SystemForm, self.__OperationForm)
 
+    def SOUND(self):
+        Sound.execute(self.__StatusForm, self.__SystemForm, self.__OperationForm)
+
 
 main = Main()
 
@@ -123,8 +130,10 @@ while main.EXIT_CHECK():
             main.KEYBOAD(event.key)
             main.DEBUG(event.key)
         main.ACTION()
+        pygame_widgets.update(event)
     (left, middle, right) = pygame.mouse.get_pressed()
     main.CLICK(left, right)
+    main.SOUND()
     main.STATUS()
     main.COUNT()
     main.DISP(screen)

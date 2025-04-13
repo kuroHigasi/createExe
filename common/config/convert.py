@@ -2,19 +2,26 @@ import common.debug.debug as dbg
 
 
 class Convert:
-    def createInput(configForm):
-        return configForm.CREATE_INPUTDATA()
+    @staticmethod
+    def create_input(config_form):
+        return config_form.create_input_data()
 
-    def convertOutput(configForm, data: str):
+    @staticmethod
+    def convert_output(config_form, data: str):
         try:
-            dataList = data.split(",")
-            configForm.updateNowWayKeyType(int(dataList[0]))
-            configForm.updateNowGoKeyType(int(dataList[1]))
-            configForm.updatePreWayKeyType()
-            configForm.updatePreGoKeyType()
-        except BaseException:
+            data_list = data.split(",")
+            config_form.set_way_key_type(int(data_list[0]))
+            config_form.set_go_key_type(int(data_list[1]))
+            config_form.set_volume(int(data_list[2]))
+            config_form.update_pre_way_key_type()
+            config_form.update_pre_go_key_type()
+            config_form.update_pre_volume()
+        except ValueError:
             dbg.ERROR_LOG("[Convert.convertOutput]OUTPUT_DATA不備")
-            configForm.updateNowWayKeyType(1)
-            configForm.updateNowGoKeyType(1)
-            configForm.updatePreWayKeyType()
-            configForm.updatePreGoKeyType()
+            config_form.set_way_key_type(0)
+            config_form.set_go_key_type(0)
+            config_form.set_volume(30)
+            config_form.update_pre_way_key_type()
+            config_form.update_pre_go_key_type()
+            config_form.update_pre_volume()
+            pass

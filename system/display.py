@@ -3,7 +3,7 @@ import common.home.display as homeDisp
 import common.config.display as configDisp
 import common.end.display as endDisp
 import common.save.display as saveDisp
-import common.pyd.status as STATUS
+import pyd.status as STATUS
 import common.debug.debug as dbg
 import dungeon.convert as ConvertDungeon
 
@@ -54,7 +54,7 @@ class Display:
         homeDisp.Display.dispHome(screen, homeForm, opeForm, 0, 0)
 
     def __configDisp(screen, configForm, opeForm):
-        configDisp.Display.dispConfig(screen, configForm, opeForm, 0, 0)
+        configDisp.Display.execute(screen, configForm, opeForm, 0, 0)
 
     def __saveDisp(screen, saveForm, opeForm):
         saveDisp.Display.dispSave(screen, saveForm, opeForm, 0, 0)

@@ -1,15 +1,15 @@
 import common.common as cmn
 import common.debug.debug as dbg
-import dungeon.pyd.action as ACTION
-import dungeon.pyd.enemyType as ENEMY_TYPE
+import pyd.typeAction as ACTION
+import pyd.typeEnemy as ENEMY_TYPE
 
 
 class Action:
     def go(DungeonForm, opeForm, configForm):
         isDeath = DungeonForm.IS_DEATH()
-        goKeyType = configForm.GO_KEY_TYPE()
+        goKeyType = configForm.get_go_key_type()
         if not (isDeath):  # 死亡時は行動しない
-            if (opeForm.SPACE() and goKeyType == 1) or (opeForm.ENTER() and goKeyType == 2):
+            if (opeForm.SPACE() and goKeyType == 0) or (opeForm.ENTER() and goKeyType == 1):
                 opeForm.spaceOff()  # 処理が連続で判定されないように実施
                 opeForm.enterOff()  # 処理が連続で判定されないように実施
                 # 更新(前進時)

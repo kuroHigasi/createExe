@@ -1,4 +1,4 @@
-import common.data.img.img as homeImg
+import common.download as homeImg
 
 
 class Form:

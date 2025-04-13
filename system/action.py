@@ -1,4 +1,4 @@
-import common.pyd.status as STATUS
+import pyd.status as STATUS
 import common.config.action as ConfigAction
 import dungeon.action as DungeonAction
 import common.save.action as SaveAction
@@ -12,7 +12,7 @@ class Action:
         saveForm = systemForm.SAVE_FORM()
         # ステータスごとのACTION分岐
         if (nowStatus == STATUS.CONFIG()):
-            ConfigAction.Action.update(configForm, operationForm)
+            ConfigAction.Action.execute(configForm, operationForm)
         elif (nowStatus == STATUS.DUNGEON()):
             DungeonAction.Action.go(dungeonForm, operationForm, configForm)
             DungeonAction.Action.updateFlag(dungeonForm)

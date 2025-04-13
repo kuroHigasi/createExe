@@ -1,6 +1,6 @@
-import common.data.img.img as EndImg
+import common.download as EndImg
 import common.end.button.form as ButtonForm
-import common.pyd.createPass as cPass
+import pyd.createPass as cPass
 import common.common as cmn
 import pygame
 

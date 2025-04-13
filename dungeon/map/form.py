@@ -3,8 +3,8 @@ import dungeon.enemies.form as EnemiesForm
 import dungeon.events.form as EventsForm
 import dungeon.items.form as ItemsForm
 import common.debug.debug as dbg
-import dungeon.data.img.img as dungeonImg
-import dungeon.pyd.way as WAY
+import dungeon.img as dungeonImg
+import pyd.way as WAY
 import dungeon.common as cmnDungeon
 
 
