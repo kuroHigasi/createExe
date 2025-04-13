@@ -63,6 +63,7 @@ class Judge:
                     (click and
                      jdg.hitJudgeSquare(posX, posY, sizeW, sizeH, clickX, clickY))):
                 return True
+            return False
         # BUTTON設定なし
         else:
             return False
