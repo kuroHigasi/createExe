@@ -74,7 +74,7 @@ class Status:
 
     def __changeInit(preStatus, now_status, operationForm, configForm):
         if preStatus != now_status:
-            operationForm.resetMouseClickL()
-            operationForm.resetMouseClickR()
+            operationForm.reset_mouse_click_l()
+            operationForm.reset_mouse_click_r()
             configForm.update_pre_way_key_type()
             configForm.update_pre_go_key_type()

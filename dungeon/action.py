@@ -18,7 +18,7 @@ class Action:
                     DungeonForm.actionFlagOn()
                 elif not (DungeonForm.existDiffPos()) and DungeonForm.ACTION_FLAG():
                     dbg.ERROR_LOG("[action.go]想定外の遷移")
-            elif (opeForm.get_space() and goKeyType == 2) or (opeForm.get_enter() and goKeyType == 1):
+            elif (opeForm.get_space() and goKeyType == 1) or (opeForm.get_enter() and goKeyType == 0):
                 opeForm.space_off()  # 処理が連続で判定されないように実施
                 opeForm.enter_off()  # 処理が連続で判定されないように実施
                 if not (DungeonForm.ACTION_FLAG()):
