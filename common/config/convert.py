@@ -16,7 +16,7 @@ class Convert:
             config_form.update_pre_way_key_type()
             config_form.update_pre_go_key_type()
             config_form.update_pre_volume()
-        except BaseException:
+        except ValueError:
             dbg.ERROR_LOG("[Convert.convertOutput]OUTPUT_DATA不備")
             config_form.set_way_key_type(0)
             config_form.set_go_key_type(0)
@@ -24,4 +24,4 @@ class Convert:
             config_form.update_pre_way_key_type()
             config_form.update_pre_go_key_type()
             config_form.update_pre_volume()
-            raise
+            pass

@@ -73,8 +73,11 @@ class Form:
         return self._set_form.way_key_type
 
     def set_way_key_type(self, way_key_type):
-        if 0 <= way_key_type < 2:
-            self._set_form.way_key_type = way_key_type
+        if type(way_key_type) is int:
+            if 0 <= way_key_type < 2:
+                self._set_form.way_key_type = way_key_type
+        else:
+            raise ValueError
 
     def update_pre_way_key_type(self):
         self._set_form.way_key_type_pre = self._set_form.way_key_type
