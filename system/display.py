@@ -54,7 +54,7 @@ class Display:
         homeDisp.Display.dispHome(screen, homeForm, opeForm, 0, 0)
 
     def __configDisp(screen, configForm, opeForm):
-        configDisp.Display.dispConfig(screen, configForm, opeForm, 0, 0)
+        configDisp.Display.execute(screen, configForm, opeForm, 0, 0)
 
     def __saveDisp(screen, saveForm, opeForm):
         saveDisp.Display.dispSave(screen, saveForm, opeForm, 0, 0)

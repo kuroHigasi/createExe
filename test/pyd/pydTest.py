@@ -202,7 +202,7 @@ class TestNum(unittest.TestCase):
         self.assertEqual(IMG_NUM.CONFIG(), 1)
 
     def test_CONFIG_BUTTON(self):
-        self.assertEqual(IMG_NUM.CONFIG_BUTTON(), 2)
+        self.assertEqual(IMG_NUM.CONFIG_BUTTON(), 3)
 
     def test_CONFIG_SET_BUTTON(self):
         self.assertEqual(IMG_NUM.CONFIG_SET_BUTTON(), 10)

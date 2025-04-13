@@ -1,29 +1,29 @@
 import common.common as cmn
 import common.config.convert as convert
-import pyd.status as STATUS
-import pyd.save as SAVE
+import pyd.status as status
+import pyd.save as save
 
 
 class Status:
-    def nextStatus(statusForm, opeForm, configForm):
-        nextStatus = STATUS.CONFIG()
-        (x, y) = opeForm.MOUSE()
-        (clickX, clickY) = opeForm.leftClickMoveMouse()
-        (okX, okY) = configForm.OK_BUTTON()
-        (buckX, buckY) = configForm.BUCK_BUTTON()
-        if okX != -1 and okY != -1:  # OKボタンは設定が変更されたタイミングしか表示されない
-            if (cmn.Judge.click(okX, okY, 200, 80, x, y, clickX, clickY, opeForm.isLeftClick())):
-                saveMethod = cmn.SaveMethod()
-                saveMethod.save(convert.Convert.createInput(configForm), SAVE.CONF_HEAD(), SAVE.CONF_TAIL())
-                nextStatus = configForm.PRE_STATUS()
-        if (cmn.Judge.click(buckX, buckY, 200, 80, x, y, clickX, clickY, opeForm.isLeftClick())):
-            configForm.buckKeyType()
-            nextStatus = configForm.PRE_STATUS()
-        statusForm.updateStatus(nextStatus)
+    @staticmethod
+    def next_status(status_form, ope_form, config_form):
+        next_status = status.CONFIG()
+        (x, y) = ope_form.MOUSE()
+        (click_x, click_y) = ope_form.leftClickMoveMouse()
+        (ok_x, ok_y, ok_width, ok_height) = config_form.get_ok_button()
+        (back_x, back_y, back_width, back_height) = config_form.get_back_button()
+        if cmn.Judge.click(ok_x, ok_y, ok_width, ok_height, x, y, click_x, click_y, ope_form.isLeftClick()):
+            cmn.SaveMethod().save(convert.Convert.create_input(config_form), save.CONF_HEAD(), save.CONF_TAIL())
+            next_status = config_form.pre_status
+        if cmn.Judge.click(back_x, back_y, back_width, back_height, x, y, click_x, click_y, ope_form.isLeftClick()):
+            config_form.reset_config()
+            next_status = config_form.pre_status
+        status_form.updateStatus(next_status)
 
-    def updatePreStatus(configForm, status):
-        configForm.updatePreStatus(status)
+    @staticmethod
+    def config_form_get_status(config_form, status):
+        config_form.pre_status = status
 
-    def loadConfig(configForm):
-        saveMethod = cmn.SaveMethod()
-        convert.Convert.convertOutput(configForm, saveMethod.load(SAVE.CONF_HEAD(), SAVE.CONF_TAIL()))
+    @staticmethod
+    def load_config(config_form):
+        convert.Convert.convert_output(config_form, cmn.SaveMethod().load(save.CONF_HEAD(), save.CONF_TAIL()))

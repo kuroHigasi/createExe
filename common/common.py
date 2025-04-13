@@ -56,17 +56,17 @@ class Flash:
 class Judge:
     def click(posX, posY, sizeW, sizeH, x, y, clickX, clickY, click, funcName="test"):
         # BUTTON設定有無判定
-        if (not (posX == -1 and posY == -1)):
+        if not (posX == -1 and posY == -1):
             # 左クリック判定
             if (not (clickX == -1 and clickY == -1) and
                     jdg.hitJudgeSquare(posX, posY, sizeW, sizeH, x, y) and
                     (click and
                      jdg.hitJudgeSquare(posX, posY, sizeW, sizeH, clickX, clickY))):
                 return True
+            return False
         # BUTTON設定なし
         else:
-            dbg.ERROR_LOG("[" + funcName + "]ボタン設定不備")
-        return False
+            return False
 
 
 class cmnDisplay:

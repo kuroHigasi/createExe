@@ -1,6 +1,6 @@
 import dungeon.form as DungeonForm
 import common.home.form as HomeForm
-import common.config.form as ConfigForm
+import common.config.form.form as ConfigForm
 import common.end.form as EndForm
 import common.save.form as SaveForm
 import common.sound.form as SoundForm

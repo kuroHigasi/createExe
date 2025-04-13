@@ -1,98 +1,137 @@
-import pyd.indexConfig as index
-import pyd.hitJudge as judge
+import pyd.indexConfig as Index
+import pyd.hitJudge as Judge
+from pygame_widgets.slider import Slider
 import common.common as cmn
 
 
 class Display:
-    def dispConfig(screen, configForm, opeForm, posX: int, posY: int):
-        imgList = configForm.IMG_LIST()
-        font = configForm.FONT()
-        textList1 = ["WASD操作", "方向キー操作"]
-        textList2 = ["スペース押下", "エンター押下"]
-        textList3 = ["エンター押下", "スペース押下"]
-        wayKeyType = configForm.WAY_KEY_TYPE()
-        goKeyType = configForm.GO_KEY_TYPE()
-        screen.blit(imgList[index.CONFIG()][0], (posX, posY))
+    @staticmethod
+    def execute(screen, config_form, ope_form, pos_x: int, pos_y: int):
+        img_list = config_form.img_list
+        font = config_form.font()
+        way_type_text_list = ["WASD操作", "方向キー操作"]
+        go_type_text_list = ["スペース押下", "エンター押下"]
+        step_type_text_list = ["エンター押下", "スペース押下"]
+        way_key_type = config_form.get_way_key_type()
+        go_key_type = config_form.get_go_key_type()
+        screen.blit(img_list[Index.CONFIG()][0], (pos_x, pos_y))
         # Config項目 選択
-        Display.__dispConfigButton(screen, imgList, opeForm, 0, 50, 100)
-        # SET BUTTON
-        Display.__dispText(screen, font, "方向キー入力タイプ…" + textList1[wayKeyType-1], 50, 150)
-        Display.__dispWayKeyTypeButton(screen, imgList, opeForm, configForm, 1, 50, 180)
-        Display.__dispWayKeyTypeButton(screen, imgList, opeForm, configForm, 2, 260, 180)
-        # SET BUTTON
-        Display.__dispText(screen, font, "前進入力タイプ…" + textList2[goKeyType-1], 50, 285)
-        Display.__dispGoKeyTypeButton(screen, imgList, opeForm, configForm, 1, 50, 320)
-        Display.__dispGoKeyTypeButton(screen, imgList, opeForm, configForm, 2, 260, 320)
-        # SET BUTTON
-        Display.__dispText(screen, font, "足踏み入力タイプ…" + textList3[goKeyType-1], 50, 420)
-        Display.__dispStepKeyTypeButton(screen, imgList, opeForm, configForm, 2, 50, 460)
-        Display.__dispStepKeyTypeButton(screen, imgList, opeForm, configForm, 1, 260, 460)
+        Display.__disp_tab_button(screen, img_list, ope_form, config_form, 0, 50, 100)
+        Display.__disp_tab_button(screen, img_list, ope_form, config_form, 1, 300, 100)
+        if config_form.tab == 0:
+            # WAY SET BUTTON
+            Display.__disp_text(screen, font, "方向キー入力タイプ…" + way_type_text_list[way_key_type], 50, 150)
+            Display.__disp_way_key_type_button(screen, img_list, ope_form, config_form, 0, 50, 180)
+            Display.__disp_way_key_type_button(screen, img_list, ope_form, config_form, 1, 260, 180)
+            # GO SET BUTTON
+            Display.__disp_text(screen, font, "前進入力タイプ…" + go_type_text_list[go_key_type], 50, 285)
+            Display.__disp_go_key_type_button(screen, img_list, ope_form, config_form, 0, 50, 320)
+            Display.__disp_go_key_type_button(screen, img_list, ope_form, config_form, 1, 260, 320)
+            # STEP SET BUTTON
+            Display.__disp_text(screen, font, "足踏み入力タイプ…" + step_type_text_list[go_key_type], 50, 420)
+            Display.__disp_step_key_type_button(screen, img_list, ope_form, config_form, 1, 50, 460)
+            Display.__disp_step_key_type_button(screen, img_list, ope_form, config_form, 0, 260, 460)
+        else:
+            config_form.hidden_way_button(0)
+            config_form.hidden_way_button(1)
+            config_form.hidden_go_button(0)
+            config_form.hidden_go_button(1)
+            config_form.hidden_step_button(0)
+            config_form.hidden_step_button(1)
+            # VOLUME SET SLIDER
+            Display.__disp_volume_set_slider(screen, config_form, font, 50, 150)
         # OK
-        if configForm.IS_DIFFERENT():
-            Display.__dispSetButton(screen, imgList, opeForm, 6, 750, 670)
-            configForm.updateOkButton(750, 670)
+        if config_form.is_config_different():
+            Display.__disp_ok_button(screen, img_list, ope_form, 6, 750, 670)
+            config_form.set_ok_button(750, 670)
         else:
-            screen.blit(imgList[index.SET_BUTTON()][5], (750, 670))
-            configForm.updateOkButton(-1, -1)
-        # BUCK
-        Display.__dispButton(screen, imgList, opeForm, 14, 540, 670)
-        configForm.updateBuckButton(540, 670)
+            screen.blit(img_list[Index.SET_BUTTON()][5], (750, 670))
+            config_form.hidden_ok_button()
+        # BACK
+        Display.__disp_back_button(screen, img_list, ope_form, 14, 540, 670)
+        config_form.set_back_button(540, 670)
 
-    def __dispSetButton(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
+    def __disp_ok_button(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
         (x, y) = opeForm.MOUSE()
-        if judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
-            screen.blit(imgList[index.SET_BUTTON()][buttonIndex+1], (posX, posY))
+        if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
+            screen.blit(imgList[Index.SET_BUTTON()][buttonIndex+1], (posX, posY))
         else:
-            screen.blit(imgList[index.SET_BUTTON()][buttonIndex], (posX, posY))
+            screen.blit(imgList[Index.SET_BUTTON()][buttonIndex], (posX, posY))
 
-    def __dispButton(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
+    def __disp_back_button(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
         (x, y) = opeForm.MOUSE()
-        if judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
-            screen.blit(imgList[index.BUTTON()][buttonIndex+1], (posX, posY))
+        if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
+            screen.blit(imgList[Index.BUTTON()][buttonIndex+1], (posX, posY))
         else:
-            screen.blit(imgList[index.BUTTON()][buttonIndex], (posX, posY))
+            screen.blit(imgList[Index.BUTTON()][buttonIndex], (posX, posY))
 
-    def __dispWayKeyTypeButton(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
+    def __disp_way_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [1, 3]
-        nowKeyType = configForm.WAY_KEY_TYPE()
+        way_key_type = configForm.get_way_key_type()
         (x, y) = opeForm.MOUSE()
-        if judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
-            screen.blit(imgList[index.SET_BUTTON()][typeList[type-1]+1], (posX, posY))
+        # ボタン設定
+        configForm.set_way_button(type, posX, posY)
+        if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
+            screen.blit(imgList[Index.SET_BUTTON()][typeList[type]+1], (posX, posY))
         else:
-            screen.blit(imgList[index.SET_BUTTON()][typeList[type-1]], (posX, posY))
-        if nowKeyType == type:
-            screen.blit(imgList[index.SET_BUTTON()][0], (posX, posY))
+            screen.blit(imgList[Index.SET_BUTTON()][typeList[type]], (posX, posY))
+        if way_key_type == type:
+            screen.blit(imgList[Index.SET_BUTTON()][0], (posX, posY))
+            configForm.hidden_way_button(type)
 
-    def __dispGoKeyTypeButton(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
+    def __disp_go_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [1, 3]
-        goKeyType = configForm.GO_KEY_TYPE()
+        goKeyType = configForm.get_go_key_type()
         (x, y) = opeForm.MOUSE()
-        if judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
-            screen.blit(imgList[index.SET_BUTTON()][typeList[type-1]+1], (posX, posY))
+        # ボタン設定
+        configForm.set_go_button(type, posX, posY)
+        if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
+            screen.blit(imgList[Index.SET_BUTTON()][typeList[type]+1], (posX, posY))
         else:
-            screen.blit(imgList[index.SET_BUTTON()][typeList[type-1]], (posX, posY))
+            screen.blit(imgList[Index.SET_BUTTON()][typeList[type]], (posX, posY))
         if goKeyType == type:
-            screen.blit(imgList[index.SET_BUTTON()][0], (posX, posY))
+            screen.blit(imgList[Index.SET_BUTTON()][0], (posX, posY))
+            configForm.hidden_go_button(type)
 
-    def __dispStepKeyTypeButton(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
+    def __disp_step_key_type_button(screen, imgList, opeForm, configForm, type: int, posX: int, posY: int):
         typeList = [3, 1]
-        stepKeyType = configForm.GO_KEY_TYPE()
+        stepKeyType = configForm.get_go_key_type()
         (x, y) = opeForm.MOUSE()
-        if judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
-            screen.blit(imgList[index.SET_BUTTON()][typeList[type-1]+1], (posX, posY))
+        # ボタン設定
+        if type == 1:
+            configForm.set_step_button(0, posX, posY)
         else:
-            screen.blit(imgList[index.SET_BUTTON()][typeList[type-1]], (posX, posY))
+            configForm.set_step_button(1, posX, posY)
+        if Judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
+            screen.blit(imgList[Index.SET_BUTTON()][typeList[type]+1], (posX, posY))
+        else:
+            screen.blit(imgList[Index.SET_BUTTON()][typeList[type]], (posX, posY))
         if stepKeyType == type:
-            screen.blit(imgList[index.SET_BUTTON()][0], (posX, posY))
+            screen.blit(imgList[Index.SET_BUTTON()][0], (posX, posY))
+            if type == 1:
+                configForm.hidden_step_button(0)
+            else:
+                configForm.hidden_step_button(1)
 
-    def __dispConfigButton(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
-        (x, y) = opeForm.MOUSE()
-        if judge.hitJudgeSquare(posX, posY, 250, 25, int(x), int(y)):
-            screen.blit(imgList[index.CONFIG_BUTTON()][buttonIndex+1], (posX, posY))
+    def __disp_tab_button(screen, img_list, ope_form, config_form, tab_index: int, pos_x: int, pos_y: int):
+        (x, y) = ope_form.MOUSE()
+        config_form.set_tab_button(tab_index, pos_x, pos_y)
+        if Judge.hitJudgeSquare(pos_x, pos_y, 250, 25, int(x), int(y)):
+            screen.blit(img_list[Index.CONFIG_BUTTON()][1], (pos_x, pos_y))
         else:
-            screen.blit(imgList[index.CONFIG_BUTTON()][buttonIndex], (posX, posY))
+            if tab_index == config_form.tab:
+                screen.blit(img_list[Index.CONFIG_BUTTON()][0], (pos_x, pos_y))
+            else:
+                screen.blit(img_list[Index.CONFIG_BUTTON()][2], (pos_x, pos_y))
 
-    def __dispText(screen, font, text: str, x: int, y: int):
+    def __disp_volume_set_slider(screen, config_form, font, pos_x, pos_y):
+        Display.__disp_text(screen, font, "SE VOLUME", pos_x, pos_y)
+        slider = Slider(screen, pos_x, pos_y + 45, 400, 10, min=0, max=99, step=1)
+        slider.setValue(config_form.get_volume())
+        slider.draw()
+        Display.__disp_text(screen, font, str(config_form.get_volume()), pos_x + 425, pos_y + 40)
+
+    def __disp_text(screen, font, text: str, x: int, y: int):
         text_surface = font.render(text, True, cmn.Colors.black)
         text_rect = text_surface.get_rect(center=(x+text_surface.get_width()/2, y))
         screen.blit(text_surface, text_rect)

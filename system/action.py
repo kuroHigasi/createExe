@@ -12,7 +12,7 @@ class Action:
         saveForm = systemForm.SAVE_FORM()
         # ステータスごとのACTION分岐
         if (nowStatus == STATUS.CONFIG()):
-            ConfigAction.Action.update(configForm, operationForm)
+            ConfigAction.Action.execute(configForm, operationForm)
         elif (nowStatus == STATUS.DUNGEON()):
             DungeonAction.Action.go(dungeonForm, operationForm, configForm)
             DungeonAction.Action.updateFlag(dungeonForm)
