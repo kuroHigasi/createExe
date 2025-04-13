@@ -8,14 +8,14 @@ class Status:
     @staticmethod
     def next_status(status_form, ope_form, config_form):
         next_status = status.CONFIG()
-        (x, y) = ope_form.MOUSE()
-        (click_x, click_y) = ope_form.leftClickMoveMouse()
+        (x, y) = ope_form.get_mouse()
+        (click_x, click_y) = ope_form.left_click_move_mouse()
         (ok_x, ok_y, ok_width, ok_height) = config_form.get_ok_button()
         (back_x, back_y, back_width, back_height) = config_form.get_back_button()
-        if cmn.Judge.click(ok_x, ok_y, ok_width, ok_height, x, y, click_x, click_y, ope_form.isLeftClick()):
+        if cmn.Judge.click(ok_x, ok_y, ok_width, ok_height, x, y, click_x, click_y, ope_form.is_left_click()):
             cmn.SaveMethod().save(convert.Convert.create_input(config_form), save.CONF_HEAD(), save.CONF_TAIL())
             next_status = config_form.pre_status
-        if cmn.Judge.click(back_x, back_y, back_width, back_height, x, y, click_x, click_y, ope_form.isLeftClick()):
+        if cmn.Judge.click(back_x, back_y, back_width, back_height, x, y, click_x, click_y, ope_form.is_left_click()):
             config_form.reset_config()
             next_status = config_form.pre_status
         status_form.updateStatus(next_status)

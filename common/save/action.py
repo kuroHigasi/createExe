@@ -18,30 +18,30 @@ class Action:
         Action.__delete(saveForm, opeForm, 2)
 
     def __save(saveForm, opeForm, index):
-        (x, y) = opeForm.MOUSE()
-        (clickX, clickY) = opeForm.leftClickMoveMouse()
+        (x, y) = opeForm.get_mouse()
+        (clickX, clickY) = opeForm.left_click_move_mouse()
         (saveX, saveY, saveW, saveH) = saveForm.SAVE_LIST(index)
         if not (saveX == -1 and saveY == -1):
-            if cmn.Judge.click(saveX, saveY, saveW, saveH, x, y, clickX, clickY, opeForm.isLeftClick()):
+            if cmn.Judge.click(saveX, saveY, saveW, saveH, x, y, clickX, clickY, opeForm.is_left_click()):
                 saveMesthod = cmn.SaveMethod()
                 saveMesthod.save(saveForm.INPUT_DATA(), SAVE.SAVE_HEAD(index), SAVE.SAVE_TAIL(index))
                 Action.__updateDispSaveList(saveForm)
 
     def __load(saveForm, opeForm, index):
-        (x, y) = opeForm.MOUSE()
-        (clickX, clickY) = opeForm.leftClickMoveMouse()
+        (x, y) = opeForm.get_mouse()
+        (clickX, clickY) = opeForm.left_click_move_mouse()
         (loadX, loadY, loadW, loadH) = saveForm.LOAD_LIST(index)
         if not (loadX == -1 and loadY == -1):
-            if cmn.Judge.click(loadX, loadY, loadW, loadH, x, y, clickX, clickY, opeForm.isLeftClick()):
+            if cmn.Judge.click(loadX, loadY, loadW, loadH, x, y, clickX, clickY, opeForm.is_left_click()):
                 saveMesthod = cmn.SaveMethod()
                 saveForm.updateOutputData(saveMesthod.load(SAVE.SAVE_HEAD(index), SAVE.SAVE_TAIL(index)))
 
     def __delete(saveForm, opeForm, index):
-        (x, y) = opeForm.MOUSE()
-        (clickX, clickY) = opeForm.leftClickMoveMouse()
+        (x, y) = opeForm.get_mouse()
+        (clickX, clickY) = opeForm.left_click_move_mouse()
         (deleteX, deleteY, deleteW, deleteH) = saveForm.DELETE_LIST(index)
         if not (deleteX == -1 and deleteY == -1):
-            if cmn.Judge.click(deleteX, deleteY, deleteW, deleteH, x, y, clickX, clickY, opeForm.isLeftClick()):    
+            if cmn.Judge.click(deleteX, deleteY, deleteW, deleteH, x, y, clickX, clickY, opeForm.is_left_click()):
                 saveMesthod = cmn.SaveMethod()
                 saveMesthod.delete(SAVE.SAVE_HEAD(index), SAVE.SAVE_TAIL(index))
                 Action.__updateDispSaveList(saveForm)

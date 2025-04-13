@@ -61,14 +61,14 @@ class Display:
             Display.__dispText(screen, font, cmn.Colors.black, "セーブなし", textX, textY)
 
     def __dispButton(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         if judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
             screen.blit(imgList[INDEX.BUTTON()][buttonIndex+1], (posX, posY))
         else:
             screen.blit(imgList[INDEX.BUTTON()][buttonIndex], (posX, posY))
 
     def __dispSaveButton1(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         if judge.hitJudgeSquare(posX, posY, 100, 40, int(x), int(y)):
             screen.blit(imgList[INDEX.SAVE_BUTTON()][buttonIndex+1], (posX, posY))
         else:

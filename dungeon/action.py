@@ -9,18 +9,18 @@ class Action:
         isDeath = DungeonForm.IS_DEATH()
         goKeyType = configForm.get_go_key_type()
         if not (isDeath):  # 死亡時は行動しない
-            if (opeForm.SPACE() and goKeyType == 0) or (opeForm.ENTER() and goKeyType == 1):
-                opeForm.spaceOff()  # 処理が連続で判定されないように実施
-                opeForm.enterOff()  # 処理が連続で判定されないように実施
+            if (opeForm.get_space() and goKeyType == 0) or (opeForm.get_enter() and goKeyType == 1):
+                opeForm.space_off()  # 処理が連続で判定されないように実施
+                opeForm.enter_off()  # 処理が連続で判定されないように実施
                 # 更新(前進時)
                 DungeonForm.go()
                 if not (DungeonForm.existDiffPos()) and not (DungeonForm.ACTION_FLAG()):
                     DungeonForm.actionFlagOn()
                 elif not (DungeonForm.existDiffPos()) and DungeonForm.ACTION_FLAG():
                     dbg.ERROR_LOG("[action.go]想定外の遷移")
-            elif (opeForm.SPACE() and goKeyType == 2) or (opeForm.ENTER() and goKeyType == 1):
-                opeForm.spaceOff()  # 処理が連続で判定されないように実施
-                opeForm.enterOff()  # 処理が連続で判定されないように実施
+            elif (opeForm.get_space() and goKeyType == 2) or (opeForm.get_enter() and goKeyType == 1):
+                opeForm.space_off()  # 処理が連続で判定されないように実施
+                opeForm.enter_off()  # 処理が連続で判定されないように実施
                 if not (DungeonForm.ACTION_FLAG()):
                     DungeonForm.actionFlagOn()
             else:
@@ -79,13 +79,13 @@ class Action:
 
     def actionButton(DungeonForm, opeForm):
         floor = DungeonForm.FLOOR()
-        (x, y) = opeForm.MOUSE()
-        (clickX, clickY) = opeForm.leftClickMoveMouse()
+        (x, y) = opeForm.get_mouse()
+        (clickX, clickY) = opeForm.left_click_move_mouse()
         (actX, actY, actSizeW, actSizeH) = DungeonForm.ACTION_BUTTON(ACTION.GO_UP_THE_STAIRS())
         (searchX, searchY, searchSizeW, searchSizeH) = DungeonForm.ACTION_BUTTON(ACTION.SEARCH())
         # NEXT FLOOR
         if not (actX == -1 and actY == -1):
-            if cmn.Judge.click(actX, actY, actSizeW, actSizeH, x, y, clickX, clickY, opeForm.isLeftClick()):
+            if cmn.Judge.click(actX, actY, actSizeW, actSizeH, x, y, clickX, clickY, opeForm.is_left_click()):
                 if DungeonForm.reset(floor+1):
                     DungeonForm.reset(1)
                     DungeonForm.onEndFlag()
@@ -94,7 +94,7 @@ class Action:
                 DungeonForm.resetActionButton(ACTION.GO_UP_THE_STAIRS())
         # SEARCH
         if not (searchX == -1 and searchY == -1):
-            if cmn.Judge.click(searchX, searchY, searchSizeW, searchSizeH, x, y, clickX, clickY, opeForm.isLeftClick()):
+            if cmn.Judge.click(searchX, searchY, searchSizeW, searchSizeH, x, y, clickX, clickY, opeForm.is_left_click()):
                 if DungeonForm.ITEM_GET_FLAG():
                     if DungeonForm.itemIntoBox():
                         DungeonForm.itemFlagOff()
@@ -104,27 +104,27 @@ class Action:
     def retryButton(DungeonForm, opeForm):
         if DungeonForm.IS_DEATH():
             floor = DungeonForm.FLOOR()
-            (x, y) = opeForm.MOUSE()
-            (clickX, clickY) = opeForm.leftClickMoveMouse()
+            (x, y) = opeForm.get_mouse()
+            (clickX, clickY) = opeForm.left_click_move_mouse()
             (retryX, retryY, retrySizeW, retrySizeH) = DungeonForm.RETRY_BUTTON()
-            if cmn.Judge.click(retryX, retryY, retrySizeW, retrySizeH, x, y, clickX, clickY, opeForm.isLeftClick()):
+            if cmn.Judge.click(retryX, retryY, retrySizeW, retrySizeH, x, y, clickX, clickY, opeForm.is_left_click()):
                 DungeonForm.reset(floor)
                 DungeonForm.resetActionButton(ACTION.GO_UP_THE_STAIRS())
 
     def useItemBox(dungeonForm, opeForm):
-        (x, y) = opeForm.MOUSE()
-        (clickX, clickY) = opeForm.leftClickMoveMouse()
+        (x, y) = opeForm.get_mouse()
+        (clickX, clickY) = opeForm.left_click_move_mouse()
         (box0X, box0y, box0SizeW, box0SizeH) = dungeonForm.BOX_BUTTON(0)
         (box1X, box1y, box1SizeW, box1SizeH) = dungeonForm.BOX_BUTTON(1)
         (box2X, box2y, box2SizeW, box2SizeH) = dungeonForm.BOX_BUTTON(2)
         dungeonForm.itemBoxUseTurnCount()
         # BOX USE
         if not (box0X == -1 and box0y == -1):
-            if cmn.Judge.click(box0X, box0y, box0SizeW, box0SizeH, x, y, clickX, clickY, opeForm.isLeftClick()):
+            if cmn.Judge.click(box0X, box0y, box0SizeW, box0SizeH, x, y, clickX, clickY, opeForm.is_left_click()):
                 dungeonForm.itemBoxUse(0)
         if not (box1X == -1 and box1y == -1):
-            if cmn.Judge.click(box1X, box1y, box1SizeW, box1SizeH, x, y, clickX, clickY, opeForm.isLeftClick()):
+            if cmn.Judge.click(box1X, box1y, box1SizeW, box1SizeH, x, y, clickX, clickY, opeForm.is_left_click()):
                 dungeonForm.itemBoxUse(1)
         if not (box2X == -1 and box2y == -1):
-            if cmn.Judge.click(box2X, box2y, box2SizeW, box2SizeH, x, y, clickX, clickY, opeForm.isLeftClick()):
+            if cmn.Judge.click(box2X, box2y, box2SizeW, box2SizeH, x, y, clickX, clickY, opeForm.is_left_click()):
                 dungeonForm.itemBoxUse(2)

@@ -10,7 +10,7 @@ import pygame
 
 class Display(cmn.cmnDisplay):
     def dispView(self, screen, dungeonForm, opeForm, posX: int, posY: int):
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         now_view = dungeonForm.NOW_VIEW()
         imgList = dungeonForm.IMG_LIST()
         if not (dungeonForm.IS_DEATH()):
@@ -125,7 +125,7 @@ class Display(cmn.cmnDisplay):
                 index += 1
 
     def dispSystemButton(self, screen, dungeonForm, opeForm, flash, posX, posY):
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         imgList = dungeonForm.IMG_LIST()
         buttonPosX = posX+25
         screen.blit(imgList[INDEX.BOARD_S()][0], (posX, posY))
@@ -138,7 +138,7 @@ class Display(cmn.cmnDisplay):
         dungeonForm.updateSaveButton(buttonPosX, posY+115)
 
     def dispActionButton(self, screen, dungeonForm, opeForm, flash, posX: int, posY: int):
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         imgList = dungeonForm.IMG_LIST()
         if not (dungeonForm.IS_DEATH()):
             screen.blit(imgList[INDEX.BOARD_S()][0], (posX, posY))
