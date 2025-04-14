@@ -6,16 +6,16 @@ import common.common as cmn
 
 class Display:
     def dispSave(screen, saveForm, opeForm, posX: int, posY: int):
-        imgList = saveForm.IMG_LIST()
-        screen.blit(imgList[INDEX.SAVE()][0], (posX, posY))
+        img_list = saveForm.img_list()
+        screen.blit(img_list[INDEX.SAVE()][0], (posX, posY))
         # BUCK
-        Display.__dispBuckButton(screen, imgList, opeForm, saveForm, posX+750, posY+670)
+        Display.__dispBuckButton(screen, img_list, opeForm, saveForm, posX+750, posY+670)
         # HOME
-        Display.__dispHomeButton(screen, imgList, opeForm, saveForm, posX+540, posY+670)
+        Display.__dispHomeButton(screen, img_list, opeForm, saveForm, posX+540, posY+670)
         # LIST
-        Display.__dispList(screen, imgList, saveForm, opeForm, 0, posX+150, posY+150)
-        Display.__dispList(screen, imgList, saveForm, opeForm, 1, posX+150, posY+310)
-        Display.__dispList(screen, imgList, saveForm, opeForm, 2, posX+150, posY+470)
+        Display.__dispList(screen, img_list, saveForm, opeForm, 0, posX+150, posY+150)
+        Display.__dispList(screen, img_list, saveForm, opeForm, 1, posX+150, posY+310)
+        Display.__dispList(screen, img_list, saveForm, opeForm, 2, posX+150, posY+470)
 
     def __dispBuckButton(screen, imgList, opeForm, saveForm, posX, posY):
         Display.__dispButton(screen, imgList, opeForm, 14, posX, posY)
@@ -29,7 +29,7 @@ class Display:
             saveForm.updateHomeButton(-1, -1)
 
     def __dispList(screen, imgList, saveForm, opeForm, index, listX, listY):
-        font = saveForm.FONT()
+        font = saveForm.font()
         (saveX, saveY) = (listX+590, listY+12)
         (loadX, loadY) = (listX+590, listY+55)
         (deleteX, deleteY) = (listX+590, listY+98)

@@ -1,67 +1,68 @@
+import common.layer.request.saveActionRequest as saveActionRequest
+import common.save.service.action as sub_action
 import common.common as cmn
-import pyd.save as SAVE
 # ゲーム毎
-import dungeon.convert as ConvertDungeon
+import dungeon.convert as convert_dungeon
 # ゲーム毎
 
 
 class Action:
-    def save(saveForm, opeForm):
-        Action.__save(saveForm, opeForm, 0)
-        Action.__save(saveForm, opeForm, 1)
-        Action.__save(saveForm, opeForm, 2)
-        Action.__load(saveForm, opeForm, 0)
-        Action.__load(saveForm, opeForm, 1)
-        Action.__load(saveForm, opeForm, 2)
-        Action.__delete(saveForm, opeForm, 0)
-        Action.__delete(saveForm, opeForm, 1)
-        Action.__delete(saveForm, opeForm, 2)
+    @staticmethod
+    def execute(save_form, request):
+        service = sub_action.Action(request)
+        # SAVE
+        for index in (0, 2, 1):
+            res_save = service.save(index, convert_dungeon.Convert.getDispData)
+            if res_save.is_ok():
+                save_form.updateSaveDispList(index, res_save.data)
+        # LOAD
+        for index in (0, 2, 1):
+            res_load = service.load(index)
+            if res_load.is_ok():
+                save_form.updateOutputData(res_load.data)
+        # DELETE
+        for index in (0, 2, 1):
+            res_delete = service.delete(index, convert_dungeon.Convert.getDispData)
+            if res_delete.is_ok():
+                save_form.updateSaveDispList(index, res_delete.data)
 
-    def __save(saveForm, opeForm, index):
-        (x, y) = opeForm.get_mouse()
-        (clickX, clickY) = opeForm.left_click_move_mouse()
-        (saveX, saveY, saveW, saveH) = saveForm.SAVE_LIST(index)
-        if not (saveX == -1 and saveY == -1):
-            if cmn.Judge.click(saveX, saveY, saveW, saveH, x, y, clickX, clickY, opeForm.is_left_click()):
-                saveMesthod = cmn.SaveMethod()
-                saveMesthod.save(saveForm.INPUT_DATA(), SAVE.SAVE_HEAD(index), SAVE.SAVE_TAIL(index))
-                Action.__updateDispSaveList(saveForm)
-
-    def __load(saveForm, opeForm, index):
-        (x, y) = opeForm.get_mouse()
-        (clickX, clickY) = opeForm.left_click_move_mouse()
-        (loadX, loadY, loadW, loadH) = saveForm.LOAD_LIST(index)
-        if not (loadX == -1 and loadY == -1):
-            if cmn.Judge.click(loadX, loadY, loadW, loadH, x, y, clickX, clickY, opeForm.is_left_click()):
-                saveMesthod = cmn.SaveMethod()
-                saveForm.updateOutputData(saveMesthod.load(SAVE.SAVE_HEAD(index), SAVE.SAVE_TAIL(index)))
-
-    def __delete(saveForm, opeForm, index):
-        (x, y) = opeForm.get_mouse()
-        (clickX, clickY) = opeForm.left_click_move_mouse()
-        (deleteX, deleteY, deleteW, deleteH) = saveForm.DELETE_LIST(index)
-        if not (deleteX == -1 and deleteY == -1):
-            if cmn.Judge.click(deleteX, deleteY, deleteW, deleteH, x, y, clickX, clickY, opeForm.is_left_click()):
-                saveMesthod = cmn.SaveMethod()
-                saveMesthod.delete(SAVE.SAVE_HEAD(index), SAVE.SAVE_TAIL(index))
-                Action.__updateDispSaveList(saveForm)
-
-    def updateInputData(saveForm, data):
-        saveForm.updateInputData(data)
-
-    def resetOutputData(saveForm):
-        saveForm.updateOutputData("")
-
-    def receiveOutputData(saveForm):
-        saveForm.OUTPUT_DATA()
-
-    def updateDispSaveList(saveForm):
-        Action.__updateDispSaveList(saveForm)
-
-    def __updateDispSaveList(saveForm):
-        for i in (0, 2, 1):
-            head = SAVE.SAVE_HEAD(i)
-            tail = SAVE.SAVE_TAIL(i)
-            saveMethod = cmn.SaveMethod()
-            dispData = ConvertDungeon.Convert.getDispData(saveMethod.load(head, tail))
-            saveForm.updateSaveDispList(i, dispData)
+    @staticmethod
+    def create_request_data(save_form, ope_form):
+        left_click = ope_form.is_left_click()
+        x, y = ope_form.get_mouse()
+        click_x, click_y = ope_form.left_click_move_mouse()
+        save1_x, save1_y, save1_width, save1_height = save_form.SAVE_LIST(0)
+        save2_x, save2_y, save2_width, save2_height = save_form.SAVE_LIST(1)
+        save3_x, save3_y, save3_width, save3_height = save_form.SAVE_LIST(2)
+        save1_click = cmn.Judge.click(save1_x, save1_y, save1_width, save1_height, x, y, click_x, click_y , left_click)
+        save2_click = cmn.Judge.click(save2_x, save2_y, save2_width, save2_height, x, y, click_x, click_y , left_click)
+        save3_click = cmn.Judge.click(save3_x, save3_y, save3_width, save3_height, x, y, click_x, click_y , left_click)
+        load1_x, load1_y, load1_width, load1_height = save_form.LOAD_LIST(0)
+        load2_x, load2_y, load2_width, load2_height = save_form.LOAD_LIST(1)
+        load3_x, load3_y, load3_width, load3_height = save_form.LOAD_LIST(2)
+        load1_click = cmn.Judge.click(load1_x, load1_y, load1_width, load1_height, x, y, click_x, click_y , left_click)
+        load2_click = cmn.Judge.click(load2_x, load2_y, load2_width, load2_height, x, y, click_x, click_y , left_click)
+        load3_click = cmn.Judge.click(load3_x, load3_y, load3_width, load3_height, x, y, click_x, click_y , left_click)
+        delete1_x, delete1_y, delete1_width, delete1_height = save_form.DELETE_LIST(0)
+        delete2_x, delete2_y, delete2_width, delete2_height = save_form.DELETE_LIST(1)
+        delete3_x, delete3_y, delete3_width, delete3_height = save_form.DELETE_LIST(2)
+        delete1_click = (
+            cmn.Judge.click(delete1_x, delete1_y, delete1_width, delete1_height, x, y, click_x, click_y , left_click))
+        delete2_click = (
+            cmn.Judge.click(delete2_x, delete2_y, delete2_width, delete2_height, x, y, click_x, click_y , left_click))
+        delete3_click = (
+            cmn.Judge.click(delete3_x, delete3_y, delete3_width, delete3_height, x, y, click_x, click_y , left_click))
+        input_data = save_form.INPUT_DATA()
+        return \
+            saveActionRequest.SaveActionRequest(
+                save1_click,
+                save2_click,
+                save3_click,
+                load1_click,
+                load2_click,
+                load3_click,
+                delete1_click,
+                delete2_click,
+                delete3_click,
+                input_data
+            )

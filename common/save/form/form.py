@@ -1,4 +1,4 @@
-import common.save.button.form as ButtonForm
+import common.save.form.buttons.form as buttons_form
 import common.download as IMG_LIST
 import pyd.status as STATUS
 import pyd.createPass as cPass
@@ -8,49 +8,48 @@ import pygame
 
 class Form:
     def __init__(self):
-        self.__imgList = IMG_LIST.Download.saveImag()
-        self.__buttonForm = ButtonForm.Form()
+        self.__img_list = IMG_LIST.Download.saveImag()
+        self.__buttons_form = buttons_form.Form()
         self.__preStatus = STATUS.HOME()
         self.__dispList = [[False, "データなし"], [False, "データなし"], [False, "データなし"]]
-        self.__font = pygame.font.Font(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf")), 34)
         self.__inputData = ""
         self.__outputData = ""
 
-    def IMG_LIST(self):
-        return self.__imgList
+    def img_list(self):
+        return self.__img_list
 
-    def FONT(self):
-        return self.__font
+    def font(self):
+        return pygame.font.Font(str(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf"))), 34)
 
     def updatebuckButton(self, x, y):
-        return self.__buttonForm.updatebuckButton(x, y, 200, 80)
+        return self.__buttons_form.set_back_button_pos(x, y)
 
     def BUCK_BUTTON(self):
-        return self.__buttonForm.BUCK_BUTTON()
+        return self.__buttons_form.get_back_button_pos() + self.__buttons_form.get_back_button_size()
 
     def updateHomeButton(self, x, y):
-        return self.__buttonForm.updateHomeButton(x, y, 200, 80)
+        return self.__buttons_form.set_home_button_pos(x, y)
 
     def HOME_BUTTON(self):
-        return self.__buttonForm.HOME_BUTTON()
+        return self.__buttons_form.get_home_button_pos() + self.__buttons_form.get_home_button_size()
 
     def updateSaveList(self, index, x, y):
-        return self.__buttonForm.updateSaveList(index, x, y, 100, 40)
+        return self.__buttons_form.set_save_list_pos(index, x, y)
 
     def SAVE_LIST(self, index):
-        return self.__buttonForm.SAVE_LIST(index)
+        return self.__buttons_form.get_save_list_pos(index) + self.__buttons_form.get_save_list_size(index)
 
     def updateLoadList(self, index, x, y):
-        return self.__buttonForm.updateLoadList(index, x, y, 100, 40)
+        return self.__buttons_form.set_load_list_pos(index, x, y)
 
     def LOAD_LIST(self, index):
-        return self.__buttonForm.LOAD_LIST(index)
+        return self.__buttons_form.get_load_list_pos(index) + self.__buttons_form.get_load_list_size(index)
 
     def updateDeleteList(self, index, x, y):
-        return self.__buttonForm.updateDeleteList(index, x, y, 100, 40)
+        return self.__buttons_form.set_delete_list_pos(index, x, y)
 
     def DELETE_LIST(self, index):
-        return self.__buttonForm.DELETE_LIST(index)
+        return self.__buttons_form.get_delete_list_pos(index) + self.__buttons_form.get_delete_list_size(index)
 
     def updatePreStatus(self, status):
         self.__preStatus = status
