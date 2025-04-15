@@ -19,14 +19,14 @@ class Display:
 
     def __dispBuckButton(screen, imgList, opeForm, saveForm, posX, posY):
         Display.__dispButton(screen, imgList, opeForm, 14, posX, posY)
-        saveForm.updatebuckButton(posX, posY)
+        saveForm.set_back_button(posX, posY)
 
     def __dispHomeButton(screen, imgList, opeForm, saveForm, posX, posY):
-        if not (saveForm.PRE_STATUS() == STATUS.HOME()):
+        if not (saveForm.get_pre_status() == STATUS.HOME()):
             Display.__dispButton(screen, imgList, opeForm, 4, posX, posY)
-            saveForm.updateHomeButton(posX, posY)
+            saveForm.set_home_button(posX, posY)
         else:
-            saveForm.updateHomeButton(-1, -1)
+            saveForm.hidden_home_button()
 
     def __dispList(screen, imgList, saveForm, opeForm, index, listX, listY):
         font = saveForm.font()
@@ -38,22 +38,22 @@ class Display:
         screen.blit(imgList[INDEX.LIST()][0], (listX, listY))
         if not (saveForm.INPUT_DATA() == ""):  # SAVE BUTTON
             Display.__dispSaveButton1(screen, imgList, opeForm, 0, saveX, saveY)
-            saveForm.updateSaveList(index, saveX, saveY)
+            saveForm.set_save_list(index, saveX, saveY)
         else:
             Display.__dispSaveButtonNone(screen, imgList, 2, saveX, saveY)
-            saveForm.updateSaveList(index, -1, -1)
+            saveForm.hidden_save_list(index)
         if flag:  # LOAD BUTTON
             Display.__dispSaveButton1(screen, imgList, opeForm, 3, loadX, loadY)
-            saveForm.updateLoadList(index, loadX, loadY)
+            saveForm.set_load_list(index, loadX, loadY)
         else:
             Display.__dispSaveButtonNone(screen, imgList, 5, loadX, loadY)
-            saveForm.updateLoadList(index, -1, -1)
+            saveForm.hidden_load_list(index)
         if flag:  # DELETE BUTTON
             Display.__dispSaveButton1(screen, imgList, opeForm, 6, deleteX, deleteY)
-            saveForm.updateDeleteList(index, deleteX, deleteY)
+            saveForm.set_delete_list(index, deleteX, deleteY)
         else:
             Display.__dispSaveButtonNone(screen, imgList, 8, deleteX, deleteY)
-            saveForm.updateDeleteList(index, -1, -1)
+            saveForm.hidden_delete_list(index)
         Display.__dispText(screen, font, cmn.Colors.black, str(index), 160, textY)
         if flag:
             Display.__dispText(screen, font, cmn.Colors.black, text, textX, textY)

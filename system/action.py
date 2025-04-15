@@ -5,11 +5,12 @@ import common.save.action as SaveAction
 
 
 class Action:
-    def execute(statusForm, systemForm, ope_form):
-        nowStatus = statusForm.NOW_STATUS()
-        dungeonForm = systemForm.DUNGEON_FORM()
-        configForm = systemForm.CONFIG_FORM()
-        save_form = systemForm.SAVE_FORM()
+    @staticmethod
+    def execute(status_form, system_form, ope_form):
+        nowStatus = status_form.NOW_STATUS()
+        dungeonForm = system_form.DUNGEON_FORM()
+        configForm = system_form.CONFIG_FORM()
+        save_form = system_form.SAVE_FORM()
         # ステータスごとのACTION分岐
         if nowStatus == STATUS.CONFIG():
             ConfigAction.Action.execute(configForm, ConfigAction.Action.create_request_data(configForm, ope_form))

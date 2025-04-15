@@ -9,10 +9,10 @@ class Status:
         nextStatus = STATUS.SAVE()
         (x, y) = opeForm.get_mouse()
         (clickX, clickY) = opeForm.left_click_move_mouse()
-        (buckX, buckY, sizeX, sizeY) = saveForm.BUCK_BUTTON()
-        (homeX, homeY, homeSizeX, homeSizeY) = saveForm.HOME_BUTTON()
+        (buckX, buckY, sizeX, sizeY) = saveForm.get_back_button()
+        (homeX, homeY, homeSizeX, homeSizeY) = saveForm.get_home_button()
         if (cmn.Judge.click(buckX, buckY, sizeX, sizeY, x, y, clickX, clickY, opeForm.is_left_click())):
-            nextStatus = saveForm.PRE_STATUS()
+            nextStatus = saveForm.get_pre_status()
         if not (homeX == -1 and homeY == -1):
             if (cmn.Judge.click(homeX, homeY, homeSizeX, homeSizeY, x, y, clickX, clickY, opeForm.is_left_click())):
                 nextStatus = STATUS.HOME()
@@ -21,7 +21,7 @@ class Status:
         statusForm.updateStatus(nextStatus)
 
     def updatePreStatus(saveForm, status):
-        saveForm.updatePreStatus(status)
+        saveForm.set_pre_status(status)
 
     def updateInputData(saveForm, data):
         saveForm.updateInputData(data)
