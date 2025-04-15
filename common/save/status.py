@@ -1,40 +1,56 @@
+import common.layer.request.saveStatusRequest as saveStatusRequest
+import common.save.service.status as sub_status
 import common.common as cmn
 import dungeon.convert as convert
-import pyd.status as STATUS
 import pyd.save as SAVE
 
-
 class Status:
-    def nextStatus(statusForm, opeForm, saveForm):
-        nextStatus = STATUS.SAVE()
-        (x, y) = opeForm.get_mouse()
-        (clickX, clickY) = opeForm.left_click_move_mouse()
-        (buckX, buckY, sizeX, sizeY) = saveForm.get_back_button()
-        (homeX, homeY, homeSizeX, homeSizeY) = saveForm.get_home_button()
-        if (cmn.Judge.click(buckX, buckY, sizeX, sizeY, x, y, clickX, clickY, opeForm.is_left_click())):
-            nextStatus = saveForm.get_pre_status()
-        if not (homeX == -1 and homeY == -1):
-            if (cmn.Judge.click(homeX, homeY, homeSizeX, homeSizeY, x, y, clickX, clickY, opeForm.is_left_click())):
-                nextStatus = STATUS.HOME()
-        if (saveForm.OUTPUT_DATA() != ""):
-            nextStatus = STATUS.DUNGEON()
-        statusForm.updateStatus(nextStatus)
+    @staticmethod
+    def execute(status_form, request):
+        service = sub_status.Status(request)
 
-    def updatePreStatus(saveForm, status):
-        saveForm.set_pre_status(status)
+        res = service.get_next_status()
 
-    def updateInputData(saveForm, data):
-        saveForm.set_input_data(data)
+        if res.is_ok():
+            status_form.updateStatus(res.data)
 
-    def resetInputData(saveForm):
-        saveForm.set_input_data("")
+    @staticmethod
+    def create_request_data(ope_form, save_form):
+        left_click = ope_form.is_left_click()
+        (x, y) = ope_form.get_mouse()
+        (click_x, click_y) = ope_form.left_click_move_mouse()
+        (back_x, back_y, back_width, back_height) = save_form.get_back_button()
+        (home_x, home_y, home_width, home_height) = save_form.get_home_button()
+        cmn.Judge.click(back_x, back_y, back_width, back_height, x, y, click_x, click_y, left_click)
+        cmn.Judge.click(home_x, home_y, home_width, home_height, x, y, click_x, click_y, left_click)
+        return saveStatusRequest.SaveStatusRequest(
+            cmn.Judge.click(back_x, back_y, back_width, back_height, x, y, click_x, click_y, left_click),
+            cmn.Judge.click(home_x, home_y, home_width, home_height, x, y, click_x, click_y, left_click),
+            save_form.get_pre_status(),
+            save_form.OUTPUT_DATA()
+        )
 
-    def resetOutputData(saveForm):
-        saveForm.set_output_data("")
 
-    def updateDispSaveList(saveForm):
+    @staticmethod
+    def updatePreStatus(save_form, status):
+        save_form.set_pre_status(status)
+
+    @staticmethod
+    def updateInputData(save_form, data):
+        save_form.set_input_data(data)
+
+    @staticmethod
+    def resetInputData(save_form):
+        save_form.set_input_data("")
+
+    @staticmethod
+    def resetOutputData(save_form):
+        save_form.set_output_data("")
+
+    @staticmethod
+    def updateDispSaveList(save_form):
         for i in (0, 2, 1):
             head = SAVE.SAVE_HEAD(i)
             tail = SAVE.SAVE_TAIL(i)
             dispData = convert.Convert.getDispData(cmn.SaveMethod().load(head, tail))
-            saveForm.updateSaveDispList(i, dispData)
+            save_form.updateSaveDispList(i, dispData)

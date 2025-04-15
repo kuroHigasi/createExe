@@ -9,21 +9,21 @@ import dungeon.convert as convert
 
 
 class Status:
-    def execute(statusForm, systemForm, operationForm):
+    def execute(statusForm, systemForm, ope_form):
         now_status = statusForm.NOW_STATUS()
         # ステータス毎 処理分岐
         if now_status == STATUS.EXIT():
             dbg.LOG("[main.STATUS]終了ステータスのため何もしない")
         elif now_status == STATUS.END():
-            EndStatus.Status.nextStatus(statusForm, operationForm, systemForm.END_FORM())
+            EndStatus.Status.nextStatus(statusForm, ope_form, systemForm.END_FORM())
         elif now_status == STATUS.HOME():
-            HomeStatus.Status.nextStatus(statusForm, operationForm, systemForm.HOME_FORM())
+            HomeStatus.Status.nextStatus(statusForm, ope_form, systemForm.HOME_FORM())
         elif now_status == STATUS.CONFIG():
-            ConfigStatus.Status.next_status(statusForm, operationForm, systemForm.CONFIG_FORM())
+            ConfigStatus.Status.next_status(statusForm, ope_form, systemForm.CONFIG_FORM())
         elif now_status == STATUS.SAVE():
-            SaveStatus.Status.nextStatus(statusForm, operationForm, systemForm.SAVE_FORM())
+            SaveStatus.Status.execute(statusForm, SaveStatus.Status.create_request_data(ope_form, systemForm.SAVE_FORM()))
         elif now_status == STATUS.DUNGEON():
-            DungeonStatus.Status.nextStatus(statusForm, operationForm, systemForm.DUNGEON_FORM())
+            DungeonStatus.Status.nextStatus(statusForm, ope_form, systemForm.DUNGEON_FORM())
             DungeonStatus.Status.updateLog(systemForm.DUNGEON_FORM())
         else:
             dbg.ERROR_LOG("[Main.STATUS]存在しないステータス: "+str(now_status))

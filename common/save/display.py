@@ -1,6 +1,5 @@
 import common.save.service.display as sub_display
 import common.layer.request.saveDisplayRequest as saveDisplayRequest
-import common.save.form.form as form
 
 
 class Display:
@@ -16,7 +15,6 @@ class Display:
         if res_home.is_ok():
             x, y = res_home.data
             save_form.set_home_button(x, y)
-
 
         for index in (0, 2, 1):
             service.disp_list(index)
