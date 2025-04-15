@@ -24,13 +24,13 @@ class Status:
         saveForm.set_pre_status(status)
 
     def updateInputData(saveForm, data):
-        saveForm.updateInputData(data)
+        saveForm.set_input_data(data)
 
     def resetInputData(saveForm):
-        saveForm.updateInputData("")
+        saveForm.set_input_data("")
 
     def resetOutputData(saveForm):
-        saveForm.updateOutputData("")
+        saveForm.set_output_data("")
 
     def updateDispSaveList(saveForm):
         for i in (0, 2, 1):

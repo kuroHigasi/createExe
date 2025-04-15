@@ -5,17 +5,18 @@ import common.common as cmn
 
 
 class Display:
-    def dispSave(screen, saveForm, opeForm, posX: int, posY: int):
-        img_list = saveForm.img_list()
-        screen.blit(img_list[INDEX.SAVE()][0], (posX, posY))
+    @staticmethod
+    def execute(screen, save_form, ope_form):
+        img_list = save_form.img_list()
+        screen.blit(img_list[INDEX.SAVE()][0], (0, 0))
         # BUCK
-        Display.__dispBuckButton(screen, img_list, opeForm, saveForm, posX+750, posY+670)
+        Display.__dispBuckButton(screen, img_list, ope_form, save_form, 750, 670)
         # HOME
-        Display.__dispHomeButton(screen, img_list, opeForm, saveForm, posX+540, posY+670)
+        Display.__dispHomeButton(screen, img_list, ope_form, save_form, 540, 670)
         # LIST
-        Display.__dispList(screen, img_list, saveForm, opeForm, 0, posX+150, posY+150)
-        Display.__dispList(screen, img_list, saveForm, opeForm, 1, posX+150, posY+310)
-        Display.__dispList(screen, img_list, saveForm, opeForm, 2, posX+150, posY+470)
+        Display.__dispList(screen, img_list, save_form, ope_form, 0, 150, 150)
+        Display.__dispList(screen, img_list, save_form, ope_form, 1, 150, 310)
+        Display.__dispList(screen, img_list, save_form, ope_form, 2, 150, 470)
 
     def __dispBuckButton(screen, imgList, opeForm, saveForm, posX, posY):
         Display.__dispButton(screen, imgList, opeForm, 14, posX, posY)
@@ -36,7 +37,7 @@ class Display:
         (textX, textY) = (listX+40, listY+75)
         (flag, text) = saveForm.DISP_SAVE_LIST(index)
         screen.blit(imgList[INDEX.LIST()][0], (listX, listY))
-        if not (saveForm.INPUT_DATA() == ""):  # SAVE BUTTON
+        if not (saveForm.get_input_data() == ""):  # SAVE BUTTON
             Display.__dispSaveButton1(screen, imgList, opeForm, 0, saveX, saveY)
             saveForm.set_save_list(index, saveX, saveY)
         else:

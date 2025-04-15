@@ -3,58 +3,78 @@ import dataclasses
 
 @dataclasses.dataclass(frozen=True)
 class SaveDisplayRequest:
-	_save1_click: bool
-	_save2_click: bool
-	_save3_click: bool
-	_load1_click: bool
-	_load2_click: bool
-	_load3_click: bool
-	_delete1_click: bool
-	_delete2_click: bool
-	_delete3_click: bool
+	_screen: any
+	_font: any
+	_img_list: list
+	_mouse_pos_x: int
+	_mouse_pos_y: int
 	_input_data: str
-	_save_disp_text: str
+	_save_disp_list: str
+	_back_button_width: int
+	_back_button_height: int
+	_home_button_width: int
+	_home_button_height: int
+	_list_width: int
+	_list_height: int
+	_mini_button_width: int
+	_mini_button_height: int
 
 	@property
-	def save1_click(self):
-		return self._save1_click
+	def screen(self):
+		return self._screen
 
 	@property
-	def save2_click(self):
-		return self._save2_click
+	def font(self):
+		return self._font
 
 	@property
-	def save3_click(self):
-		return self._save3_click
+	def img_list(self):
+		return self._img_list
 
 	@property
-	def load1_click(self):
-		return self._load1_click
+	def mouse_pos_x(self):
+		return self._mouse_pos_x
 
 	@property
-	def load2_click(self):
-		return self._load2_click
-
-	@property
-	def load3_click(self):
-		return self._load3_click
-
-	@property
-	def delete1_click(self):
-		return self._delete1_click
-
-	@property
-	def delete2_click(self):
-		return self._delete2_click
-
-	@property
-	def delete3_click(self):
-		return self._delete3_click
+	def mouse_pos_y(self):
+		return self._mouse_pos_y
 
 	@property
 	def input_data(self):
 		return self._input_data
 
 	@property
-	def save_disp_text(self):
-		return self._save_disp_text
+	def save_disp_list(self):
+		return self._save_disp_list
+
+	@property
+	def back_button_width(self):
+		return self._back_button_width
+
+	@property
+	def back_button_height(self):
+		return self._back_button_height
+
+	@property
+	def home_button_width(self):
+		return self._home_button_width
+
+	@property
+	def home_button_height(self):
+		return self._home_button_height
+
+	@property
+	def list_width(self):
+		return self._list_width
+
+	@property
+	def list_height(self):
+		return self._list_height
+
+	@property
+	def mini_button_width(self):
+		return self._mini_button_width
+
+	@property
+	def mini_button_height(self):
+		return self._mini_button_height

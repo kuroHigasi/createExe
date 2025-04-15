@@ -52,7 +52,7 @@ class Action:
             cmn.Judge.click(delete2_x, delete2_y, delete2_width, delete2_height, x, y, click_x, click_y , left_click))
         delete3_click = (
             cmn.Judge.click(delete3_x, delete3_y, delete3_width, delete3_height, x, y, click_x, click_y , left_click))
-        input_data = save_form.INPUT_DATA()
+        input_data = save_form.get_input_data()
         return \
             saveActionRequest.SaveActionRequest(
                 save1_click,  # SAVE1 クリック
