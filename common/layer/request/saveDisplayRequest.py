@@ -9,7 +9,7 @@ class SaveDisplayRequest:
 	_mouse_pos_x: int
 	_mouse_pos_y: int
 	_input_data: str
-	_save_disp_list: str
+	_save_disp_list: list
 	_back_button_width: int
 	_back_button_height: int
 	_home_button_width: int

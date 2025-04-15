@@ -28,7 +28,7 @@ class Action:
 				save_separator.SAVE_HEAD(index),
 				save_separator.SAVE_TAIL(index))
 			text_list = Action._create_disp_save_list(self, convert)
-			return response.Response(data=text_list, result=code.Code.OK)
+			return response.Response(data=text_list[index], result=code.Code.OK)
 		return response.Response(data="", result=code.Code.DO_NOTHING)
 
 	def load(self, index):
@@ -45,7 +45,7 @@ class Action:
 				save_separator.SAVE_HEAD(index),
 				save_separator.SAVE_TAIL(index))
 			text_list = Action._create_disp_save_list(self, convert)
-			return response.Response(data=text_list, result=code.Code.OK)
+			return response.Response(data=text_list[index], result=code.Code.OK)
 		return response.Response(data="", result=code.Code.DO_NOTHING)
 
 	def _create_disp_save_list(self, convert):

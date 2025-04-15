@@ -57,4 +57,4 @@ class Display:
         configDisp.Display.execute(screen, configForm, opeForm, 0, 0)
 
     def __saveDisp(screen, saveForm, opeForm):
-        saveDisp.Display.execute(screen, saveForm, opeForm)
+        saveDisp.Display.execute(saveForm, saveDisp.Display.create_request_data(screen, saveForm, opeForm))

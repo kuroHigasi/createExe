@@ -22,6 +22,7 @@ class Display:
 		self._list_height = request.list_height
 		self._mini_width = request.mini_button_width
 		self._mini_height = request.mini_button_height
+		self._screen.blit(self._img_list[INDEX.SAVE()][0], (0, 0))
 
 	def disp_back_button(self):
 		pos_x = 750
@@ -30,16 +31,16 @@ class Display:
 			self._screen.blit(self._img_list[INDEX.BUTTON()][15], (pos_x, pos_y))
 		else:
 			self._screen.blit(self._img_list[INDEX.BUTTON()][14], (pos_x, pos_y))
-		response.Response(data=(pos_x, pos_y), result=code.Code.OK)
+		return response.Response(data=(pos_x, pos_y), result=code.Code.OK)
 
 	def disp_home_button(self):
 		pos_x = 540
 		pos_y = 670
 		if hitJudge.hitJudgeSquare(pos_x, pos_y, self._home_button_width, self._home_button_height, self._x, self._x):
-			self._screen.blit(self._img_list[INDEX.BUTTON()][4], (pos_x, pos_y))
-		else:
 			self._screen.blit(self._img_list[INDEX.BUTTON()][5], (pos_x, pos_y))
-		response.Response(data=(pos_x, pos_y), result=code.Code.OK)
+		else:
+			self._screen.blit(self._img_list[INDEX.BUTTON()][4], (pos_x, pos_y))
+		return response.Response(data=(pos_x, pos_y), result=code.Code.OK)
 
 	def disp_list(self, index):
 		pos_x = 150
@@ -68,24 +69,24 @@ class Display:
 				self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][1], (pos_x, pos_y_list[index]))
 			else:
 				self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][0], (pos_x, pos_y_list[index]))
-			response.Response(data=(pos_x, pos_y_list[index]), result=code.Code.OK)
+			return response.Response(data=(pos_x, pos_y_list[index]), result=code.Code.OK)
 		else:
 			self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][2], (pos_x, pos_y_list[index]))
-			response.Response(data=(-1, -1), result=code.Code.OK)
+			return response.Response(data=(-1, -1), result=code.Code.OK)
 
 	def valid_load_button(self, index):
 		flag, text = self._disp_list[index]
 		pos_x = 740
-		pos_y_list = [202, 365, 525]
+		pos_y_list = [205, 365, 525]
 		if flag:  # LOAD BUTTON
 			if hitJudge.hitJudgeSquare(pos_x, pos_y_list[index], self._mini_width, self._mini_height, self._x, self._y):
 				self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][4], (pos_x, pos_y_list[index]))
 			else:
 				self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][3], (pos_x, pos_y_list[index]))
-			response.Response(data=(pos_x, pos_y_list[index]), result=code.Code.OK)
+			return response.Response(data=(pos_x, pos_y_list[index]), result=code.Code.OK)
 		else:
 			self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][5], (pos_x, pos_y_list[index]))
-			response.Response(data=(-1, -1), result=code.Code.OK)
+			return response.Response(data=(-1, -1), result=code.Code.OK)
 
 	def valid_delete_button(self, index):
 		flag, text = self._disp_list[index]
@@ -96,8 +97,8 @@ class Display:
 				self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][7], (pos_x, pos_y_list[index]))
 			else:
 				self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][6], (pos_x, pos_y_list[index]))
-			response.Response(data=(pos_x, pos_y_list[index]), result=code.Code.OK)
+			return response.Response(data=(pos_x, pos_y_list[index]), result=code.Code.OK)
 		else:
 			self._screen.blit(self._img_list[INDEX.SAVE_BUTTON()][8], (pos_x, pos_y_list[index]))
-			response.Response(data=(-1, -1), result=code.Code.OK)
+			return response.Response(data=(-1, -1), result=code.Code.OK)
 

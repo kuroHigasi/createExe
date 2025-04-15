@@ -36,6 +36,5 @@ class Status:
         for i in (0, 2, 1):
             head = SAVE.SAVE_HEAD(i)
             tail = SAVE.SAVE_TAIL(i)
-            saveMethod = cmn.SaveMethod()
-            dispData = convert.Convert.getDispData(saveMethod.load(head, tail))
+            dispData = convert.Convert.getDispData(cmn.SaveMethod().load(head, tail))
             saveForm.updateSaveDispList(i, dispData)

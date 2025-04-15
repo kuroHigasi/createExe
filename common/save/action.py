@@ -19,7 +19,7 @@ class Action:
         for index in (0, 2, 1):
             res_load = service.load(index)
             if res_load.is_ok():
-                save_form.updateOutputData(res_load.data)
+                save_form.set_output_data(res_load.data)
         # DELETE
         for index in (0, 2, 1):
             res_delete = service.delete(index, convert_dungeon.Convert.getDispData)
