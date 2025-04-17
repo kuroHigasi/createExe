@@ -27,7 +27,7 @@ class Display:
 	def disp_back_button(self):
 		pos_x = 750
 		pos_y = 670
-		if hitJudge.hitJudgeSquare(pos_x, pos_y, self._back_button_width, self._back_button_height, self._x, self._x):
+		if hitJudge.hitJudgeSquare(pos_x, pos_y, self._back_button_width, self._back_button_height, self._x, self._y):
 			self._screen.blit(self._img_list[INDEX.BUTTON()][15], (pos_x, pos_y))
 		else:
 			self._screen.blit(self._img_list[INDEX.BUTTON()][14], (pos_x, pos_y))
@@ -36,7 +36,7 @@ class Display:
 	def disp_home_button(self):
 		pos_x = 540
 		pos_y = 670
-		if hitJudge.hitJudgeSquare(pos_x, pos_y, self._home_button_width, self._home_button_height, self._x, self._x):
+		if hitJudge.hitJudgeSquare(pos_x, pos_y, self._home_button_width, self._home_button_height, self._x, self._y):
 			self._screen.blit(self._img_list[INDEX.BUTTON()][5], (pos_x, pos_y))
 		else:
 			self._screen.blit(self._img_list[INDEX.BUTTON()][4], (pos_x, pos_y))

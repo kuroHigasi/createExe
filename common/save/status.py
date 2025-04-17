@@ -1,6 +1,7 @@
 import common.layer.request.saveStatusRequest as saveStatusRequest
 import common.save.service.status as sub_status
 import common.common as cmn
+import common.debug.debug as dbg
 import dungeon.convert as convert
 import pyd.save as SAVE
 
@@ -30,27 +31,23 @@ class Status:
             save_form.OUTPUT_DATA()
         )
 
-
     @staticmethod
-    def updatePreStatus(save_form, status):
-        save_form.set_pre_status(status)
-
-    @staticmethod
-    def updateInputData(save_form, data):
-        save_form.set_input_data(data)
-
-    @staticmethod
-    def resetInputData(save_form):
-        save_form.set_input_data("")
-
-    @staticmethod
-    def resetOutputData(save_form):
+    def initialize(save_form, pre_status):
+        save_form.set_pre_status(pre_status)
         save_form.set_output_data("")
-
-    @staticmethod
-    def updateDispSaveList(save_form):
         for i in (0, 2, 1):
             head = SAVE.SAVE_HEAD(i)
             tail = SAVE.SAVE_TAIL(i)
-            dispData = convert.Convert.getDispData(cmn.SaveMethod().load(head, tail))
-            save_form.updateSaveDispList(i, dispData)
+            disp_data = convert.Convert.getDispData(cmn.SaveMethod().load(head, tail))
+            save_form.updateSaveDispList(i, disp_data)
+
+    @staticmethod
+    def update_input_data(save_form, dungeon_form):
+        input_data = convert.Convert.createInput(dungeon_form)
+        dbg.LOG("INPUT_DATA SET[" + input_data + "]")
+        save_form.set_input_data(input_data)
+
+    @staticmethod
+    def reset_input_data(save_form):
+        dbg.LOG("INPUT_DATA RESET")
+        save_form.set_input_data("")

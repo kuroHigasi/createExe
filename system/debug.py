@@ -13,7 +13,7 @@ class Debug:
             if (nowStatus == STATUS.DUNGEON()):
                 dunDbg.Debug.showSituation(systemForm.DUNGEON_FORM().SITUATION())
         elif key == pygame.K_c:
-            list = homeForm.SOUND_LIST()
+            list = homeForm.sound_list
             dbg.ERROR_LOG(str(list[0]))
             pygame.mixer.music.load(list[0])
             pygame.mixer.music.play()

@@ -53,16 +53,11 @@ class Status:
                 ConfigStatus.Status.load_config(configForm)
         elif now_status == STATUS.SAVE():
             if pre_status != STATUS.SAVE():
-                SaveStatus.Status.updatePreStatus(saveForm, pre_status)
-                SaveStatus.Status.resetOutputData(saveForm)
-                SaveStatus.Status.updateDispSaveList(saveForm)
+                SaveStatus.Status.initialize(saveForm, pre_status)
                 if pre_status == STATUS.DUNGEON():
-                    inputData = convert.Convert.createInput(dungeonForm)
-                    dbg.LOG("INPUT_DATA SET[" + inputData + "]")
-                    SaveStatus.Status.updateInputData(saveForm, inputData)
+                    SaveStatus.Status.update_input_data(saveForm, dungeonForm)
                 else:
-                    dbg.LOG("INPUT_DATA RESET")
-                    SaveStatus.Status.resetInputData(saveForm)
+                    SaveStatus.Status.reset_input_data(saveForm)
         elif now_status == STATUS.DUNGEON():
             if pre_status == STATUS.HOME():
                 DungeonStatus.Status.fromHomeReset(dungeonForm)
