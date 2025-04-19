@@ -42,6 +42,7 @@ class Action:
         step2_x, step2_y, step2_width, step2_height = config_form.get_step_button(1)
         tab1_x, tab1_y, tab1_width, tab1_height = config_form.get_tab_button(0)
         tab2_x, tab2_y, tab2_width, tab2_height = config_form.get_tab_button(1)
+        slider_x, slider_y, slider_width, slider_height = config_form.get_volume_slider()
         way1_click = cmn.Judge.click(way1_x, way1_y, way1_width, way1_height, x, y, click_x, click_y, left_click)
         way2_click = cmn.Judge.click(way2_x, way2_y, way2_width, way2_height, x, y, click_x, click_y, left_click)
         go1_click = cmn.Judge.click(go1_x, go1_y, go1_width, go1_height, x, y, click_x, click_y, left_click)
@@ -50,6 +51,7 @@ class Action:
         step2_click = cmn.Judge.click(step2_x, step2_y, step2_width, step2_height, x, y, click_x, click_y, left_click)
         tab1_click = cmn.Judge.click(tab1_x, tab1_y, tab1_width, tab1_height, x, y, click_x, click_y, left_click)
         tab2_click = cmn.Judge.click(tab2_x, tab2_y, tab2_width, tab2_height, x, y, click_x, click_y, left_click)
+        slider_click = cmn.Judge.click( slider_x, slider_y, slider_width, slider_height, x, y, click_x, click_y, left_click)
         return \
             configRequest.ConfigActionRequest(
                 x  # マウス位置 X
@@ -66,4 +68,5 @@ class Action:
                 ,config_form.get_way_key_type()  # 方向キー設定 現在状態
                 ,config_form.get_go_key_type()  # 直進キー設定 現在状態
                 ,config_form.tab  # タブ選択 現在状態
+                ,slider_click  # タブ選択 現在状態
             )

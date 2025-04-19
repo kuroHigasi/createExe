@@ -31,6 +31,8 @@ class Display:
             Display.__disp_text(screen, font, "足踏み入力タイプ…" + step_type_text_list[go_key_type], 50, 420)
             Display.__disp_step_key_type_button(screen, img_list, ope_form, config_form, 1, 50, 460)
             Display.__disp_step_key_type_button(screen, img_list, ope_form, config_form, 0, 260, 460)
+            # VOLUME SET SLIDER
+            config_form.hidden_volume_slider()
         else:
             config_form.hidden_way_button(0)
             config_form.hidden_way_button(1)
@@ -130,6 +132,7 @@ class Display:
         slider.setValue(config_form.get_volume())
         slider.draw()
         Display.__disp_text(screen, font, str(config_form.get_volume()), pos_x + 425, pos_y + 40)
+        config_form.set_volume_slider(50, 180)
 
     def __disp_text(screen, font, text: str, x: int, y: int):
         text_surface = font.render(text, True, cmn.Colors.black)

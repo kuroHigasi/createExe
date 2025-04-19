@@ -1,11 +1,12 @@
 import common.layer.request.saveStatusRequest as saveStatusRequest
 import common.save.service.status as sub_status
+import common.abstract.save.abstractStatus as abstractStatus
 import common.common as cmn
 import common.debug.debug as dbg
 import dungeon.convert as convert
 import pyd.save as SAVE
 
-class Status:
+class Status(abstractStatus.AbstractStatus):
     @staticmethod
     def execute(status_form, request):
         service = sub_status.Status(request)
@@ -16,7 +17,7 @@ class Status:
             status_form.updateStatus(res.data)
 
     @staticmethod
-    def create_request_data(ope_form, save_form):
+    def create_request_data(save_form, ope_form):
         left_click = ope_form.is_left_click()
         (x, y) = ope_form.get_mouse()
         (click_x, click_y) = ope_form.left_click_move_mouse()

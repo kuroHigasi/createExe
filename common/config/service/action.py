@@ -57,7 +57,7 @@ class Action:
 		return response.Response(data=-1, result=code.Code.DO_NOTHING)
 
 	def select_volume(self):
-		if 180 <= self._request.click_l_pos_y <= 210 and 50 <= self._request.click_l_pos_x <= 450:
+		if self._request.slider_click:
 			if 50 <= self._request.click_pos_x <= 450:
 				return response.Response(data=int((self._request.click_pos_x - 50) / 4), result=code.Code.OK)
 			elif self._request.click_pos_x < 50:

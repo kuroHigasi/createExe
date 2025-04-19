@@ -1,8 +1,9 @@
 import common.layer.request.saveSoundRequest as saveSoundRequest
 import pyd.hitJudge as hitJudge
 import common.save.service.sound as sub_sound
+import common.abstract.save.abstractSound as abstractSound
 
-class Sound:
+class Sound(abstractSound.AbstractSound):
 	@staticmethod
 	def execute(request):
 		service = sub_sound.Sound(request)

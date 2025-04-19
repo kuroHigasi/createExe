@@ -17,6 +17,7 @@ class ConfigActionRequest:
 	_way_key_type: int  # 方向キー設定 現在状態
 	_go_key_type: int  # 直進キー設定 現在状態
 	_tab: int  # タブ選択 現在状態
+	_slider_click: bool  # タブ選択 現在状態
 
 	@property
 	def click_pos_x(self):
@@ -73,3 +74,7 @@ class ConfigActionRequest:
 	@property
 	def tab(self):
 		return self._tab
+
+	@property
+	def slider_click(self):
+		return self._slider_click

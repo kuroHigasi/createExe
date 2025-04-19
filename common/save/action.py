@@ -1,12 +1,13 @@
 import common.layer.request.saveActionRequest as saveActionRequest
 import common.save.service.action as sub_action
 import common.common as cmn
+import common.abstract.save.abstractAction as abstractAction
 # ゲーム毎
 import dungeon.convert as convert_dungeon
 # ゲーム毎
 
 
-class Action:
+class Action(abstractAction.AbstractAction):
     @staticmethod
     def execute(save_form, request):
         service = sub_action.Action(request)
