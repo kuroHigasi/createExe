@@ -19,7 +19,8 @@ class TestServiceAction1(unittest.TestCase):
 			False,  # タブ選択2 選択状態
 			0,  # 方向キー設定 現在状態
 			0,  # 直進キー設定 現在状態
-			0  # タブ選択 現在状態
+			0,  # タブ選択 現在状態
+			False
 		)
 
 	def test_tab(self):
@@ -79,7 +80,8 @@ class TestServiceAction2(unittest.TestCase):
 			False,  # タブ選択2 選択状態
 			0,  # 方向キー設定 現在状態
 			0,  # 直進キー設定 現在状態
-			0  # タブ選択 現在状態
+			0,  # タブ選択 現在状態
+			False
 		)
 
 	def test_tab(self):
@@ -139,7 +141,8 @@ class TestServiceAction3(unittest.TestCase):
 			False,  # タブ選択2 選択状態
 			0,  # 方向キー設定 現在状態
 			0,  # 直進キー設定 現在状態
-			0  # タブ選択 現在状態
+			0,  # タブ選択 現在状態
+			False
 		)
 
 	def test_tab(self):

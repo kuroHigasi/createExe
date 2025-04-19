@@ -4,8 +4,7 @@ import dungeon.status as DungeonStatus
 import common.home.status as HomeStatus
 import common.config.status as ConfigStatus
 import common.end.status as EndStatus
-import common.save.status as SaveStatus
-import dungeon.convert as convert
+import common.save.status as save_status
 
 
 class Status:
@@ -21,7 +20,7 @@ class Status:
         elif now_status == STATUS.CONFIG():
             ConfigStatus.Status.next_status(statusForm, ope_form, systemForm.CONFIG_FORM())
         elif now_status == STATUS.SAVE():
-            SaveStatus.Status.execute(statusForm, SaveStatus.Status.create_request_data(systemForm.SAVE_FORM(), ope_form))
+            save_status.Status.execute(statusForm, save_status.Status.create_request_data(systemForm.SAVE_FORM(), ope_form))
         elif now_status == STATUS.DUNGEON():
             DungeonStatus.Status.nextStatus(statusForm, ope_form, systemForm.DUNGEON_FORM())
             DungeonStatus.Status.updateLog(systemForm.DUNGEON_FORM())
@@ -53,11 +52,11 @@ class Status:
                 ConfigStatus.Status.load_config(configForm)
         elif now_status == STATUS.SAVE():
             if pre_status != STATUS.SAVE():
-                SaveStatus.Status.initialize(saveForm, pre_status)
+                save_status.Status.initialize(saveForm, pre_status)
                 if pre_status == STATUS.DUNGEON():
-                    SaveStatus.Status.update_input_data(saveForm, dungeonForm)
+                    save_status.Status.update_input_data(saveForm, dungeonForm)
                 else:
-                    SaveStatus.Status.reset_input_data(saveForm)
+                    save_status.Status.reset_input_data(saveForm)
         elif now_status == STATUS.DUNGEON():
             if pre_status == STATUS.HOME():
                 DungeonStatus.Status.fromHomeReset(dungeonForm)

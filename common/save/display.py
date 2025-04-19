@@ -59,4 +59,3 @@ class Display(abstractDisplay.AbstractDisplay):
             save_form.get_save_list_width(0),
             save_form.get_save_list_height(0)
         )
-
