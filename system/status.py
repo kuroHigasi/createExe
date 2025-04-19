@@ -21,7 +21,7 @@ class Status:
         elif now_status == STATUS.CONFIG():
             ConfigStatus.Status.next_status(statusForm, ope_form, systemForm.CONFIG_FORM())
         elif now_status == STATUS.SAVE():
-            SaveStatus.Status.execute(statusForm, SaveStatus.Status.create_request_data(ope_form, systemForm.SAVE_FORM()))
+            SaveStatus.Status.execute(statusForm, SaveStatus.Status.create_request_data(systemForm.SAVE_FORM(), ope_form))
         elif now_status == STATUS.DUNGEON():
             DungeonStatus.Status.nextStatus(statusForm, ope_form, systemForm.DUNGEON_FORM())
             DungeonStatus.Status.updateLog(systemForm.DUNGEON_FORM())

@@ -2,9 +2,10 @@ import pyd.indexConfig as Index
 import pyd.hitJudge as Judge
 from pygame_widgets.slider import Slider
 import common.common as cmn
+import common.abstract.config.abstractDisplay as abstractDisplay
 
 
-class Display:
+class Display(abstractDisplay.AbstractDisplay):
     @staticmethod
     def execute(screen, config_form, ope_form, pos_x: int, pos_y: int):
         img_list = config_form.img_list

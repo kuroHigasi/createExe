@@ -1,4 +1,4 @@
-import common.layer.request.saveStatusRequest as saveStatusRequest
+import common.layer.request.save.saveStatusRequest as saveStatusRequest
 import common.save.service.status as sub_status
 import common.abstract.save.abstractStatus as abstractStatus
 import common.common as cmn

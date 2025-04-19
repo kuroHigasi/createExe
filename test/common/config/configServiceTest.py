@@ -1,6 +1,6 @@
 import unittest
 import common.config.service.action as service_action
-import common.layer.request.configActionRequest as configRequest
+import common.layer.request.config.configActionRequest as configRequest
 
 
 class TestServiceAction1(unittest.TestCase):

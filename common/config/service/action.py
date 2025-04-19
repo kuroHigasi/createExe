@@ -1,4 +1,4 @@
-import common.layer.request.configActionRequest as configActionRequest
+import common.layer.request.config.configActionRequest as configActionRequest
 import common.layer.response.response as response
 import common.layer.code.code as code
 import common.debug.debug as dbg

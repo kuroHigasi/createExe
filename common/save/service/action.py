@@ -1,4 +1,4 @@
-import common.layer.request.saveActionRequest as saveActionRequest
+import common.layer.request.save.saveActionRequest as saveActionRequest
 import common.layer.response.response as response
 import common.layer.code.code as code
 import common.common as cmn
