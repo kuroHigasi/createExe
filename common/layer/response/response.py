@@ -23,5 +23,5 @@ class Response:
 
 	def is_not_ok(self):
 		return \
-			not (self._result == code.Code.OK) or \
+			not (self._result == code.Code.OK) and \
 			not (self._result == code.Code.DO_NOTHING)

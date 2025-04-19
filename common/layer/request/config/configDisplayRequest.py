@@ -2,66 +2,76 @@ import dataclasses
 
 
 @dataclasses.dataclass(frozen=True)
-class ConfigActionRequest:
-	_click_pos_x: int  # マウス位置 X
-	_click_l_pos_x: int  # クリック マウス位置 X
-	_click_l_pos_y: int  # クリック マウス位置 Y
-	_way1_click: bool  # 方向キー設定0 選択状態
-	_way2_click: bool  # 方向キー設定1 選択状態
-	_go1_click: bool  # 直進キー設定0 選択状態
-	_go2_click: bool  # 直進キー設定1 選択状態
-	_step1_click: bool  # 足踏みキー設定0 選択状態
-	_step2_click: bool  # 足踏みキー設定1 選択状態
-	_tab1_click: bool  # タブ選択0 選択状態
-	_tab2_click: bool  # タブ選択1 選択状態
+class ConfigDisplayRequest:
+	_screen: any  # screen
+	_font: any  # font
+	_img_list: list  # LIST
+	_way1_touch: bool  # 方向キー設定0 選択状態
+	_way2_touch: bool  # 方向キー設定1 選択状態
+	_go1_touch: bool  # 直進キー設定0 選択状態
+	_go2_touch: bool  # 直進キー設定1 選択状態
+	_step1_touch: bool  # 足踏みキー設定0 選択状態
+	_step2_touch: bool  # 足踏みキー設定1 選択状態
+	_tab1_touch: bool  # タブ選択0 選択状態
+	_tab2_touch: bool  # タブ選択1 選択状態
+	_ok_touch: bool  # OK 選択状態
+	_back_touch: bool  # BACK 選択状態
 	_way_key_type: int  # 方向キー設定 現在状態
 	_go_key_type: int  # 直進キー設定 現在状態
 	_tab: int  # タブ選択 現在状態
-	_slider_click: bool  # タブ選択 現在状態
+	_volume: int  # ボリューム
 
 	@property
-	def click_pos_x(self):
-		return self._click_pos_x
+	def screen(self):
+		return self._screen
 
 	@property
-	def click_l_pos_x(self):
-		return self._click_l_pos_x
+	def font(self):
+		return self._font
 
 	@property
-	def click_l_pos_y(self):
-		return self._click_l_pos_y
+	def img_list(self):
+		return self._img_list
 
 	@property
-	def way1_click(self):
-		return self._way1_click
+	def way1_touch(self):
+		return self._way1_touch
 
 	@property
-	def way2_click(self):
-		return self._way2_click
+	def way2_touch(self):
+		return self._way2_touch
 
 	@property
-	def go1_click(self):
-		return self._go1_click
+	def go1_touch(self):
+		return self._go1_touch
 
 	@property
-	def go2_click(self):
-		return self._go2_click
+	def go2_touch(self):
+		return self._go2_touch
 
 	@property
-	def step1_click(self):
-		return self._step1_click
+	def step1_touch(self):
+		return self._step1_touch
 
 	@property
-	def step2_click(self):
-		return self._step2_click
+	def step2_touch(self):
+		return self._step2_touch
 
 	@property
-	def tab1_click(self):
-		return self._tab1_click
+	def tab1_touch(self):
+		return self._tab1_touch
 
 	@property
-	def tab2_click(self):
-		return self._tab2_click
+	def tab2_touch(self):
+		return self._tab2_touch
+
+	@property
+	def ok_touch(self):
+		return self._ok_touch
+
+	@property
+	def back_touch(self):
+		return self._back_touch
 
 	@property
 	def way_key_type(self):
@@ -76,5 +86,5 @@ class ConfigActionRequest:
 		return self._tab
 
 	@property
-	def slider_click(self):
-		return self._slider_click
+	def volume(self):
+		return self._volume
