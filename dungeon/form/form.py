@@ -1,11 +1,11 @@
 import dungeon.img as DungeonImg
 # Form
-import dungeon.map.form as MapForm
-import dungeon.button.form as ButtonForm
-import dungeon.actionForm.form as ActionForm
-import dungeon.abnormal.form as AbnormalForm
-import dungeon.log.form as LogForm
-import dungeon.box.form as BoxForm
+import dungeon.form.map.form as MapForm
+import dungeon.form.button.form as ButtonForm
+import dungeon.form.action.form as ActionForm
+import dungeon.form.abnormal.form as AbnormalForm
+import dungeon.form.log.form as LogForm
+import dungeon.form.box.form as BoxForm
 # method
 import pyd.createPass as cPass
 import pyd.way as WAY
