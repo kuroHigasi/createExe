@@ -21,16 +21,21 @@ class Display:
 		self._go_type = request.go_key_type
 		self._tab = request.tab
 		self._volume = request.volume
+		self._is_different = request.is_set_different
 		self._screen.blit(self._img_list[Index.CONFIG()][0], (0, 0))
 
 	def disp_ok_button(self):
 		pos_x = 750
 		pos_y = 670
-		if self._ok_touch:
-			self._screen.blit(self._img_list[Index.SET_BUTTON()][7], (pos_x, pos_y))
+		if self._is_different:
+			if self._ok_touch:
+				self._screen.blit(self._img_list[Index.SET_BUTTON()][7], (pos_x, pos_y))
+			else:
+				self._screen.blit(self._img_list[Index.SET_BUTTON()][6], (pos_x, pos_y))
+			return response.Response(data=(pos_x, pos_y), result=code.Code.OK)
 		else:
-			self._screen.blit(self._img_list[Index.SET_BUTTON()][6], (pos_x, pos_y))
-		return response.Response(data=(pos_x, pos_y), result=code.Code.OK)
+			self._screen.blit(self._img_list[Index.SET_BUTTON()][5], (pos_x, pos_y))
+			return response.Response(data=(-1, -1), result=code.Code.OK)
 
 	def disp_back_button(self):
 		pos_x = 540

@@ -20,6 +20,7 @@ class ConfigDisplayRequest:
 	_go_key_type: int  # 直進キー設定 現在状態
 	_tab: int  # タブ選択 現在状態
 	_volume: int  # ボリューム
+	_is_set_different: bool  # 設定差分
 
 	@property
 	def screen(self):
@@ -88,3 +89,7 @@ class ConfigDisplayRequest:
 	@property
 	def volume(self):
 		return self._volume
+
+	@property
+	def is_set_different(self):
+		return self._is_set_different

@@ -73,5 +73,6 @@ class Display(abstractDisplay.AbstractDisplay):
             config_form.get_way_key_type(),
             config_form.get_go_key_type(),
             config_form.tab,
-            config_form.get_volume()
+            config_form.get_volume(),
+            config_form.is_config_different()
         )
