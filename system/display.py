@@ -25,8 +25,8 @@ class Display:
             Display.__homeDisp(screen, systemForm.HOME_FORM(), operationForm)
         elif (nowStatus == STATUS.CONFIG()):
             Display.__configDisp(screen, systemForm.CONFIG_FORM(), operationForm)
-        elif (nowStatus == STATUS.SAVE()):
-            Display.__saveDisp(screen, systemForm.SAVE_FORM(), operationForm)
+        elif nowStatus == STATUS.SAVE():
+            saveDisp.Display.execute(saveForm, saveDisp.Display.create_request_data(screen, saveForm, operationForm))
         elif (nowStatus == STATUS.DUNGEON()):
             if preStatus == STATUS.HOME():
                 dungeonForm.offEndFlag()
@@ -54,7 +54,6 @@ class Display:
         homeDisp.Display.dispHome(screen, homeForm, opeForm, 0, 0)
 
     def __configDisp(screen, configForm, opeForm):
-        configDisp.Display.execute(screen, configForm, opeForm, 0, 0)
-
-    def __saveDisp(screen, saveForm, opeForm):
-        saveDisp.Display.dispSave(screen, saveForm, opeForm, 0, 0)
+        configDisp.Display.execute(
+            configForm,
+            configDisp.Display.create_request_data(screen, configForm, opeForm))

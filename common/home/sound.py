@@ -5,7 +5,7 @@ import pygame
 class Sound:
 	@staticmethod
 	def start(homeForm, opeForm, config_Form, soundForm):
-		sound_list = soundForm.SOUND_LIST()
+		sound_list = soundForm.sound_list
 		(x, y) = opeForm.get_mouse()
 		(clickX, clickY) = opeForm.left_click_move_mouse()
 		(startX, startY) = homeForm.START_BUTTON()

@@ -113,7 +113,9 @@ class SaveMethod(AES_METHDO.Aes):
                     f.write(super().encrypt(text))
             except FileExistsError:
                 dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
+                return False
         dbg.LOG("SAVE処理終了")
+        return True
 
     def load(self, head, tail):
         dbg.LOG("LOAD処理開始")
