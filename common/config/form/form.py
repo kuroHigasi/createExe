@@ -172,6 +172,15 @@ class Form:
         else:
             dbg.ERROR_LOG("[configForm.get_step_button] 引数不備")
 
+    def set_volume_slider(self, x, y):
+        self._buttons_form.set_volume_slider_pos(x, y)
+
+    def hidden_volume_slider(self):
+        self._buttons_form.set_volume_slider_pos(-1, -1)
+
+    def get_volume_slider(self):
+        return self._buttons_form.get_volume_slider()
+
     @property
     def pre_status(self):
         return self._pre_status

@@ -20,7 +20,7 @@ class Display:
         homeFoem.updateExitButton(50, 670)
 
     def __dispButton(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
-        (x, y) = opeForm.MOUSE()
+        (x, y) = opeForm.get_mouse()
         if judge.hitJudgeSquare(posX, posY, 200, 80, int(x), int(y)):
             screen.blit(imgList[index.BUTTON()][buttonIndex+1], (posX, posY))
         else:

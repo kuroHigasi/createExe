@@ -1,133 +1,128 @@
+import dataclasses
 import pyd.calc as calc
+import common.operation.key.form as key_form
+import common.operation.mouse.form as mouse_form
 import common.debug.debug as dbg
 
 
+@dataclasses.dataclass
 class OperationForm:
+    __key: key_form
+    __mouse: mouse_form
+
     def __init__(self):
-        self.__directionKey = 0b0000
-        self.__space = 0
-        self.__enter = 0
-        self.__click = 0b0000
-        self.__mouseX = 0
-        self.__mouseY = 0
-        self.__mouseXclickR = -1
-        self.__mouseYclickR = -1
-        self.__mouseXclickL = -1
-        self.__mouseYclickL = -1
+        self.__key = key_form.Form()
+        self.__mouse = mouse_form.Form()
 
     def reset(self):
-        self.__directionKey = 0b0000
+        self.__key.direction_key = 0b0000
 
-    def upOn(self):
-        self.__directionKey = calc.bitmask(self.__directionKey, 0b0001)
+    def up_on(self):
+        self.__key.direction_key = calc.bitmask(self.__key.direction_key, 0b0001)
 
-    def upOff(self):
-        self.__directionKey = calc.maskAndRight(self.__directionKey, 0b1110, 0)
+    def up_off(self):
+        self.__key.direction_key = calc.maskAndRight(self.__key.direction_key, 0b1110, 0)
 
-    def UP(self):
-        return (calc.maskAndRight(self.__directionKey, 0b0001, 0) == 0b0001)
+    def get_up(self):
+        return calc.maskAndRight(self.__key.direction_key, 0b0001, 0) == 0b0001
 
-    def leftOn(self):
-        self.__directionKey = calc.bitmask(self.__directionKey, 0b0010)
+    def left_on(self):
+        self.__key.direction_key = calc.bitmask(self.__key.direction_key, 0b0010)
 
-    def leftOff(self):
-        self.__directionKey = calc.maskAndRight(self.__directionKey, 0b1101, 0)
+    def left_off(self):
+        self.__key.direction_key = calc.maskAndRight(self.__key.direction_key, 0b1101, 0)
 
-    def LEFT(self):
-        return (calc.maskAndRight(self.__directionKey, 0b0010, 1) == 0b0001)
+    def get_left(self):
+        return calc.maskAndRight(self.__key.direction_key, 0b0010, 1) == 0b0001
 
-    def rightOn(self):
-        self.__directionKey = calc.bitmask(self.__directionKey, 0b0100)
+    def right_on(self):
+        self.__key.direction_key = calc.bitmask(self.__key.direction_key, 0b0100)
 
-    def rightOff(self):
-        self.__directionKey = calc.maskAndRight(self.__directionKey, 0b1011, 0)
+    def right_off(self):
+        self.__key.direction_key = calc.maskAndRight(self.__key.direction_key, 0b1011, 0)
 
-    def RIGHT(self):
-        return (calc.maskAndRight(self.__directionKey, 0b0100, 2) == 0b0001)
+    def get_right(self):
+        return calc.maskAndRight(self.__key.direction_key, 0b0100, 2) == 0b0001
 
-    def downOn(self):
-        self.__directionKey = calc.bitmask(self.__directionKey, 0b1000)
+    def down_on(self):
+        self.__key.direction_key = calc.bitmask(self.__key.direction_key, 0b1000)
 
-    def downOff(self):
-        self.__directionKey = calc.maskAndRight(self.__directionKey, 0b0111, 0)
+    def down_off(self):
+        self.__key.direction_key = calc.maskAndRight(self.__key.direction_key, 0b0111, 0)
 
-    def DOWN(self):
-        return (calc.maskAndRight(self.__directionKey, 0b1000, 3) == 0b0001)
+    def get_down(self):
+        return calc.maskAndRight(self.__key.direction_key, 0b1000, 3) == 0b0001
 
-    def spaceOn(self):
-        self.__space = 1
+    def space_pn(self):
+        self.__key.space = True
 
-    def spaceOff(self):
-        self.__space = 0
+    def space_off(self):
+        self.__key.space = False
 
-    def SPACE(self):
-        return (self.__space == 1)
+    def get_space(self):
+        return self.__key.space
 
-    def enterOn(self):
-        self.__enter = 1
+    def enter_on(self):
+        self.__key.enter = True
 
-    def enterOff(self):
-        self.__enter = 0
+    def enter_off(self):
+        self.__key.enter = False
 
-    def ENTER(self):
-        return (self.__enter == 1)
+    def get_enter(self):
+        return self.__key.enter
 
-    def rightClickOn(self):
-        if calc.maskAndRight(self.__click, 0b0001, 0) == 0:
-            self.__mouseXclickR = self.__mouseX
-            self.__mouseYclickR = self.__mouseY
+    def right_click_on(self):
+        if not self.__mouse.click_r:
+            self.__mouse.click_r_pos_x = self.__mouse.mouse_pointer_x
+            self.__mouse.click_r_pos_y = self.__mouse.mouse_pointer_y
             dbg.LOG("RIGHT CLICK ONESHOT")
-        self.__click = calc.bitmask(self.__click, 0b0001)
+        self.__mouse.click_r = True
 
-    def rightClickOff(self):
-        if calc.maskAndRight(self.__click, 0b0001, 0) == 1:
-            self.__mouseXclickR = -1
-            self.__mouseYclickR = -1
-        self.__click = calc.maskAndRight(self.__click, 0b1110, 0)
+    def right_click_off(self):
+        if self.__mouse.click_r:
+            self.__mouse.click_r_pos_x = -1
+            self.__mouse.click_r_pos_y = -1
+        self.__mouse.click_r = False
 
-    def isRightClick(self):
-        return (calc.maskAndRight(self.__click, 0b0001, 0) == 1)
+    def is_right_click(self):
+        return self.__mouse.click_r
 
-    def rightClickMoveMouse(self):
-        return (self.__mouseXclickR, self.__mouseYclickR)
+    def right_click_move_mouse(self):
+        return self.__mouse.get_click_r_pos()
 
-    def leftClickOn(self):
-        if calc.maskAndRight(self.__click, 0b0010, 1) == 0:
-            self.__mouseXclickL = self.__mouseX
-            self.__mouseYclickL = self.__mouseY
+    def left_click_on(self):
+        if not self.__mouse.click_l:
+            self.__mouse.click_l_pos_x = self.__mouse.mouse_pointer_x
+            self.__mouse.click_l_pos_y = self.__mouse.mouse_pointer_y
+            self.__mouse.click_l = True
             dbg.LOG("LEFT CLICK ONESHOT")
-        self.__click = calc.bitmask(self.__click, 0b0010)
 
-    def leftClickOff(self):
-        if calc.maskAndRight(self.__click, 0b0010, 1) == 1:
-            self.__mouseXclickL = -1
-            self.__mouseYclickL = -1
-        self.__click = calc.maskAndRight(self.__click, 0b1101, 0)
+    def left_click_off(self):
+        if self.__mouse.click_l:
+            self.__mouse.click_l_pos_x = -1
+            self.__mouse.click_l_pos_y = -1
+            self.__mouse.click_l = False
 
-    def isLeftClick(self):
-        return (calc.maskAndRight(self.__click, 0b0010, 1) == 1)
+    def is_left_click(self):
+        return self.__mouse.click_l
 
-    def leftClickMoveMouse(self):
-        return (self.__mouseXclickL, self.__mouseYclickL)
+    def left_click_move_mouse(self):
+        return self.__mouse.get_click_l_pos()
 
-    def resetClick(self):
-        self.__click = 0b0000
-        self.__mouseXclickR = 0
-        self.__mouseYclickR = 0
-        self.__mouseXclickL = 0
-        self.__mouseYclickL = 0
+    def reset_click(self):
+        self.__mouse.reset()
 
-    def setMouse(self, x, y):
-        self.__mouseX = x
-        self.__mouseY = y
+    def set_mouse(self, x, y):
+        self.__mouse.mouse_pointer_x = x
+        self.__mouse.mouse_pointer_y = y
 
-    def resetMouseClickR(self):
-        self.__mouseXclickR = -1
-        self.__mouseYclickR = -1
+    def reset_mouse_click_r(self):
+        self.__mouse.click_r_pos_x = -1
+        self.__mouse.click_r_pos_y = -1
 
-    def resetMouseClickL(self):
-        self.__mouseXclickL = -1
-        self.__mouseYclickL = -1
+    def reset_mouse_click_l(self):
+        self.__mouse.click_l_pos_x = -1
+        self.__mouse.click_l_pos_y = -1
 
-    def MOUSE(self):
-        return (self.__mouseX, self.__mouseY)
+    def get_mouse(self):
+        return self.__mouse.get_mouse_pointer()

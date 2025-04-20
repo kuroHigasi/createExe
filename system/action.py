@@ -5,20 +5,21 @@ import common.save.action as SaveAction
 
 
 class Action:
-    def execute(statusForm, systemForm, operationForm):
-        nowStatus = statusForm.NOW_STATUS()
-        dungeonForm = systemForm.DUNGEON_FORM()
-        configForm = systemForm.CONFIG_FORM()
-        saveForm = systemForm.SAVE_FORM()
+    @staticmethod
+    def execute(status_form, system_form, ope_form):
+        nowStatus = status_form.NOW_STATUS()
+        dungeonForm = system_form.DUNGEON_FORM()
+        configForm = system_form.CONFIG_FORM()
+        save_form = system_form.SAVE_FORM()
         # ステータスごとのACTION分岐
-        if (nowStatus == STATUS.CONFIG()):
-            ConfigAction.Action.execute(configForm, operationForm)
-        elif (nowStatus == STATUS.DUNGEON()):
-            DungeonAction.Action.go(dungeonForm, operationForm, configForm)
+        if nowStatus == STATUS.CONFIG():
+            ConfigAction.Action.execute(configForm, ConfigAction.Action.create_request_data(configForm, ope_form))
+        elif nowStatus == STATUS.DUNGEON():
+            DungeonAction.Action.go(dungeonForm, ope_form, configForm)
             DungeonAction.Action.updateFlag(dungeonForm)
-            DungeonAction.Action.useItemBox(dungeonForm, operationForm)
+            DungeonAction.Action.useItemBox(dungeonForm, ope_form)
             DungeonAction.Action.enemyAction(dungeonForm)
-            DungeonAction.Action.actionButton(dungeonForm, operationForm)
-            DungeonAction.Action.retryButton(dungeonForm, operationForm)
-        elif (nowStatus == STATUS.SAVE()):
-            SaveAction.Action.save(saveForm, operationForm)
+            DungeonAction.Action.actionButton(dungeonForm, ope_form)
+            DungeonAction.Action.retryButton(dungeonForm, ope_form)
+        elif nowStatus == STATUS.SAVE():
+            SaveAction.Action.execute(save_form, SaveAction.Action.create_request_data(save_form, ope_form))

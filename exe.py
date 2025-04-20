@@ -47,7 +47,7 @@ class Main:
         Display.execute(screen, self.__StatusForm, self.__SystemForm, self.__OperationForm)
 
     def MOUSE(self, x, y):
-        self.__OperationForm.setMouse(x, y)
+        self.__OperationForm.set_mouse(x, y)
 
     def EXIT_CHECK(self):
         return self.__StatusForm.NOW_STATUS() != STATUS.EXIT()
@@ -58,39 +58,39 @@ class Main:
     def KEYBOAD(self, key):
         if self.__SystemForm.CONFIG_FORM().get_way_key_type() == 1:
             if key == pygame.K_LEFT:
-                self.__OperationForm.leftOn()
+                self.__OperationForm.left_on()
             if key == pygame.K_RIGHT:
-                self.__OperationForm.rightOn()
+                self.__OperationForm.right_on()
             if key == pygame.K_UP:
-                self.__OperationForm.upOn()
+                self.__OperationForm.up_on()
             if key == pygame.K_DOWN:
-                self.__OperationForm.downOn()
+                self.__OperationForm.down_on()
         elif self.__SystemForm.CONFIG_FORM().get_way_key_type() == 0:
             if key == pygame.K_a:
-                self.__OperationForm.leftOn()
+                self.__OperationForm.left_on()
             if key == pygame.K_d:
-                self.__OperationForm.rightOn()
+                self.__OperationForm.right_on()
             if key == pygame.K_w:
-                self.__OperationForm.upOn()
+                self.__OperationForm.up_on()
             if key == pygame.K_s:
-                self.__OperationForm.downOn()
+                self.__OperationForm.down_on()
         else:
             dbg.ERROR_LOG("[main.KEYBOAD]存在しないKEY_TYPE" + str(self.__SystemForm.CONFIG_FORM().way_key_type()))
         # 前進ボタン
         if key == pygame.K_SPACE:
-            self.__OperationForm.spaceOn()
+            self.__OperationForm.space_pn()
         if key == pygame.K_RETURN:
-            self.__OperationForm.enterOn()
+            self.__OperationForm.enter_on()
 
     def CLICK(self, left, right):
         if left:
-            self.__OperationForm.leftClickOn()
+            self.__OperationForm.left_click_on()
         else:
-            self.__OperationForm.leftClickOff()
+            self.__OperationForm.left_click_off()
         if right:
-            self.__OperationForm.rightClickOn()
+            self.__OperationForm.right_click_on()
         else:
-            self.__OperationForm.rightClickOff()
+            self.__OperationForm.right_click_off()
 
     def RESET(self):
         self.__OperationForm.reset()

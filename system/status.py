@@ -4,30 +4,34 @@ import dungeon.status as DungeonStatus
 import common.home.status as HomeStatus
 import common.config.status as ConfigStatus
 import common.end.status as EndStatus
-import common.save.status as SaveStatus
-import dungeon.convert as convert
+import common.save.status as save_status
 
 
 class Status:
-    def execute(statusForm, systemForm, operationForm):
-        now_status = statusForm.NOW_STATUS()
+    @staticmethod
+    def execute(status_form, system_form, ope_form):
+        now_status = status_form.NOW_STATUS()
+        config_form = system_form.CONFIG_FORM()
+        save_form = system_form.SAVE_FORM()
         # ステータス毎 処理分岐
         if now_status == STATUS.EXIT():
             dbg.LOG("[main.STATUS]終了ステータスのため何もしない")
         elif now_status == STATUS.END():
-            EndStatus.Status.nextStatus(statusForm, operationForm, systemForm.END_FORM())
+            EndStatus.Status.nextStatus(status_form, ope_form, system_form.END_FORM())
         elif now_status == STATUS.HOME():
-            HomeStatus.Status.nextStatus(statusForm, operationForm, systemForm.HOME_FORM())
+            HomeStatus.Status.nextStatus(status_form, ope_form, system_form.HOME_FORM())
         elif now_status == STATUS.CONFIG():
-            ConfigStatus.Status.next_status(statusForm, operationForm, systemForm.CONFIG_FORM())
+            config_request = ConfigStatus.Status.create_request_data(config_form, ope_form)
+            ConfigStatus.Status.execute(status_form, config_form, config_request)
         elif now_status == STATUS.SAVE():
-            SaveStatus.Status.nextStatus(statusForm, operationForm, systemForm.SAVE_FORM())
+            save_request = save_status.Status.create_request_data(save_form, ope_form)
+            save_status.Status.execute(status_form, save_request)
         elif now_status == STATUS.DUNGEON():
-            DungeonStatus.Status.nextStatus(statusForm, operationForm, systemForm.DUNGEON_FORM())
-            DungeonStatus.Status.updateLog(systemForm.DUNGEON_FORM())
+            DungeonStatus.Status.nextStatus(status_form, ope_form, system_form.DUNGEON_FORM())
+            DungeonStatus.Status.updateLog(system_form.DUNGEON_FORM())
         else:
             dbg.ERROR_LOG("[Main.STATUS]存在しないステータス: "+str(now_status))
-            statusForm.updateStatus(STATUS.HOME())
+            status_form.updateStatus(STATUS.HOME())
 
     def init(statusForm, systemForm, operationForm):
         now_status = statusForm.NOW_STATUS()
@@ -36,7 +40,7 @@ class Status:
         saveForm = systemForm.SAVE_FORM()
         dungeonForm = systemForm.DUNGEON_FORM()
         # ステータス遷移タイミング 初期化 共通処理
-        Status.__changeInit(pre_status, now_status, operationForm, configForm)
+        Status.__change_init(pre_status, now_status, operationForm, configForm)
         # ステータス毎 処理分岐
         if now_status == STATUS.EXIT():
             if pre_status != STATUS.EXIT():
@@ -53,16 +57,11 @@ class Status:
                 ConfigStatus.Status.load_config(configForm)
         elif now_status == STATUS.SAVE():
             if pre_status != STATUS.SAVE():
-                SaveStatus.Status.updatePreStatus(saveForm, pre_status)
-                SaveStatus.Status.resetOutputData(saveForm)
-                SaveStatus.Status.updateDispSaveList(saveForm)
+                save_status.Status.initialize(saveForm, pre_status)
                 if pre_status == STATUS.DUNGEON():
-                    inputData = convert.Convert.createInput(dungeonForm)
-                    dbg.LOG("INPUT_DATA SET[" + inputData + "]")
-                    SaveStatus.Status.updateInputData(saveForm, inputData)
+                    save_status.Status.update_input_data(saveForm, dungeonForm)
                 else:
-                    dbg.LOG("INPUT_DATA RESET")
-                    SaveStatus.Status.resetInputData(saveForm)
+                    save_status.Status.reset_input_data(saveForm)
         elif now_status == STATUS.DUNGEON():
             if pre_status == STATUS.HOME():
                 DungeonStatus.Status.fromHomeReset(dungeonForm)
@@ -72,9 +71,10 @@ class Status:
             dbg.ERROR_LOG("[Main.STATUS]存在しないステータス: "+str(now_status))
             statusForm.updateStatus(STATUS.HOME())
 
-    def __changeInit(preStatus, now_status, operationForm, configForm):
+    @staticmethod
+    def __change_init(preStatus, now_status, operationForm, configForm):
         if preStatus != now_status:
-            operationForm.resetMouseClickL()
-            operationForm.resetMouseClickR()
+            operationForm.reset_mouse_click_l()
+            operationForm.reset_mouse_click_r()
             configForm.update_pre_way_key_type()
             configForm.update_pre_go_key_type()
