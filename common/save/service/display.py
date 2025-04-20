@@ -5,6 +5,7 @@ import pyd.hitJudge as hitJudge
 import pyd.indexSave as INDEX
 import common.common as cmn
 
+
 class Display:
 	def __init__(self, request: saveDisplayRequest):
 		self._screen = request.screen
