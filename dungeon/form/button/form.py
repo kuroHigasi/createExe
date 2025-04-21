@@ -1,4 +1,5 @@
 import common.debug as dbg
+import common.button.form as button_form
 
 
 ACTION_ERROR_TEXT = "存在しないACTION"
@@ -6,97 +7,93 @@ ACTION_ERROR_TEXT = "存在しないACTION"
 
 class Form:
     def __init__(self):
-        self.__configButton = [-1, -1, 0, 0]
-        self.__homeButton = [-1, -1, 0, 0]
-        self.__saveButton = [-1, -1, 0, 0]
-        self.__retryButton = [-1, -1, 0, 0]
-        self.__exitButton = [-1, -1, 0, 0]
-        self.__actionButton = [[-1, -1, 0, 0], [-1, -1, 0, 0]]
+        self.__config_button = button_form.Form(-1, -1, 150, 60)
+        self.__home_button = button_form.Form(-1, -1, 150, 60)
+        self.__exit_button = button_form.Form(-1, -1, 150, 60)
+        self.__save_button = button_form.Form(-1, -1, 150, 60)
+        self.__retry_button = button_form.Form(-1, -1, 150, 60)
+        self.__action_button = \
+            [button_form.Form(-1, -1, 150, 60), button_form.Form(-1, -1, 150, 60)]
 
-    def updateConfigButton(self, x, y, sizeW, sizeH):
-        self.__configButton = [x, y, sizeW, sizeH]
+    def set_config_button_pos(self, x, y):
+        self.__config_button.x = x
+        self.__config_button.y = y
 
-    def resetConfigButton(self):
-        self.__configButton = [-1, -1, 0, 0]
+    def get_config_button_pos(self):
+        return (self.__config_button.x,
+                self.__config_button.y)
 
-    def CONFIG_BUTTON(self):
-        return (self.__configButton[0],
-                self.__configButton[1],
-                self.__configButton[2],
-                self.__configButton[3])
+    def get_config_button_size(self):
+        return (self.__config_button.width,
+                self.__config_button.height)
 
-    def updateHomeButton(self, x, y, sizeW, sizeH):
-        self.__homeButton = [x, y, sizeW, sizeH]
+    def set_home_button_pos(self, x, y):
+        self.__home_button.x = x
+        self.__home_button.y = y
 
-    def resetHomeButton(self):
-        self.__homeButton = [-1, -1, 0, 0]
+    def get_home_button_pos(self):
+        return (self.__home_button.x,
+                self.__home_button.y)
 
-    def HOME_BUTTON(self):
-        return (self.__homeButton[0],
-                self.__homeButton[1],
-                self.__homeButton[2],
-                self.__homeButton[3])
+    def get_home_button_size(self):
+        return (self.__home_button.width,
+                self.__home_button.height)
 
-    def updateExitButton(self, x, y, sizeW, sizeH):
-        self.__exitButton = [x, y, sizeW, sizeH]
+    def set_exit_button_pos(self, x, y):
+        self.__exit_button.x = x
+        self.__exit_button.y = y
 
-    def resetExitButton(self):
-        self.__exitButton = [-1, -1, 0, 0]
+    def get_exit_button_pos(self):
+        return (self.__exit_button.x,
+                self.__exit_button.y)
 
-    def EXIT_BUTTON(self):
-        return (self.__exitButton[0],
-                self.__exitButton[1],
-                self.__exitButton[2],
-                self.__exitButton[3])
+    def get_exit_button_size(self):
+        return (self.__exit_button.width,
+                self.__exit_button.height)
 
-    def updateSaveButton(self, x, y, sizeW, sizeH):
-        self.__saveButton = [x, y, sizeW, sizeH]
+    def set_save_button_pos(self, x, y):
+        self.__save_button.x = x
+        self.__save_button.y = y
 
-    def resetSaveButton(self):
-        self.__saveButton = [-1, -1, 0, 0]
+    def get_save_button_pos(self):
+        return (self.__save_button.x,
+                self.__save_button.y)
 
-    def SAVE_BUTTON(self):
-        return (self.__saveButton[0],
-                self.__saveButton[1],
-                self.__saveButton[2],
-                self.__saveButton[3])
+    def get_save_button_size(self):
+        return (self.__save_button.width,
+                self.__save_button.height)
 
-    def updateRetryButton(self, x, y, sizeW, sizeH):
-        self.__retryButton = [x, y, sizeW, sizeH]
+    def set_retry_button_pos(self, x, y):
+        self.__retry_button.x = x
+        self.__retry_button.y = y
 
-    def resetRetryButton(self):
-        self.__retryButton = [-1, -1, 0, 0]
+    def get_retry_button_pos(self):
+        return (self.__retry_button.x,
+                self.__retry_button.y)
 
-    def RETRY_BUTTON(self):
-        return (self.__retryButton[0],
-                self.__retryButton[1],
-                self.__retryButton[2],
-                self.__retryButton[3])
+    def get_retry_button_size(self):
+        return (self.__retry_button.width,
+                self.__retry_button.height)
 
-    def updateActionButton(self, actIndex, x, y, sizeW, sizeH):
-        if actIndex < len(self.__actionButton):
-            self.__actionButton[actIndex][0] = x
-            self.__actionButton[actIndex][1] = y
-            self.__actionButton[actIndex][2] = sizeW
-            self.__actionButton[actIndex][3] = sizeH
+    def set_action_button_pos(self, index, x, y):
+        if index < len(self.__action_button):
+            self.__action_button[index].x = x
+            self.__action_button[index].y = y
         else:
             dbg.ERROR_LOG(ACTION_ERROR_TEXT)
 
-    def resetActionButton(self, actIndex):
-        if actIndex < len(self.__actionButton):
-            self.__actionButton[actIndex][0] = -1
-            self.__actionButton[actIndex][1] = -1
-            self.__actionButton[actIndex][2] = 0
-            self.__actionButton[actIndex][3] = 0
+    def get_action_button_pos(self, index):
+        if index < len(self.__action_button):
+            return (self.__action_button[index].x,
+                    self.__action_button[index].y)
         else:
             dbg.ERROR_LOG(ACTION_ERROR_TEXT)
+            return -1, -1
 
-    def ACTION_BUTTON(self, actIndex):
-        if actIndex < len(self.__actionButton):
-            return (self.__actionButton[actIndex][0],
-                    self.__actionButton[actIndex][1],
-                    self.__actionButton[actIndex][2],
-                    self.__actionButton[actIndex][3])
+    def get_action_button_size(self, index):
+        if index < len(self.__action_button):
+            return (self.__action_button[index].width,
+                    self.__action_button[index].height)
         else:
             dbg.ERROR_LOG(ACTION_ERROR_TEXT)
-            return (-1, -1, 0, 0)
+            return 150, 60

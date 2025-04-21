@@ -343,60 +343,51 @@ class Form:
 
     # [SYSTEM BUTTON] START
     def updateConfigButton(self, x, y):
-        self.__buttonForm.updateConfigButton(x, y, 150, 60)
+        self.__buttonForm.set_config_button_pos(x, y)
 
     def resetConfigButton(self):
-        self.__buttonForm.resetConfigButton()
+        self.__buttonForm.set_config_button_pos(-1, -1)
 
     def CONFIG_BUTTON(self):
-        return self.__buttonForm.CONFIG_BUTTON()
+        return self.__buttonForm.get_config_button_pos() + self.__buttonForm.get_config_button_size()
 
     def updateHomeButton(self, x, y):
-        self.__buttonForm.updateHomeButton(x, y, 150, 60)
+        self.__buttonForm.set_home_button_pos(x, y)
 
     def resetHomeButton(self):
-        self.__buttonForm.resetHomeButton()
+        self.__buttonForm.set_home_button_pos(-1, -1)
 
     def HOME_BUTTON(self):
-        return self.__buttonForm.HOME_BUTTON()
+        return self.__buttonForm.get_home_button_pos() + self.__buttonForm.get_home_button_size()
 
     def updateExitButton(self, x, y):
-        self.__buttonForm.updateExitButton(x, y, 150, 60)
+        self.__buttonForm.set_exit_button_pos(x, y)
 
     def EXIT_BUTTON(self):
-        return self.__buttonForm.EXIT_BUTTON()
-
-    def updateConfigButton(self, x, y):
-        self.__buttonForm.updateConfigButton(x, y, 150, 60)
-
-    def resetConfigButton(self):
-        self.__buttonForm.resetConfigButton()
-
-    def CONFIG_BUTTON(self):
-        return self.__buttonForm.CONFIG_BUTTON()
+        return self.__buttonForm.get_exit_button_pos() + self.__buttonForm.get_exit_button_size()
     # [SYSTEM BUTTON] END
 
     # [ACTION BUTTON] START
     def updateRetryButton(self, x, y):
-        self.__buttonForm.updateRetryButton(x, y, 150, 60)
+        self.__buttonForm.set_retry_button_pos(x, y)
 
     def RETRY_BUTTON(self):
-        return self.__buttonForm.RETRY_BUTTON()
+        return self.__buttonForm.get_retry_button_pos() + self.__buttonForm.get_retry_button_size()
 
     def updateSaveButton(self, x, y):
-        self.__buttonForm.updateSaveButton(x, y, 150, 60)
+        self.__buttonForm.set_save_button_pos(x, y)
 
     def SAVE_BUTTON(self):
-        return self.__buttonForm.SAVE_BUTTON()
+        return self.__buttonForm.get_save_button_pos() + self.__buttonForm.get_save_button_size()
 
     def updateActionButton(self, actIndex, x, y):
-        self.__buttonForm.updateActionButton(actIndex, x, y, 150, 60)
+        self.__buttonForm.set_action_button_pos(actIndex, x, y)
 
     def resetActionButton(self, actIndex):
-        self.__buttonForm.resetActionButton(actIndex)
+        self.__buttonForm.set_action_button_pos(actIndex, -1, -1)
 
     def ACTION_BUTTON(self, actIndex):
-        return self.__buttonForm.ACTION_BUTTON(actIndex)
+        return self.__buttonForm.get_action_button_pos(actIndex) + self.__buttonForm.get_action_button_size(actIndex)
     # [ACTION BUTTON] END
 
     # ゲーム終了 処理
