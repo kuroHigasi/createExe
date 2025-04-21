@@ -23,11 +23,11 @@ class Form:
         for enemy in enemyList:
             i: int = 0
             posList = []
-            for pos in enemy.MOVE():
+            for pos in enemy.move:
                 posList.insert(i, [pos[0], pos[1]])
                 i += 1
             self.__enemyMove.insert(count, posList)
-            self.__enemyType.insert(count, enemy.TYPE())
+            self.__enemyType.insert(count, enemy.type)
             count += 1
         if count == 0:
             print(self.__enemyMove)

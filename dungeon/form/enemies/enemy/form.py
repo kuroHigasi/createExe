@@ -1,12 +1,19 @@
+import dataclasses
 
 
+@dataclasses.dataclass
 class Form:
-    def __init__(self, posList, type):
-        self.__move = posList
-        self.__type = type
+    _move: list
+    _type: int
 
-    def MOVE(self):
-        return self.__move
+    def __init__(self, pos_list, enemy_type):
+        self._move = pos_list
+        self._type = enemy_type
 
-    def TYPE(self):
-        return self.__type
+    @property
+    def move(self):
+        return self._move
+
+    @property
+    def type(self):
+        return self._type

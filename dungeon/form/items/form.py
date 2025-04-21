@@ -16,8 +16,8 @@ class Form:
         self.__itemFlag = []
         index: int = 0
         for item in itemList:
-            self.__itemPos.insert(index, [item.POS()[0], item.POS()[1]])
-            self.__itemType.insert(index, item.TYPE())
+            self.__itemPos.insert(index, [item.pos[0], item.pos[1]])
+            self.__itemType.insert(index, item.type)
             self.__itemFlag.insert(index, True)
             index += 1
         self.__itemCount = index

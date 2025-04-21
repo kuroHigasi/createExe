@@ -1,20 +1,31 @@
+import dataclasses
 
 
+@dataclasses.dataclass
 class Form:
-    def __init__(self, pos, way, text, type):
+    __pos: any
+    __way: int
+    __text: str
+    __type: int
+
+    def __init__(self, pos, way, text, event_type):
         self.__pos = pos
         self.__way = way
         self.__text = text
-        self.__type = type
+        self.__type = event_type
 
-    def POS(self):
+    @property
+    def pos(self):
         return self.__pos
 
-    def WAY(self):
+    @property
+    def way(self):
         return self.__way
 
-    def TEXT(self):
+    @property
+    def text(self):
         return self.__text
 
-    def TYPE(self):
+    @property
+    def type(self):
         return self.__type

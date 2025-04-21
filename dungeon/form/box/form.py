@@ -1,134 +1,158 @@
-import pyd.typeItem as ITEM_TYPE
+import dataclasses
+
+import common.button.form as button_form
+import pyd.typeItem as typeItem
 
 
+@dataclasses.dataclass
 class Form:
+    __pre_box: list
+    __pre_box_num: list
+    __pre_num: int
+    __box: list
+    __box_num: list
+    _box_button: list
+    _box_use_flag: list
+    __boxUseTurn: list
+    __flag: bool
+    __max: int
+    __num: int
+
     def __init__(self):
-        self.__preBox = [ITEM_TYPE.RADER(), -1, -1]
-        self.__preBoxNum = [1, 0, 0]
-        self.__preNum = 1
-        self.__box = [ITEM_TYPE.RADER(), -1, -1]
-        self.__boxNum = [1, 0, 0]
-        self.__boxButton = [[-1, -1, -1, -1], [-1, -1, -1, -1], [-1, -1, -1, -1]]
-        self.__boxUseFlag = [True, False, False]
+        self.__pre_box = [typeItem.RADER(), -1, -1]
+        self.__pre_box_num = [1, 0, 0]
+        self.__pre_num = 1
+        self.__box = [typeItem.RADER(), -1, -1]
+        self.__box_num = [1, 0, 0]
+        self._box_button = \
+            [button_form.Form(-1, -1, 60, 60),
+             button_form.Form(-1, -1, 60, 60),
+             button_form.Form(-1, -1, 60, 60)]
+        self._box_use_flag = [True, False, False]
         self.__boxUseTurn = [-2, -1, -1]
         self.__flag = False
         self.__max = 3
         self.__num = 1
 
     def reset(self):
-        self.__box = [self.__preBox[0], self.__preBox[1], self.__preBox[2]]
-        self.__boxNum = [self.__preBoxNum[0], self.__preBoxNum[1], self.__preBoxNum[2]]
-        self.__num = self.__preNum
-        self.__boxButton = [[-1, -1, -1, -1], [-1, -1, -1, -1], [-1, -1, -1, -1]]
-        self.__boxUseFlag = [True, False, False]
+        self.__box = [self.__pre_box[0], self.__pre_box[1], self.__pre_box[2]]
+        self.__box_num = [self.__pre_box_num[0], self.__pre_box_num[1], self.__pre_box_num[2]]
+        self.__num = self.__pre_num
+        for index in range(0, 3, 1):
+            self._box_button[index].x = -1
+            self._box_button[index].y = -1
+        self._box_use_flag = [True, False, False]
         self.__boxUseTurn = [-2, -1, -1]
 
     def clear(self):
-        self.__preBox = [ITEM_TYPE.RADER(), -1, -1]
-        self.__preBoxNum = [1, 0, 0]
-        self.__preNum = 1
-        self.__box = [ITEM_TYPE.RADER(), -1, -1]
-        self.__boxNum = [1, 0, 0]
+        self.__pre_box = [typeItem.RADER(), -1, -1]
+        self.__pre_box_num = [1, 0, 0]
+        self.__pre_num = 1
+        self.__box = [typeItem.RADER(), -1, -1]
+        self.__box_num = [1, 0, 0]
         self.__num = 1
-        self.__boxButton = [[-1, -1, -1, -1], [-1, -1, -1, -1], [-1, -1, -1, -1]]
-        self.__boxUseFlag = [True, False, False]
+        for index in range(0, 3, 1):
+            self._box_button[index].x = -1
+            self._box_button[index].y = -1
+        self._box_use_flag = [True, False, False]
         self.__boxUseTurn = [-2, -1, -1]
 
     def set(self, item):
         flag = False
-        itemIndex = -1
-        if (self.__num < self.__max):
+        item_index = -1
+        if self.__num < self.__max:
             # 同じアイテム存在チェック
-            for index in (0, self.__num, 1):
+            for index in range(0, self.__num, 1):
                 if self.__box[index] == item:
-                    itemIndex = index
+                    item_index = index
                     flag = True
             # アイテム被りなし
-            if not (flag):
-                for index in (0, self.__num, 1):
+            if not flag:
+                for index in range(0, self.__num, 1):
                     if self.__box[index] == -1:
                         self.__box[index] = item
-                        self.__boxNum[index] += 1
+                        self.__box_num[index] += 1
                         self.__num += 1
                         break
             else:
-                self.__boxNum[itemIndex] += 1
+                self.__box_num[item_index] += 1
             return True
         else:
             return False
 
     def watch(self, num):
-        return (self.__box[num], self.__boxNum[num])
+        return self.__box[num], self.__box_num[num]
 
-    def preWatch(self, num):
-        return (self.__preBox[num], self.__preBoxNum[num])
+    def pre_watch(self, num):
+        return self.__pre_box[num], self.__pre_box_num[num]
 
-    def updatePre(self):
-        self.__preBox = [self.__box[0], self.__box[1], self.__box[2]]
-        self.__preBoxNum = [self.__boxNum[0], self.__boxNum[1], self.__boxNum[2]]
-        self.__preNum = self.__num
+    def update_pre(self):
+        self.__pre_box = [self.__box[0], self.__box[1], self.__box[2]]
+        self.__pre_box_num = [self.__box_num[0], self.__box_num[1], self.__box_num[2]]
+        self.__pre_num = self.__num
 
-    def updateBoxButton(self, index, x, y):
+    def set_box_button_pos(self, index, x, y):
         if index < self.__max and 0 < self.__num:
             if self.__box[index] != -1:
-                self.__boxButton[index][0] = x
-                self.__boxButton[index][1] = y
-                self.__boxButton[index][2] = 60
-                self.__boxButton[index][3] = 60
+                self._box_button[index].x = x
+                self._box_button[index].y = y
             else:
-                self.__boxButton[index][0] = -1
-                self.__boxButton[index][1] = -1
-                self.__boxButton[index][2] = -1
-                self.__boxButton[index][3] = -1
+                self._box_button[index].x = -1
+                self._box_button[index].y = -1
 
-    def BOX_BUTTON(self, index):
+    def get_box_button_pos(self, index):
         if index < self.__max and 0 < self.__num:
-            return (self.__boxButton[index][0],
-                    self.__boxButton[index][1],
-                    self.__boxButton[index][2],
-                    self.__boxButton[index][3])
+            return (self._box_button[index].x,
+                    self._box_button[index].y)
         else:
-            return (-1, -1, -1, -1)
+            return -1, -1
 
-    def useItem(self, index):
+    def get_box_button_size(self, index):
         if index < self.__max and 0 < self.__num:
-            if self.__box[index] != -1 and not (self.__boxUseFlag[index]):
-                self.__boxUseFlag[index] = True
+            return (self._box_button[index].width,
+                    self._box_button[index].height)
+        else:
+            return 60, 60
+
+    def use_item(self, index):
+        if index < self.__max and 0 < self.__num:
+            if self.__box[index] != -1 and not (self._box_use_flag[index]):
+                self._box_use_flag[index] = True
                 self.__boxUseTurn[index] = 10
 
-    def BOX_USE_FLAG(self, index):
+    def get_use_flag(self, index):
         if index < self.__max and 0 < self.__num:
-            return self.__boxUseFlag[index]
+            return self._box_use_flag[index]
         else:
             return False
 
-    def pickUp(self, index):
+    def pickup(self, index):
         if index < self.__max and 0 < self.__num:
-            if self.__boxUseFlag[index]:
+            if self._box_use_flag[index]:
                 if self.__boxUseTurn[index] == 0:
-                    self.__boxUseFlag[index] = False
-                    self.__boxNum[index] -= 1
-                    if self.__boxNum[index] == 0:
+                    self._box_use_flag[index] = False
+                    self.__box_num[index] -= 1
+                    if self.__box_num[index] == 0:
                         self.__num -= 1
                         self.__box[index] = -1
-                    return (-1, 0)
+                    return -1, 0
                 elif self.__boxUseTurn[index] == -2:
-                    return (self.__box[index], self.__boxNum[index])
+                    return self.__box[index], self.__box_num[index]
                 else:
                     # アイテム 使用期間中
-                    return (self.__box[index], self.__boxNum[index])
+                    return self.__box[index], self.__box_num[index]
             else:
-                return (-1, 0)
+                return -1, 0
         else:
-            return (-1, 0)
+            return -1, 0
 
-    def flagOn(self):
+    def flag_on(self):
         self.__flag = True
 
-    def FLAG(self):
+    def get_flag(self):
         return self.__flag
 
-    def useItemTurnCountup(self):
+    def use_turn_count_up(self):
         if self.__flag:
             self.__flag = False
             if self.__boxUseTurn[0] != -1:
@@ -138,8 +162,5 @@ class Form:
             if self.__boxUseTurn[2] != -1:
                 self.__boxUseTurn[2] -= 1
 
-    def NUM(self):
-        return self.__num
-
-    def PRE_NUM(self):
-        return self.__preNum
+    def get_pre_num(self):
+        return self.__pre_num

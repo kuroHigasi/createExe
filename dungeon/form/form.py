@@ -26,28 +26,26 @@ class Form:
         self.__logForm = LogForm.Form()
         self.__boxForm = BoxForm.Form()
         self.__imgList = DungeonImg.Download.dungeonImag()
-        self.__eventFont = pygame.font.Font(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf")), 16)
-        self.__itemFont = pygame.font.Font(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf")), 16)
         self.__endFlag = False
 
     def reset(self, floor: int):
         if floor > len(MapForm.dungeon):
-            self.__actionForm.countTotal()
-            self.__actionForm.countReset()
+            self.__actionForm.total_count_up()
+            self.__actionForm.count_reset()
             self.__abnormalForm.recover()
             self.__logForm.resetLog()
-            if self.__actionForm.FLAG() is True:
-                self.__actionForm.flagOff()
+            if self.__actionForm.get_flag() is True:
+                self.__actionForm.flag_off()
             dbg.LOG("最上階へ到達しました")
             return True
         else:
             self.__mapForm.reset(floor)
-            self.__actionForm.countTotal()
-            self.__actionForm.countReset()
+            self.__actionForm.total_count_up()
+            self.__actionForm.count_reset()
             self.__abnormalForm.recover()
             self.__logForm.resetLog()
-            if self.__actionForm.FLAG() is True:
-                self.__actionForm.flagOff()
+            if self.__actionForm.get_flag() is True:
+                self.__actionForm.flag_off()
             return False
 
     def updateWay(self, opeForm):
@@ -138,7 +136,7 @@ class Form:
         self.__mapForm.updateSituation()
 
     def enemyMove(self):
-        if self.__actionForm.FLAG():
+        if self.__actionForm.get_flag():
             self.__mapForm.enemyMove()
 
     def FLOOR(self):
@@ -270,7 +268,7 @@ class Form:
         return self.__mapForm.itemFlagOff()
 
     def itemBoxPreUpdate(self):
-        return self.__boxForm.updatePre()
+        return self.__boxForm.update_pre()
 
     def itemBoxReset(self):
         return self.__boxForm.reset()
@@ -279,33 +277,33 @@ class Form:
         return self.__boxForm.clear()
 
     def itemBoxUse(self, index):
-        return self.__boxForm.useItem(index)
+        return self.__boxForm.use_item(index)
 
     def itemBoxButtonUpdate(self, index, x, y):
-        return self.__boxForm.updateBoxButton(index, x, y)
+        return self.__boxForm.set_box_button_pos(index, x, y)
 
     def BOX_BUTTON(self, index):
-        return self.__boxForm.BOX_BUTTON(index)
+        return self.__boxForm.get_box_button_pos(index) + self.__boxForm.get_box_button_size(index)
 
     def itemBoxUseFlag(self, index):
-        return self.__boxForm.BOX_USE_FLAG(index)
+        return self.__boxForm.get_use_flag(index)
 
     def itemBoxDispIndex(self, index):
-        if self.__boxForm.BOX_USE_FLAG(index):
+        if self.__boxForm.get_use_flag(index):
             return 1
         return 0
 
     def itemBoxPickUp(self, index):
-        return self.__boxForm.pickUp(index)
+        return self.__boxForm.pickup(index)
 
     def itemBoxUseTurnCount(self):
-        return self.__boxForm.useItemTurnCountup()
+        return self.__boxForm.use_turn_count_up()
 
     def itemBoxFlagOn(self):
-        self.__boxForm.flagOn()
+        self.__boxForm.flag_on()
 
     def BOX_FLAG(self):
-        self.__boxForm.FLAG()
+        self.__boxForm.get_flag()
     # [ITEM] END
 
     def IMG_LIST(self):
@@ -313,23 +311,23 @@ class Form:
 
     # [ACTION FORM] START
     def actionFlagOn(self):
-        self.__actionForm.flagOn()
+        self.__actionForm.flag_on()
 
     def actionFlagOff(self):
-        if self.__actionForm.flagOff():
-            self.__actionForm.countUp()
+        if self.__actionForm.flag_off():
+            self.__actionForm.count_up()
 
     def ACTION_FLAG(self):
-        return self.__actionForm.FLAG()
+        return self.__actionForm.get_flag()
 
     def COUNT(self):
-        return self.__actionForm.COUNT()
+        return self.__actionForm.get_count()
 
     def updateTotalCount(self, count: int):
-        return self.__actionForm.updateTotalCount(count)
+        return self.__actionForm.count_to_total_count(count)
 
     def TOTAL_COUNT(self):
-        return self.__actionForm.TOTAL_COUNT()
+        return self.__actionForm.get_total_count()
     # [ACTION FORM] END
 
     def existDiffWay(self):
@@ -450,12 +448,12 @@ class Form:
     def CREATE_INPUTDATA(self):
         data0 = str(self.__mapForm.FLOOR())
         data1 = str(self.__actionForm.TOTAL_COUNT())
-        data2 = str(self.__boxForm.PRE_NUM())
-        (item0, itemNum0) = self.__boxForm.preWatch(0)
+        data2 = str(self.__boxForm.get_pre_num())
+        (item0, itemNum0) = self.__boxForm.pre_watch(0)
         data3 = str(item0) + "," + str(itemNum0)
-        (item1, itemNum1) = self.__boxForm.preWatch(1)
+        (item1, itemNum1) = self.__boxForm.pre_watch(1)
         data4 = str(item1) + "," + str(itemNum1)
-        (item2, itemNum2) = self.__boxForm.preWatch(2)
+        (item2, itemNum2) = self.__boxForm.pre_watch(2)
         data5 = str(item2) + "," + str(itemNum2)
         return data0 + "," + data1 + "," + data2 + "," + data3 + "," + data4 + "," + data5
 

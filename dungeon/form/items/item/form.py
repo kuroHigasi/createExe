@@ -1,10 +1,19 @@
-class Form:
-    def __init__(self, pos, type):
-        self.__pos = pos
-        self.__type = type
+import dataclasses
 
-    def POS(self):
+
+@dataclasses.dataclass
+class Form:
+    __pos: any
+    __type: int
+
+    def __init__(self, pos, item_type):
+        self.__pos = pos
+        self.__type = item_type
+
+    @property
+    def pos(self):
         return self.__pos
 
-    def TYPE(self):
+    @property
+    def type(self):
         return self.__type

@@ -1,4 +1,4 @@
-import common.debug as dbg
+import common.debug.debug as dbg
 import common.button.form as button_form
 
 

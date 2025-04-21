@@ -19,10 +19,10 @@ class Form:
         self.__eventFlag = []
         index: int = 0
         for event in eventList:
-            self.__eventPos.insert(index, [event.POS()[0], event.POS()[1]])
-            self.__eventWay.insert(index, event.WAY())
-            self.__eventText.insert(index, event.TEXT())
-            self.__eventType.insert(index, event.TYPE())
+            self.__eventPos.insert(index, [event.pos[0], event.pos[1]])
+            self.__eventWay.insert(index, event.way)
+            self.__eventText.insert(index, event.text)
+            self.__eventType.insert(index, event.type)
             self.__eventFlag.insert(index, True)
             index += 1
         self.__eventCount = index

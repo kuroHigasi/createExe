@@ -12,4 +12,4 @@ class Form:
         self.__status = calc.bitmask(self.__status, 0b0001)
 
     def IS_DEATH(self):
-        return (calc.maskAndRight(self.__status, 0b0001, 0) == 0b0001)
+        return calc.maskAndRight(self.__status, 0b0001, 0) == 0b0001
