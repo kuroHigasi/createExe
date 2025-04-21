@@ -33,7 +33,7 @@ class Form:
             self.__actionForm.total_count_up()
             self.__actionForm.count_reset()
             self.__abnormalForm.recover()
-            self.__logForm.resetLog()
+            self.__logForm.reset()
             if self.__actionForm.get_flag() is True:
                 self.__actionForm.flag_off()
             dbg.LOG("最上階へ到達しました")
@@ -43,7 +43,7 @@ class Form:
             self.__actionForm.total_count_up()
             self.__actionForm.count_reset()
             self.__abnormalForm.recover()
-            self.__logForm.resetLog()
+            self.__logForm.reset()
             if self.__actionForm.get_flag() is True:
                 self.__actionForm.flag_off()
             return False
@@ -407,27 +407,27 @@ class Form:
 
     # [LOG] START
     def resetLog(self):
-        self.__logForm.resetLog()
+        self.__logForm.reset()
 
     def updateLog(self):
         (text, type) = Form.__getEventText(self.__mapForm)
-        if ("" != text):
-            self.__logForm.addLog(type + text)
+        if "" != text:
+            self.__logForm.add_log(type + text)
 
     def LOG(self):
-        return self.__logForm.LOG()
+        return self.__logForm.get_log()
 
     def logFlagOff(self):
-        self.__logForm.logFlagOff()
+        self.__logForm.flag_off()
 
     def logFlagOn(self):
-        self.__logForm.logFlagOn()
+        self.__logForm.flag_on()
 
     def UPDATE_LOG_FLAG(self):
-        return self.__logForm.UPDATE_LOG_FLAG()
+        return self.__logForm.get_flag()
 
     def LOG_NUM(self):
-        return self.__logForm.LOG_NUM()
+        return self.__logForm.get_log_num()
     # [LOG] END
 
     # [FONT] START
