@@ -94,7 +94,7 @@ class Display(cmn.cmnDisplay):
 
     def dispInfo(self, screen, dungeonForm, flash, posX: int, posY: int):
         floor = dungeonForm.FLOOR()
-        font = dungeonForm.FONT()
+        font = dungeonForm.font()
         imgList = dungeonForm.IMG_LIST()
         numberPosX = posX+90
         if not (dungeonForm.IS_DEATH()):
@@ -111,7 +111,7 @@ class Display(cmn.cmnDisplay):
 
     def dispConversationText(self, screen, dungeonForm, x: int, y: int):
         imgList = dungeonForm.IMG_LIST()
-        font = dungeonForm.EVENT_FONT()
+        font = dungeonForm.event_font()
         log = dungeonForm.LOG()
         logNum = dungeonForm.LOG_NUM()
         screen.blit(imgList[INDEX.BOARD_M()][0], (x, y))
@@ -182,11 +182,11 @@ class Display(cmn.cmnDisplay):
         textList[2] = Display.__dispBoxItem(self, screen, imgList, posX+120, posY, x, y, dungeonForm, 2)
         for text in textList:
             if text != "":
-                super().dispText(screen, dungeonForm.ITEM_FONT(), text, x+10, y-10, cmn.Colors.black)
+                super().dispText(screen, dungeonForm.item_font(), text, x+10, y-10, cmn.Colors.black)
 
 
     def __dispBoxItem(self, screen, imgList, posX, posY, x, y, dungeonForm, index):
-        itemFont = dungeonForm.ITEM_FONT()
+        itemFont = dungeonForm.item_font()
         color = cmn.Colors.black
         text = ""
         (item, itemCount) = dungeonForm.watchBox(index)

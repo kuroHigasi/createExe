@@ -26,7 +26,6 @@ class Form:
         self.__logForm = LogForm.Form()
         self.__boxForm = BoxForm.Form()
         self.__imgList = DungeonImg.Download.dungeonImag()
-        self.__font = pygame.font.Font(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf")), 34)
         self.__eventFont = pygame.font.Font(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf")), 16)
         self.__itemFont = pygame.font.Font(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf")), 16)
         self.__endFlag = False
@@ -443,14 +442,17 @@ class Form:
     # [LOG] END
 
     # [FONT] START
-    def FONT(self):
-        return self.__font
+    @staticmethod
+    def font():
+        return pygame.font.Font(str(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf"))), 34)
 
-    def EVENT_FONT(self):
-        return self.__eventFont
+    @staticmethod
+    def event_font():
+        return pygame.font.Font(str(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf"))), 16)
 
-    def ITEM_FONT(self):
-        return self.__itemFont
+    @staticmethod
+    def item_font():
+        return pygame.font.Font(str(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf"))), 16)
     # [FONT] END
 
     # [SAVE/LOAD] START
