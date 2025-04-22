@@ -105,7 +105,7 @@ class Display(cmn.cmnDisplay):
             # ACTION COUNT
             screen.blit(imgList[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (posX + 27, posY + 90))
             screen.blit(imgList[INDEX.TEXT5()][img.Select.TEXT_FLASH(flash(1)) + 6], (posX + 103, posY + 90))
-            super().dispNumber(screen, font, dungeonForm.get_count(), numberPosX, posY+130)
+            super().dispNumber(screen, font, dungeonForm.COUNT(), numberPosX, posY+130)
         else:
             screen.blit(imgList[INDEX.BOARD_S()][1], (posX, posY))
 

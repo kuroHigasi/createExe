@@ -5,6 +5,7 @@ import pyd.typeEnemy as ENEMY_TYPE
 
 
 class Action:
+    @staticmethod
     def go(DungeonForm, opeForm, configForm):
         isDeath = DungeonForm.IS_DEATH()
         goKeyType = configForm.get_go_key_type()

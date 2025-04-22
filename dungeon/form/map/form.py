@@ -53,7 +53,7 @@ class Form:
         self.__eventsForm = EventsForm.Form()
         self.__eventsForm.regist(eventList)
         self.__itemsForm = ItemsForm.Form()
-        self.__itemsForm.regist(itemList)
+        self.__itemsForm.register(itemList)
 
     def reset(self, floor=1):
         if 0 < floor and floor <= len(dungeon):
@@ -81,7 +81,7 @@ class Form:
             self.__map = initMap
             self.__enemiesForm.regist(enemyList)
             self.__eventsForm.regist(eventList)
-            self.__itemsForm.regist(itemList)
+            self.__itemsForm.register(itemList)
         else:
             dbg.ERROR_LOG("[MapForm.__set]存在しない階数を指定しています")
 

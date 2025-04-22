@@ -1,49 +1,55 @@
-import common.debug as dbg
+import dataclasses
+import common.debug.debug as dbg
 
 
+@dataclasses.dataclass
 class Form:
+    _item_count: int
+    _item_pos: list
+    _item_type: list
+    _item_flag: list
+    _get_flag: bool
+    _get_index: int
+
     def __init__(self):
-        self.__itemCount = 0
-        self.__itemPos = []
-        self.__itemType = []
-        self.__itemFlag = []
-        self.__getFlag = False
-        self.__getIndex = 0
+        self._item_count = 0
+        self._item_pos = []
+        self._item_type = []
+        self._item_flag = []
+        self._get_flag = False
+        self._get_index = 0
 
-    def regist(self, itemList):
-        self.__itemPos = []
-        self.__itemType = []
-        self.__itemFlag = []
+    def register(self, item_list):
+        self._item_pos = []
+        self._item_type = []
+        self._item_flag = []
         index: int = 0
-        for item in itemList:
-            self.__itemPos.insert(index, [item.pos[0], item.pos[1]])
-            self.__itemType.insert(index, item.type)
-            self.__itemFlag.insert(index, True)
+        for item in item_list:
+            self._item_pos.insert(index, [item.pos[0], item.pos[1]])
+            self._item_type.insert(index, item.type)
+            self._item_flag.insert(index, True)
             index += 1
-        self.__itemCount = index
-
-    def ITEM_COUNT(self):
-        return self.__itemCount
+        self._item_count = index
 
     def getItem(self, pos):
         index = 0
-        for itemPos in self.__itemPos:
+        for itemPos in self._item_pos:
             if itemPos[0] == pos[0] and itemPos[1] == pos[1]:
-                if self.__itemFlag[index] is True:
-                    self.__getFlag = True
-                    self.__getIndex = index
-                    return self.__itemType[index]
+                if self._item_flag[index] is True:
+                    self._get_flag = True
+                    self._get_index = index
+                    return self._item_type[index]
             else:
-                self.__getFlag = False
+                self._get_flag = False
             index += 1
         return -1
 
     def ITEM_GET_FLAG(self):
-        return self.__getFlag
+        return self._get_flag
 
     def flagOff(self):
-        if self.__getFlag is True:
-            self.__getFlag = False
-            self.__itemFlag[self.__getIndex] = False
+        if self._get_flag is True:
+            self._get_flag = False
+            self._item_flag[self._get_index] = False
         else:
             dbg.ERROR_LOG("ITEM_FLAG False ERROR!")
