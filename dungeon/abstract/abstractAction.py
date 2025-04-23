@@ -4,7 +4,7 @@ from abc import ABCMeta, abstractmethod
 class AbstractAction(ABCMeta):
 	@staticmethod
 	@abstractmethod
-	def execute(dungeon_form, request):
+	def execute(dungeon_form, ope_form, request):
 		pass
 
 	@staticmethod

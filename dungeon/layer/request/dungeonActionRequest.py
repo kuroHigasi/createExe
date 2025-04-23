@@ -2,16 +2,12 @@ import dataclasses
 
 
 @dataclasses.dataclass
-class DungeonStatusRequest:
+class DungeonActionRequest:
 	_is_death: bool
 	_is_go_action_on: bool
 	_is_step_action_on: bool
-	_diff_way_flag: bool
-	_diff_pos_flag: bool
-	_diff_view_flag: bool
 	_log_flag: bool
 	_box_flag: bool
-	_act_flag: bool
 	_start_pos_x: int
 	_start_pos_y: int
 	_enemy_count: int
@@ -35,28 +31,12 @@ class DungeonStatusRequest:
 		return self._is_step_action_on
 
 	@property
-	def diff_way_flag(self):
-		return self._diff_way_flag
-
-	@property
-	def diff_pos_flag(self):
-		return self._diff_pos_flag
-
-	@property
-	def diff_view_flag(self):
-		return self._diff_view_flag
-
-	@property
 	def log_flag(self):
 		return self._log_flag
 
 	@property
 	def box_flag(self):
 		return self._box_flag
-
-	@property
-	def act_flag(self):
-		return self._act_flag
 
 	@property
 	def start_pos_x(self):

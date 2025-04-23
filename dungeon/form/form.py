@@ -87,7 +87,7 @@ class Form:
                 next_way = WAY.LEFT
             elif opeForm.get_down():
                 next_way = WAY.UP
-        self.__mapForm.updateWay(next_way)
+        self.__mapForm.set_way(next_way)
 
     def go(self):
         judDepth = self.__mapForm.NOW_POS()[0]
@@ -447,7 +447,7 @@ class Form:
     # [SAVE/LOAD] START
     def CREATE_INPUTDATA(self):
         data0 = str(self.__mapForm.FLOOR())
-        data1 = str(self.__actionForm.TOTAL_COUNT())
+        data1 = str(self.__actionForm.get_total_count())
         data2 = str(self.__boxForm.get_pre_num())
         (item0, itemNum0) = self.__boxForm.pre_watch(0)
         data3 = str(item0) + "," + str(itemNum0)

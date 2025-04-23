@@ -85,7 +85,7 @@ class Form:
         else:
             dbg.ERROR_LOG("[MapForm.__set]存在しない階数を指定しています")
 
-    def updateWay(self, way: int):
+    def set_way(self, way: int):
         self.__preWay = self.__nowWay
         self.__nowWay = way
 
@@ -151,13 +151,13 @@ class Form:
         return self.__maxDepth
 
     def existDiffWay(self):
-        return self.__preWay == self.__nowWay
+        return self.__preWay != self.__nowWay
 
     def existDiffPos(self):
         return self.__prePos[0] == self.__nowPos[0] and self.__prePos[1] == self.__nowPos[1]
 
     def existDiffView(self):
-        return self.__preView == self.__nowView
+        return self.__preView != self.__nowView
 
     def ENEMY_COUNT(self):
         return self.__enemiesForm.ENEMY_COUNT()
