@@ -9,51 +9,49 @@ import dungeon.convert as ConvertDungeon
 
 
 class Display:
-    def execute(screen, statusForm, systemForm, operationForm):
-        nowStatus = statusForm.NOW_STATUS()
-        preStatus = statusForm.PRE_STATUS()
-        dungeonForm = systemForm.DUNGEON_FORM()
-        endForm = systemForm.END_FORM()
-        saveForm = systemForm.SAVE_FORM()
-        if (nowStatus == STATUS.EXIT()):
+    @staticmethod
+    def execute(screen, status_form, system_form, ope_form):
+        now_status = status_form.NOW_STATUS()
+        pre_status = status_form.PRE_STATUS()
+        dungeon_form = system_form.DUNGEON_FORM()
+        end_form = system_form.END_FORM()
+        save_form = system_form.SAVE_FORM()
+        config_form = system_form.CONFIG_FORM()
+        if now_status == STATUS.EXIT():
             dbg.LOG("[main.DISP]終了ステータスのため何もしない")
-        elif (statusForm.NOW_STATUS() == STATUS.END()):
-            if preStatus == STATUS.DUNGEON():
-                endForm.updateActionCount(dungeonForm)
-            endDisp.Display.endDisplay(screen, endForm, operationForm, 0, 0)
-        elif (nowStatus == STATUS.HOME()):
-            Display.__homeDisp(screen, systemForm.HOME_FORM(), operationForm)
-        elif (nowStatus == STATUS.CONFIG()):
-            Display.__configDisp(screen, systemForm.CONFIG_FORM(), operationForm)
-        elif nowStatus == STATUS.SAVE():
-            saveDisp.Display.execute(saveForm, saveDisp.Display.create_request_data(screen, saveForm, operationForm))
-        elif (nowStatus == STATUS.DUNGEON()):
-            if preStatus == STATUS.HOME():
-                dungeonForm.offEndFlag()
-                floor = dungeonForm.FLOOR()
-                dungeonForm.reset(floor)
-            if preStatus == STATUS.SAVE() and saveForm.OUTPUT_DATA() != "":
-                dungeonForm.offEndFlag()
-                floor = ConvertDungeon.Convert.getFloor(saveForm.OUTPUT_DATA())
-                dungeonForm.reset(floor)
-            Display.__dungeonInfo(screen, systemForm.DUNGEON_FORM(), systemForm, operationForm)
+        elif now_status == STATUS.END():
+            if pre_status == STATUS.DUNGEON():
+                end_form.updateActionCount(dungeon_form)
+            endDisp.Display.endDisplay(screen, end_form, ope_form, 0, 0)
+        elif now_status == STATUS.HOME():
+            Display.__homeDisp(screen, system_form.HOME_FORM(), ope_form)
+        elif now_status == STATUS.CONFIG():
+            configDisp.Display.execute(
+                config_form,
+                configDisp.Display.create_request_data(screen, config_form, ope_form))
+        elif now_status == STATUS.SAVE():
+            saveDisp.Display.execute(save_form, saveDisp.Display.create_request_data(screen, save_form, ope_form))
+        elif now_status == STATUS.DUNGEON():
+            if pre_status == STATUS.HOME():
+                dungeon_form.offEndFlag()
+                floor = dungeon_form.FLOOR()
+                dungeon_form.reset(floor)
+            if pre_status == STATUS.SAVE() and save_form.OUTPUT_DATA() != "":
+                dungeon_form.offEndFlag()
+                floor = ConvertDungeon.Convert.getFloor(save_form.OUTPUT_DATA())
+                dungeon_form.reset(floor)
+            Display.__dungeonInfo(screen, system_form.DUNGEON_FORM(), system_form, ope_form)
         else:
-            dbg.ERROR_LOG("[Main.DISP]存在しないステータス:"+str(statusForm.NOW_STATUS()))
+            dbg.ERROR_LOG("[Main.DISP]存在しないステータス:"+str(status_form.NOW_STATUS()))
 
-    def __dungeonInfo(screen, dungeonForm, dispSystemForm, opeForm):
-        flash = dispSystemForm.FLASH
-        dunDisp = dungeonDisp.Display()
-        dunDisp.dispRader(screen, dungeonForm, flash, 800, 0)
-        dunDisp.dispConversationText(screen, dungeonForm, 0, 600)
-        dunDisp.dispInfo(screen, dungeonForm, flash, 800, 200)
-        dunDisp.dispActionButton(screen, dungeonForm, opeForm, flash, 800, 400)
-        dunDisp.dispSystemButton(screen, dungeonForm, opeForm, flash, 800, 600)
-        dunDisp.dispView(screen, dungeonForm, opeForm, 0, 0)
+    def __dungeonInfo(screen, dungeon_form, system_form, ope_form):
+        flash = system_form.FLASH
+        dungeonDisp.Display.dispRader(screen, dungeon_form, flash, 800, 0)
+        dungeonDisp.Display.dispConversationText(screen, dungeon_form, 0, 600)
+        dungeonDisp.Display.dispInfo(screen, dungeon_form, flash, 800, 200)
+        dungeonDisp.Display.dispActionButton(screen, dungeon_form, ope_form, flash, 800, 400)
+        dungeonDisp.Display.dispSystemButton(screen, dungeon_form, ope_form, flash, 800, 600)
+        dungeonDisp.Display.dispView(screen, dungeon_form, ope_form, 0, 0)
 
-    def __homeDisp(screen, homeForm, opeForm):
-        homeDisp.Display.dispHome(screen, homeForm, opeForm, 0, 0)
-
-    def __configDisp(screen, configForm, opeForm):
-        configDisp.Display.execute(
-            configForm,
-            configDisp.Display.create_request_data(screen, configForm, opeForm))
+    def __homeDisp(screen, home_form, ope_form):
+        homeDisp.Display.dispHome(screen, home_form, ope_form, 0, 0)

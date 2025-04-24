@@ -13,6 +13,7 @@ class Status:
         now_status = status_form.NOW_STATUS()
         config_form = system_form.CONFIG_FORM()
         save_form = system_form.SAVE_FORM()
+        dungeon_form = system_form.DUNGEON_FORM()
         # ステータス毎 処理分岐
         if now_status == STATUS.EXIT():
             dbg.LOG("[main.STATUS]終了ステータスのため何もしない")
@@ -27,7 +28,8 @@ class Status:
             save_request = save_status.Status.create_request_data(save_form, ope_form)
             save_status.Status.execute(status_form, save_request)
         elif now_status == STATUS.DUNGEON():
-            DungeonStatus.Status.nextStatus(status_form, ope_form, system_form.DUNGEON_FORM())
+            dungeon_request = DungeonStatus.Status.create_request_data(dungeon_form, ope_form)
+            DungeonStatus.Status.execute(status_form, dungeon_request)
             DungeonStatus.Status.updateLog(system_form.DUNGEON_FORM())
         else:
             dbg.ERROR_LOG("[Main.STATUS]存在しないステータス: "+str(now_status))

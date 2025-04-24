@@ -1,4 +1,4 @@
-import dungeon.form as DungeonForm
+import dungeon.form.form as DungeonForm
 import common.home.form as HomeForm
 import common.config.form.form as ConfigForm
 import common.end.form as EndForm
