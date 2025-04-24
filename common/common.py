@@ -1,13 +1,16 @@
 import pyd.hitJudge as jdg
 import common.debug.debug as dbg
 import pyd.save as SAVE
-import common.save.aes as AES_METHDO
+import common.save.aes as AES_METHOD
 import os
 import sys
 import re
 import binascii
 # LOG TEXT
 NOT_FOLDER_LOG = "フォルダがないです"
+SAVE_ERROR_LOG = "[SaveAction.__save]エラー発生"
+LOAD_ERROR_LOG = "[SaveAction.__load]エラー発生"
+DELETE_ERROR_LOG = "[SaveAction.__delete]エラー発生"
 # debug flag
 DEBUG_FLAG = True
 
@@ -54,14 +57,15 @@ class Flash:
 
 
 class Judge:
-    def click(posX, posY, sizeW, sizeH, x, y, clickX, clickY, click, funcName="test"):
+    @staticmethod
+    def click(pos_x, pos_y, width, height, x, y, click_x, click_y, click):
         # BUTTON設定有無判定
-        if not (posX == -1 and posY == -1):
+        if not (pos_x == -1 and pos_y == -1):
             # 左クリック判定
-            if (not (clickX == -1 and clickY == -1) and
-                    jdg.hitJudgeSquare(posX, posY, sizeW, sizeH, x, y) and
+            if (not (click_x == -1 and click_y == -1) and
+                    jdg.hitJudgeSquare(pos_x, pos_y, width, height, x, y) and
                     (click and
-                     jdg.hitJudgeSquare(posX, posY, sizeW, sizeH, clickX, clickY))):
+                     jdg.hitJudgeSquare(pos_x, pos_y, width, height, click_x, click_y))):
                 return True
             return False
         # BUTTON設定なし
@@ -69,23 +73,10 @@ class Judge:
             return False
 
 
-class cmnDisplay:
-    def dispText(self, screen, font, text, x, y, color=Colors.white):
-        text_surface = font.render(text, True, color)
-        text_rect = text_surface.get_rect(center=(x+text_surface.get_width() / 2, y))
-        screen.blit(text_surface, text_rect)
-
-    def dispNumber(self, screen, font, number, x, y, color=Colors.white):
-        text_surface = font.render(str(number), True, color)
-        numCount = len(str(number))
-        text_rect = text_surface.get_rect(center=(x+text_surface.get_width() / 2 - ((numCount - 1) * 6), y))
-        screen.blit(text_surface, text_rect)
-
-
-class SaveMethod(AES_METHDO.Aes):
+class SaveMethod(AES_METHOD.Aes):
     def save(self, data, head, tail):
         dbg.LOG("SAVE処理開始")
-        SaveMethod.__folderCheck()
+        SaveMethod.__folder_check()
         if not (os.path.exists(SAVE.FOLDER())):
             dbg.LOG(SAVE.FOLDER() + NOT_FOLDER_LOG)
             os.mkdir(SAVE.FOLDER())
@@ -95,24 +86,23 @@ class SaveMethod(AES_METHDO.Aes):
                 with open(SAVE.PASS(), mode='xb') as f:
                     f.write(super().encrypt(head + data + tail))
             except FileExistsError:
-                dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
+                dbg.ERROR_LOG(SAVE_ERROR_LOG)
         else:
             try:
                 with open(SAVE.PASS(), mode='rb') as f:
-                        rText = ""
                         text = self.__binaryLoad(f)
                         rj = head + "(.+)" + tail
-                        rText = re.sub(rj, "", text)
+                        r_text = re.sub(rj, "", text)
             except :
-                rText = ""
-                dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
+                r_text = ""
+                dbg.ERROR_LOG(SAVE_ERROR_LOG)
             try:
                 with open(SAVE.PASS(), mode='ab+') as f:
                     f.truncate(0)
-                    text = rText + head + data +tail
+                    text = r_text + head + data +tail
                     f.write(super().encrypt(text))
             except FileExistsError:
-                dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
+                dbg.ERROR_LOG(SAVE_ERROR_LOG)
                 return False
         dbg.LOG("SAVE処理終了")
         return True
@@ -120,7 +110,7 @@ class SaveMethod(AES_METHDO.Aes):
     def load(self, head, tail):
         dbg.LOG("LOAD処理開始")
         retData = ""
-        SaveMethod.__folderCheck()
+        SaveMethod.__folder_check()
         if not (os.path.exists(SAVE.FOLDER())):
             dbg.LOG(SAVE.FOLDER() + NOT_FOLDER_LOG)
         elif not (os.path.isfile(SAVE.PASS())):
@@ -135,35 +125,36 @@ class SaveMethod(AES_METHDO.Aes):
                         except BaseException:
                             dbg.LOG("[SaveAction.__load]取得データなし")
             except FileExistsError:
-                dbg.ERROR_LOG("[SaveAction.__load]エラー発生")
+                dbg.ERROR_LOG(LOAD_ERROR_LOG)
         dbg.LOG("LOAD処理終了")
         return retData
 
     def delete(self, head, tail):
         dbg.LOG("DELETE処理開始")
-        SaveMethod.__folderCheck()
+        SaveMethod.__folder_check()
         if not (os.path.isfile(SAVE.PASS())):
             try:
                 with open(SAVE.PASS(), mode='xb') as f:
-                    f.write("")
+                    f.write(b"")
             except FileExistsError:
-                dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
+                dbg.ERROR_LOG(DELETE_ERROR_LOG)
         else:
             try:
                 with open(SAVE.PASS(), mode='rb') as f:
                         text = self.__binaryLoad(f)
-                        rText = re.sub(head+"(.+)"+tail, "", text)
+                        r_text = re.sub(head+"(.+)"+tail, "", text)
                 try:
                     with open(SAVE.PASS(), mode='ab+') as f:
                         f.truncate(0)
-                        f.write(super().encrypt(rText))
+                        f.write(super().encrypt(r_text))
                 except FileExistsError:
-                    dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
+                    dbg.ERROR_LOG(DELETE_ERROR_LOG)
             except FileExistsError:
-                dbg.ERROR_LOG("[SaveAction.__save]エラー発生")
+                dbg.ERROR_LOG(DELETE_ERROR_LOG)
         dbg.LOG("DELETE処理終了")
 
-    def __folderCheck():
+    @staticmethod
+    def __folder_check():
         if not (os.path.exists(SAVE.FOLDER())):
             dbg.LOG(SAVE.FOLDER() + NOT_FOLDER_LOG)
             os.mkdir(SAVE.FOLDER())
