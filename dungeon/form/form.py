@@ -253,10 +253,10 @@ class Form:
         return self.__boxForm.watch(num)
 
     def itemIntoBox(self):
-        return self.__boxForm.set(self.__mapForm.getItem())
+        return self.__boxForm.item_set(self.__mapForm.getItem())
 
     def itemSetBox(self, item):
-        return self.__boxForm.set(item)
+        return self.__boxForm.item_set(item)
 
     def ITEM(self):
         return self.__mapForm.getItem()

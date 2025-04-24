@@ -13,7 +13,7 @@ class Form:
     __box_num: list
     _box_button: list
     _box_use_flag: list
-    __boxUseTurn: list
+    __box_use_turn: list
     __flag: bool
     __max: int
     __num: int
@@ -29,7 +29,7 @@ class Form:
              button_form.Form(-1, -1, 60, 60),
              button_form.Form(-1, -1, 60, 60)]
         self._box_use_flag = [True, False, False]
-        self.__boxUseTurn = [-2, -1, -1]
+        self.__box_use_turn = [-2, -1, -1]
         self.__flag = False
         self.__max = 3
         self.__num = 1
@@ -42,7 +42,7 @@ class Form:
             self._box_button[index].x = -1
             self._box_button[index].y = -1
         self._box_use_flag = [True, False, False]
-        self.__boxUseTurn = [-2, -1, -1]
+        self.__box_use_turn = [-2, -1, -1]
 
     def clear(self):
         self.__pre_box = [typeItem.RADER(), -1, -1]
@@ -55,9 +55,9 @@ class Form:
             self._box_button[index].x = -1
             self._box_button[index].y = -1
         self._box_use_flag = [True, False, False]
-        self.__boxUseTurn = [-2, -1, -1]
+        self.__box_use_turn = [-2, -1, -1]
 
-    def set(self, item):
+    def item_set(self, item):
         flag = False
         item_index = -1
         if self.__num < self.__max:
@@ -118,7 +118,7 @@ class Form:
         if index < self.__max and 0 < self.__num:
             if self.__box[index] != -1 and not (self._box_use_flag[index]):
                 self._box_use_flag[index] = True
-                self.__boxUseTurn[index] = 10
+                self.__box_use_turn[index] = 10
 
     def get_use_flag(self, index):
         if index < self.__max and 0 < self.__num:
@@ -129,14 +129,14 @@ class Form:
     def pickup(self, index):
         if index < self.__max and 0 < self.__num:
             if self._box_use_flag[index]:
-                if self.__boxUseTurn[index] == 0:
+                if self.__box_use_turn[index] == 0:
                     self._box_use_flag[index] = False
                     self.__box_num[index] -= 1
                     if self.__box_num[index] == 0:
                         self.__num -= 1
                         self.__box[index] = -1
                     return -1, 0
-                elif self.__boxUseTurn[index] == -2:
+                elif self.__box_use_turn[index] == -2:
                     return self.__box[index], self.__box_num[index]
                 else:
                     # アイテム 使用期間中
@@ -155,12 +155,12 @@ class Form:
     def use_turn_count_up(self):
         if self.__flag:
             self.__flag = False
-            if self.__boxUseTurn[0] != -1:
-                self.__boxUseTurn[0] -= 1
-            if self.__boxUseTurn[1] != -1:
-                self.__boxUseTurn[1] -= 1
-            if self.__boxUseTurn[2] != -1:
-                self.__boxUseTurn[2] -= 1
+            if self.__box_use_turn[0] != -1:
+                self.__box_use_turn[0] -= 1
+            if self.__box_use_turn[1] != -1:
+                self.__box_use_turn[1] -= 1
+            if self.__box_use_turn[2] != -1:
+                self.__box_use_turn[2] -= 1
 
     def get_pre_num(self):
         return self.__pre_num
