@@ -4,20 +4,20 @@ import pyd.hitJudge as judge
 
 class Display:
     def dispHome(screen, homeFoem, opeForm, posX: int, posY: int):
-        imgList = homeFoem.IMG_LIST()
-        screen.blit(imgList[index.HOME()][0], (posX, posY))
+        img_list = homeFoem.get_img_list()
+        screen.blit(img_list[index.HOME()][0], (posX, posY))
         # START
-        Display.__dispButton(screen, imgList, opeForm, 2, 50, 300)
-        homeFoem.updateStartButton(50, 300)
+        Display.__dispButton(screen, img_list, opeForm, 2, 50, 300)
+        homeFoem.set_start_button(50, 300)
         # LOAD
-        Display.__dispButton(screen, imgList, opeForm, 6, 50, 390)
-        homeFoem.updateLoadButton(50, 390)
+        Display.__dispButton(screen, img_list, opeForm, 6, 50, 390)
+        homeFoem.set_load_button(50, 390)
         # CONFIG
-        Display.__dispButton(screen, imgList, opeForm, 10, 50, 580)
-        homeFoem.updateConfigButton(50, 580)
+        Display.__dispButton(screen, img_list, opeForm, 10, 50, 580)
+        homeFoem.set_config_button(50, 580)
         # EXIT
-        Display.__dispButton(screen, imgList, opeForm, 0, 50, 670)
-        homeFoem.updateExitButton(50, 670)
+        Display.__dispButton(screen, img_list, opeForm, 0, 50, 670)
+        homeFoem.set_exit_button(50, 670)
 
     def __dispButton(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
         (x, y) = opeForm.get_mouse()

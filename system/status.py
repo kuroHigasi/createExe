@@ -20,7 +20,7 @@ class Status:
         elif now_status == STATUS.END():
             EndStatus.Status.nextStatus(status_form, ope_form, system_form.END_FORM())
         elif now_status == STATUS.HOME():
-            HomeStatus.Status.nextStatus(status_form, ope_form, system_form.HOME_FORM())
+            HomeStatus.Status.execute(status_form, ope_form, system_form.HOME_FORM())
         elif now_status == STATUS.CONFIG():
             config_request = ConfigStatus.Status.create_request_data(config_form, ope_form)
             ConfigStatus.Status.execute(status_form, config_form, config_request)

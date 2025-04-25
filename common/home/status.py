@@ -3,24 +3,22 @@ import pyd.status as STATUS
 
 
 class Status:
-    def nextStatus(statusForm, opeForm, homeForm):
-        nextStatus = STATUS.HOME()
-        (x, y) = opeForm.get_mouse()
-        (clickX, clickY) = opeForm.left_click_move_mouse()
-        (startX, startY) = homeForm.START_BUTTON()
-        (configX, configY) = homeForm.CONFIG_BUTTON()
-        (exitX, exitY) = homeForm.EXIT_BUTTON()
-        (loadX, loadY) = homeForm.LOAD_BUTTON()
-        if not (startX == -1 and startY == -1):
-            if (cmn.Judge.click(startX, startY, 200, 80, x, y, clickX, clickY, opeForm.is_left_click())):
-                nextStatus = STATUS.DUNGEON()
-        if not (configX == -1 and configY == -1):
-            if (cmn.Judge.click(configX, configY, 200, 80, x, y, clickX, clickY, opeForm.is_left_click())):
-                nextStatus = STATUS.CONFIG()
-        if not (exitX == -1 and exitY == -1):
-            if (cmn.Judge.click(exitX, exitY, 200, 80, x, y, clickX, clickY, opeForm.is_left_click())):
-                nextStatus = STATUS.EXIT()
-        if not (loadX == -1 and loadY == -1):
-            if (cmn.Judge.click(loadX, loadY, 200, 80, x, y, clickX, clickY, opeForm.is_left_click())):
-                nextStatus = STATUS.SAVE()
-        statusForm.updateStatus(nextStatus)
+    @staticmethod
+    def execute(status_form, ope_form, home_form):
+        next_status = STATUS.HOME()
+        left_click = ope_form.is_left_click()
+        (x, y) = ope_form.get_mouse()
+        (click_x, click_y) = ope_form.left_click_move_mouse()
+        (start_x, start_y, start_width, start_height) = home_form.get_start_button()
+        (config_x, config_y, config_width, config_height) = home_form.get_config_button()
+        (exit_x, exit_y, exit_width, exit_height) = home_form.get_exit_button()
+        (load_x, load_y, load_width, load_height) = home_form.get_load_button()
+        if cmn.Judge.click(start_x, start_y, start_width, start_height, x, y, click_x, click_y, left_click):
+            next_status = STATUS.DUNGEON()
+        if cmn.Judge.click(config_x, config_y, config_width, config_height, x, y, click_x, click_y, left_click):
+            next_status = STATUS.CONFIG()
+        if cmn.Judge.click(exit_x, exit_y, exit_width, exit_height, x, y, click_x, click_y, left_click):
+            next_status = STATUS.EXIT()
+        if cmn.Judge.click(load_x, load_y, load_width, load_height, x, y, click_x, click_y, left_click):
+            next_status = STATUS.SAVE()
+        status_form.updateStatus(next_status)
