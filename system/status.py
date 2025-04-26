@@ -32,7 +32,7 @@ class Status:
         elif now_status == STATUS.DUNGEON():
             dungeon_request = DungeonStatus.Status.create_request_data(dungeon_form, ope_form)
             DungeonStatus.Status.execute(status_form, dungeon_request)
-            DungeonStatus.Status.updateLog(system_form.DUNGEON_FORM())
+            DungeonStatus.Status.updateLog(dungeon_form)
         else:
             dbg.ERROR_LOG("[Main.STATUS]存在しないステータス: "+str(now_status))
             status_form.updateStatus(STATUS.HOME())
