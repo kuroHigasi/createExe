@@ -2,7 +2,6 @@ import common.common as cmn
 import common.abstract.home.abstractSound as abstractSound
 import common.layer.request.home.homeSoundRequest as homeSoundRequest
 import common.home.service.sound as sub_sound
-import pygame
 
 
 class Sound(abstractSound.AbstractSound):

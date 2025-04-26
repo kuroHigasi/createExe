@@ -1,6 +1,6 @@
 import dataclasses
 
-import common.download as homeImg
+import common.download as download
 import common.home.form.buttons.form as buttons_form
 
 
@@ -10,7 +10,7 @@ class Form:
     _buttons_form: buttons_form.Form
 
     def __init__(self):
-        self.__img_list = homeImg.Download.homeImag()
+        self.__img_list = download.Download.homeImag()
         self._buttons_form = buttons_form.Form()
 
     def get_img_list(self):
