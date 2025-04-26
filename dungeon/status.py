@@ -13,7 +13,7 @@ class Status(abstractStatus.AbstractStatus):
         res_status = service.get_next_status()
         if res_status.is_ok() or res_status.is_do_nothing():
             next_status = res_status.data
-            status_form.updateStatus(next_status)
+            status_form.update_status(next_status)
 
 
     @staticmethod

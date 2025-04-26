@@ -10,7 +10,7 @@ class Status(abstractStatus.AbstractStatus):
         service = sub_status.Status(request)
         res_status = service.get_next_status()
         if res_status.is_ok() or res_status.is_do_nothing():
-            status_form.updateStatus(res_status.data)
+            status_form.update_status(res_status.data)
 
     @staticmethod
     def create_request_data(home_form, ope_form):

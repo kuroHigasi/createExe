@@ -16,10 +16,10 @@ class Status(abstractStatus.AbstractStatus):
             reset_flag, next_status = res_status.data
             if reset_flag:
                 config_form.reset_config()
-            status_form.updateStatus(next_status)
+            status_form.update_status(next_status)
         elif res_status.is_do_nothing():
             reset_flag, next_status = res_status.data
-            status_form.updateStatus(next_status)
+            status_form.update_status(next_status)
 
     @staticmethod
     def create_request_data(config_form, ope_form):

@@ -1,29 +1,33 @@
+import dataclasses
 import pyd.status as STATUS
 import common.debug.debug as dbg
 
 
+@dataclasses.dataclass
 class Form:
-    def __init__(self, init_status):
-        self.__nowStatus = init_status
-        self.__preStatus = init_status
+    __now_status: int
+    __pre_status: int
 
-    def updateStatus(self, status):
+    def __init__(self, init_status):
+        self.__now_status = init_status
+        self.__pre_status = init_status
+
+    def update_status(self, status):
         if STATUS.existStatus(status):
-            if not (self.__nowStatus == status):
-                dbg.LOG("変更前ステータス:" + str(self.__nowStatus))
+            if self.__now_status != status:
+                dbg.LOG("変更前ステータス:" + str(self.__now_status))
                 dbg.LOG("変更後ステータス:" + str(status))
-            self.__preStatus = self.__nowStatus
-            self.__nowStatus = status
+            self.__pre_status = self.__now_status
+            self.__now_status = status
             return True
         else:
-            dbg.ERROR_LOG("[StatusForm.updateStatus]存在しないステータスに更新しようとしています")
+            dbg.ERROR_LOG("[StatusForm.update_status]存在しないステータスに更新しようとしています")
             return False
 
-    def NOW_STATUS(self):
-        return self.__nowStatus
+    @property
+    def now_status(self):
+        return self.__now_status
 
-    def PRE_STATUS(self):
-        return self.__preStatus
-
-    def diffStatus(self):
-        return not (self.__nowStatus == self.__preStatus)
+    @property
+    def pre_status(self):
+        return self.__pre_status

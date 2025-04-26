@@ -8,7 +8,7 @@ class Sound:
 		sound_form = systemForm.SOUND_FORM()
 		config_form = systemForm.CONFIG_FORM()
 		save_form = systemForm.SAVE_FORM()
-		nowStatus = statusForm.NOW_STATUS()
+		nowStatus = statusForm.now_status
 		# ステータス毎 処理分岐
 		if nowStatus is STATUS.HOME():
 			request_home = soundHome.Sound.create_request_data(sound_form, home_form, ope_form, config_form)

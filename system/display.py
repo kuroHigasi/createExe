@@ -11,8 +11,8 @@ import dungeon.convert as ConvertDungeon
 class Display:
     @staticmethod
     def execute(screen, status_form, system_form, ope_form):
-        now_status = status_form.NOW_STATUS()
-        pre_status = status_form.PRE_STATUS()
+        now_status = status_form.now_status
+        pre_status = status_form.pre_status
         dungeon_form = system_form.DUNGEON_FORM()
         end_form = system_form.END_FORM()
         save_form = system_form.SAVE_FORM()
