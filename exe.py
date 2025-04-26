@@ -50,10 +50,10 @@ class Main:
         self.__OperationForm.set_mouse(x, y)
 
     def EXIT_CHECK(self):
-        return self.__StatusForm.NOW_STATUS() != STATUS.EXIT()
+        return self.__StatusForm.now_status != STATUS.EXIT()
 
     def EXIT_SET(self):
-        self.__StatusForm.updateStatus(STATUS.EXIT())
+        self.__StatusForm.update_status(STATUS.EXIT())
 
     def KEYBOAD(self, key):
         if self.__SystemForm.CONFIG_FORM().get_way_key_type() == 1:

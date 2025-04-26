@@ -3,14 +3,16 @@ import common.home.sound as soundHome
 import common.save.sound as sound_save
 
 class Sound:
-	def execute(statusForm, systemForm, opeForm):
-		homeForm = systemForm.HOME_FORM()
-		soundForm = systemForm.SOUND_FORM()
+	def execute(statusForm, systemForm, ope_form):
+		home_form = systemForm.HOME_FORM()
+		sound_form = systemForm.SOUND_FORM()
 		config_form = systemForm.CONFIG_FORM()
 		save_form = systemForm.SAVE_FORM()
-		nowStatus = statusForm.NOW_STATUS()
+		nowStatus = statusForm.now_status
 		# ステータス毎 処理分岐
 		if nowStatus is STATUS.HOME():
-			soundHome.Sound.start(homeForm, opeForm, config_form, soundForm)
+			request_home = soundHome.Sound.create_request_data(sound_form, home_form, ope_form, config_form)
+			soundHome.Sound.execute(request_home)
 		elif nowStatus is STATUS.SAVE():
-			sound_save.Sound.execute(sound_save.Sound.create_request_data(soundForm, save_form, opeForm, config_form))
+			request_save = sound_save.Sound.create_request_data(sound_form, save_form, ope_form, config_form)
+			sound_save.Sound.execute(request_save)

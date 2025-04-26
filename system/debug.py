@@ -6,7 +6,7 @@ import pygame
 
 class Debug:
     def execute(statusForm, systemForm, key):
-        nowStatus = statusForm.NOW_STATUS()
+        nowStatus = statusForm.now_status
         dungeonForm = systemForm.DUNGEON_FORM()
         homeForm = systemForm.HOME_FORM()
         if key == pygame.K_x:

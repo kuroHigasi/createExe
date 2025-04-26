@@ -7,7 +7,7 @@ import common.save.action as SaveAction
 class Action:
     @staticmethod
     def execute(status_form, system_form, ope_form):
-        now_status = status_form.NOW_STATUS()
+        now_status = status_form.now_status
         dungeon_form = system_form.DUNGEON_FORM()
         config_form = system_form.CONFIG_FORM()
         save_form = system_form.SAVE_FORM()
