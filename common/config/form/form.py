@@ -22,7 +22,7 @@ class Form:
     _test_sound_index: int
 
     def __init__(self):
-        self._img_list = config_img.Download.configImag()
+        self._img_list = config_img.Download.config_img_list()
         self._tab = 0
         self._set_form = set_form.Form()
         self._buttons_form = buttons_form.Form()
