@@ -5,14 +5,14 @@ import common.common as cmn
 
 class Display:
     def endDisplay(screen, endForm, opeForm, posX: int, posY: int):
-        imgList = endForm.IMG_LIST()
-        font = endForm.FONT()
+        imgList = endForm.get_img_list()
+        font = endForm.get_font()
         screen.blit(imgList[INDEX.END()][0], (posX, posY))
         # TEXT
-        Display.__dispText(screen, font, "総行動数:" + str(endForm.COUNT()), 50, 200)
+        Display.__dispText(screen, font, "総行動数:" + str(endForm.get_count()), 50, 200)
         # HOME
         Display.__dispButton(screen, imgList, opeForm, 4, 50, 670)
-        endForm.updateHomeButton(50, 670)
+        endForm.set_home_button(50, 670)
 
     def __dispButton(screen, imgList, opeForm, buttonIndex: int, posX: int, posY: int):
         (x, y) = opeForm.get_mouse()

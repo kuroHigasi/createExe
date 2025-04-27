@@ -1,5 +1,5 @@
-import common.download as EndImg
-import common.end.button.form as ButtonForm
+import common.download as end_img
+import common.end.form.buttons.form as buttons_form
 import pyd.createPass as cPass
 import common.common as cmn
 import pygame
@@ -7,25 +7,25 @@ import pygame
 
 class Form:
     def __init__(self):
-        self.__imgList = EndImg.Download.end_img_list()
-        self.__buttonForm = ButtonForm.Form()
-        self.__font = pygame.font.Font(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf")), 34)
-        self.__actionCount = 0
+        self.__img_list = end_img.Download.end_img_list()
+        self.__buttons_form = buttons_form.Form()
+        self.__action_count = 0
 
-    def IMG_LIST(self):
-        return self.__imgList
+    def get_img_list(self):
+        return self.__img_list
 
-    def updateActionCount(self, dungeonForm):
-        self.__actionCount = dungeonForm.TOTAL_COUNT()
+    def set_action_count(self, dungeon_form):
+        self.__action_count = dungeon_form.TOTAL_COUNT()
 
-    def COUNT(self):
-        return self.__actionCount
+    def get_count(self):
+        return self.__action_count
 
-    def FONT(self):
-        return self.__font
+    @staticmethod
+    def get_font():
+        return pygame.font.Font(str(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf"))), 34)
 
-    def updateHomeButton(self, x, y):
-        return self.__buttonForm.updateHomeButton(x, y, 200, 80)
+    def set_home_button(self, x, y):
+        return self.__buttons_form.set_home_button_pos(x, y)
 
-    def HOME_BUTTON(self):
-        return self.__buttonForm.HOME_BUTTON()
+    def get_home_button(self):
+        return self.__buttons_form.get_home_button_pos() + self.__buttons_form.get_home_button_size()
