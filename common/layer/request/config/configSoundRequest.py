@@ -6,6 +6,7 @@ class ConfigSoundRequest:
 	_test_playing_flag: bool
 	_sound_list: list
 	_volume: int
+	_chanel: any
 
 	@property
 	def test_playing_flag(self):
@@ -18,3 +19,7 @@ class ConfigSoundRequest:
 	@property
 	def volume(self):
 		return self._volume
+
+	@property
+	def chanel(self):
+		return self._chanel

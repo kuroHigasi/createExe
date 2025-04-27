@@ -33,7 +33,7 @@ class Form:
 			[button_form.Form(-1, -1, 250, 25), button_form.Form(-1, -1, 250, 25)]
 		# VOLUME_SLIDER
 		self._volume_slider = button_form.Form(-1, -1, 400, 30)
-		# OK BUTTON
+		# TEST BUTTON
 		self._test_button = button_form.Form(-1, -1, 200, 80)
 
 	def set_ok_button_pos(self, x, y):
@@ -61,7 +61,7 @@ class Form:
 		self._way_button_list[index].y = y
 
 	def get_way_button_pos(self, index):
-		return self._way_button_list[index].width, self._way_button_list[index].height
+		return self._way_button_list[index].x, self._way_button_list[index].y
 
 	def get_way_button_size(self, index):
 		return self._way_button_list[index].width, self._way_button_list[index].height

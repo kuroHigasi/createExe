@@ -19,6 +19,7 @@ class Form:
     _pre_status: int
     _test_playing_flag: bool
     _test_busy_flag: bool
+    _test_sound_index: int
 
     def __init__(self):
         self._img_list = config_img.Download.configImag()
@@ -28,6 +29,7 @@ class Form:
         self._pre_status = status.HOME()
         self._test_playing_flag = False
         self._test_busy_flag = False
+        self._test_sound_index = -1
 
     @property
     def img_list(self):
@@ -196,3 +198,12 @@ class Form:
 
     def get_test_busy_flag(self):
         return self._test_busy_flag
+
+    def set_test_sound_index(self, index):
+        self._test_sound_index = index
+
+    def reset_test_sound_index(self):
+        self._test_sound_index = -1
+
+    def get_test_sound_index(self):
+        return self._test_sound_index

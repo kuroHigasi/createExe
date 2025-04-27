@@ -145,9 +145,10 @@ class Download:
 
         :rtype: list
         """
-        soundList: list = []
-        soundList.insert(0, Download.__loadMp3("common", "CLICK", 0))
-        return soundList
+        sound_list: list = []
+        sound_list.insert(0, Download.__loadMp3("common", "CLICK", 0))
+        sound_list.insert(1, Download.__loadMp3("common", "TEST", 0))
+        return sound_list
 
     def __loadImg(case, name, number):
         return pygame.image.load(cmn.resource_path(cPass.getImgPass(case, name, number)))
