@@ -1,5 +1,6 @@
 import pyd.status as STATUS
 import common.home.sound as soundHome
+import common.config.sound as sound_config
 import common.save.sound as sound_save
 
 class Sound:
@@ -8,11 +9,14 @@ class Sound:
 		sound_form = systemForm.SOUND_FORM()
 		config_form = systemForm.CONFIG_FORM()
 		save_form = systemForm.SAVE_FORM()
-		nowStatus = statusForm.now_status
+		now_status = statusForm.now_status
 		# ステータス毎 処理分岐
-		if nowStatus is STATUS.HOME():
+		if now_status is STATUS.HOME():
 			request_home = soundHome.Sound.create_request_data(sound_form, home_form, ope_form, config_form)
 			soundHome.Sound.execute(request_home)
-		elif nowStatus is STATUS.SAVE():
+		elif now_status is STATUS.CONFIG():
+			request_config = sound_config.Sound.create_request_data(sound_form, config_form, ope_form)
+			sound_config.Sound.execute(config_form, request_config)
+		elif now_status is STATUS.SAVE():
 			request_save = sound_save.Sound.create_request_data(sound_form, save_form, ope_form, config_form)
 			sound_save.Sound.execute(request_save)

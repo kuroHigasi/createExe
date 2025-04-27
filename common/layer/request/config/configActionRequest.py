@@ -14,6 +14,7 @@ class ConfigActionRequest:
 	_step2_click: bool  # 足踏みキー設定1 選択状態
 	_tab1_click: bool  # タブ選択0 選択状態
 	_tab2_click: bool  # タブ選択1 選択状態
+	_test_click: bool  # テスト選択 選択状態
 	_way_key_type: int  # 方向キー設定 現在状態
 	_go_key_type: int  # 直進キー設定 現在状態
 	_tab: int  # タブ選択 現在状態
@@ -62,6 +63,10 @@ class ConfigActionRequest:
 	@property
 	def tab2_click(self):
 		return self._tab2_click
+
+	@property
+	def test_click(self):
+		return self._test_click
 
 	@property
 	def way_key_type(self):

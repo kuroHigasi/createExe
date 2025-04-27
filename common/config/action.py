@@ -29,6 +29,11 @@ class Action(abstractAction.AbstractAction):
         res_volume = service.select_volume()
         if res_volume.is_ok():
             config_form.set_volume(res_volume.data)
+        # テスト選択
+        res_test = service.select_test()
+        if res_test.is_ok():
+            if res_test.data:
+                config_form.test_playing_flag_on()
 
     @staticmethod
     def create_request_data(config_form, ope_form):
@@ -43,6 +48,7 @@ class Action(abstractAction.AbstractAction):
         step2_x, step2_y, step2_width, step2_height = config_form.get_step_button(1)
         tab1_x, tab1_y, tab1_width, tab1_height = config_form.get_tab_button(0)
         tab2_x, tab2_y, tab2_width, tab2_height = config_form.get_tab_button(1)
+        test_x, test_y, test_width, test_height = config_form.get_test_button()
         slider_x, slider_y, slider_width, slider_height = config_form.get_volume_slider()
         way1_click = cmn.Judge.click(way1_x, way1_y, way1_width, way1_height, x, y, click_x, click_y, left_click)
         way2_click = cmn.Judge.click(way2_x, way2_y, way2_width, way2_height, x, y, click_x, click_y, left_click)
@@ -54,6 +60,7 @@ class Action(abstractAction.AbstractAction):
         tab2_click = cmn.Judge.click(tab2_x, tab2_y, tab2_width, tab2_height, x, y, click_x, click_y, left_click)
         slider_click = (
             cmn.Judge.click(slider_x, slider_y, slider_width, slider_height, x, y, click_x, click_y, left_click))
+        test_click = cmn.Judge.click(test_x, test_y, test_width, test_height, x, y, click_x, click_y, left_click)
         return \
             configRequest.ConfigActionRequest(
                 x,  # マウス位置 X
@@ -67,6 +74,7 @@ class Action(abstractAction.AbstractAction):
                 step2_click,  # 足踏みキー設定1 選択状態
                 tab1_click,  # タブ選択0 選択状態
                 tab2_click,  # タブ選択1 選択状態
+                test_click,  # TEST 選択状態
                 config_form.get_way_key_type(),  # 方向キー設定 現在状態
                 config_form.get_go_key_type(),  # 直進キー設定 現在状態
                 config_form.tab,  # タブ選択 現在状態

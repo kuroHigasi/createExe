@@ -17,6 +17,8 @@ class Form:
     _set_form: set_form
     _buttons_form: buttons_form
     _pre_status: int
+    _test_playing_flag: bool
+    _test_busy_flag: bool
 
     def __init__(self):
         self._img_list = config_img.Download.configImag()
@@ -24,6 +26,8 @@ class Form:
         self._set_form = set_form.Form()
         self._buttons_form = buttons_form.Form()
         self._pre_status = status.HOME()
+        self._test_playing_flag = False
+        self._test_busy_flag = False
 
     @property
     def img_list(self):
@@ -174,3 +178,21 @@ class Form:
             str(self._set_form.way_key_type) + "," + \
             str(self._set_form.go_key_type) + "," + \
             str(self._set_form.volume)
+
+    def test_playing_flag_off(self):
+        self._test_playing_flag = False
+
+    def test_playing_flag_on(self):
+        self._test_playing_flag = True
+
+    def get_test_playing_flag(self):
+        return self._test_playing_flag
+
+    def test_busy_flag_off(self):
+        self._test_busy_flag = False
+
+    def test_busy_flag_on(self):
+        self._test_busy_flag = True
+
+    def get_test_busy_flag(self):
+        return self._test_busy_flag
