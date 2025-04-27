@@ -85,20 +85,14 @@ class Form:
     def set_ok_button(self, x, y):
         self._buttons_form.set_ok_button_pos(x, y)
 
-    def hidden_ok_button(self):
-        self._buttons_form.hidden_ok_button()
-
     def get_ok_button(self):
-        return self._buttons_form.get_ok_button()
+        return self._buttons_form.get_ok_button_pos() + self._buttons_form.get_ok_button_size()
 
     def set_back_button(self, x, y):
         self._buttons_form.set_back_button_pos(x, y)
 
-    def hidden_back_button(self):
-        self._buttons_form.hidden_back_button()
-
     def get_back_button(self):
-        return self._buttons_form.get_back_button()
+        return self._buttons_form.get_back_button_pos() + self._buttons_form.get_back_button_size()
 
     def set_way_button(self, index, x, y):
         if 0 <= index < 2:
@@ -106,15 +100,9 @@ class Form:
         else:
             dbg.ERROR_LOG("[configForm.set_way_button] 引数不備")
 
-    def hidden_way_button(self, index):
-        if 0 <= index < 2:
-            self._buttons_form.hidden_way_button(index)
-        else:
-            dbg.ERROR_LOG("[configForm.hidden_way_button] 引数不備")
-
     def get_way_button(self, index):
         if 0 <= index < 2:
-            return self._buttons_form.get_way_button(index)
+            return self._buttons_form.get_way_button_pos(index) + self._buttons_form.get_way_button_size(index)
         else:
             dbg.ERROR_LOG("[configForm.get_way_button] 引数不備")
 
@@ -124,15 +112,9 @@ class Form:
         else:
             dbg.ERROR_LOG("[configForm.set_go_button] 引数不備")
 
-    def hidden_go_button(self, index):
-        if 0 <= index < 2:
-            self._buttons_form.hidden_go_button(index)
-        else:
-            dbg.ERROR_LOG("[configForm.hidden_go_button] 引数不備")
-
     def get_go_button(self, index):
         if 0 <= index < 2:
-            return self._buttons_form.get_go_button(index)
+            return self._buttons_form.get_go_button_pos(index) + self._buttons_form.get_go_button_size(index)
         else:
             dbg.ERROR_LOG("[configForm.get_way_button] 引数不備")
 
@@ -142,15 +124,9 @@ class Form:
         else:
             dbg.ERROR_LOG("[configForm.set_step_button] 引数不備")
 
-    def hidden_step_button(self, index):
-        if 0 <= index < 2:
-            self._buttons_form.hidden_step_button(index)
-        else:
-            dbg.ERROR_LOG("[configForm.hidden_step_button] 引数不備")
-
     def get_step_button(self, index):
         if 0 <= index < 2:
-            return self._buttons_form.get_step_button(index)
+            return self._buttons_form.get_step_button_pos(index) + self._buttons_form.get_step_button_size(index)
         else:
             dbg.ERROR_LOG("[configForm.get_step_button] 引数不備")
 
@@ -160,26 +136,23 @@ class Form:
         else:
             dbg.ERROR_LOG("[configForm.set_step_button] 引数不備")
 
-    def hidden_tab_button(self, index):
-        if 0 <= index < 2:
-            self._buttons_form.hidden_tab_button(index)
-        else:
-            dbg.ERROR_LOG("[configForm.hidden_step_button] 引数不備")
-
     def get_tab_button(self, index):
         if 0 <= index < 2:
-            return self._buttons_form.get_tab_button(index)
+            return self._buttons_form.get_tab_button_pos(index) + self._buttons_form.get_tab_button_size(index)
         else:
             dbg.ERROR_LOG("[configForm.get_step_button] 引数不備")
 
     def set_volume_slider(self, x, y):
         self._buttons_form.set_volume_slider_pos(x, y)
 
-    def hidden_volume_slider(self):
-        self._buttons_form.set_volume_slider_pos(-1, -1)
-
     def get_volume_slider(self):
-        return self._buttons_form.get_volume_slider()
+        return self._buttons_form.get_volume_slider_pos() + self._buttons_form.get_volume_slider_size()
+
+    def set_test_button(self, x, y):
+        self._buttons_form.set_test_button_pos(x, y)
+
+    def get_test_button(self):
+        return self._buttons_form.get_test_button_pos() + self._buttons_form.get_test_button_size()
 
     @property
     def pre_status(self):

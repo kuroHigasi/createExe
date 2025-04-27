@@ -43,6 +43,11 @@ class Display(abstractDisplay.AbstractDisplay):
             x, y = res_volume.data
             config_form.set_volume_slider(x, y)
 
+        res_test = service.disp_test_button()
+        if res_test.is_ok():
+            x, y = res_test.data
+            config_form.set_test_button(x, y)
+
     @staticmethod
     def create_request_data(screen, config_form: form, ope_form):
         (x, y) = ope_form.get_mouse()
@@ -56,6 +61,7 @@ class Display(abstractDisplay.AbstractDisplay):
         tab2_x, tab2_y, tab2_width, tab2_height = config_form.get_tab_button(1)
         ok_x, ok_y, ok_width, ok_height = config_form.get_ok_button()
         back_x, back_y, back_width, back_height = config_form.get_back_button()
+        test_x, test_y, test_width, test_height = config_form.get_test_button()
         return configDisplayRequest.ConfigDisplayRequest(
             screen,
             config_form.font(),
@@ -74,5 +80,6 @@ class Display(abstractDisplay.AbstractDisplay):
             config_form.get_go_key_type(),
             config_form.tab,
             config_form.get_volume(),
-            config_form.is_config_different()
+            config_form.is_config_different(),
+            Judge.hitJudgeSquare(test_x, test_y, test_width, test_height, x, y)
         )
