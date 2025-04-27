@@ -46,7 +46,7 @@ class Action(abstractAction.AbstractAction):
             enemy_pos_list.insert(index, dungeon_form.ENEMIS_POS(index))
         res_enemy_touch = service.judge_enemy_touch(now_pos, pre_pos, enemy_pos_list, pre_enemy_pos_list)
         if res_enemy_touch.is_ok():
-            index = res_enemy_touch.data
+            flag, index = res_enemy_touch.data
             enemy_type = dungeon_form.ENEMIS_TYPE(index)
             dungeon_form.disappearanceEnemy(index)
             if enemy_type == ENEMY_TYPE.DANGER():

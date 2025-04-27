@@ -22,8 +22,9 @@ class Display:
             dbg.LOG("[main.DISP]終了ステータスのため何もしない")
         elif now_status == STATUS.END():
             if pre_status == STATUS.DUNGEON():
-                end_form.updateActionCount(dungeon_form)
-            endDisp.Display.endDisplay(screen, end_form, ope_form, 0, 0)
+                end_form.set_action_count(dungeon_form)
+            request_end = endDisp.Display.create_request_data(screen, end_form, ope_form)
+            endDisp.Display.execute(end_form, request_end)
         elif now_status == STATUS.HOME():
             request_home = homeDisp.Display.create_request_data(screen, home_form, ope_form)
             homeDisp.Display.execute(home_form, request_home)

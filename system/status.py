@@ -15,11 +15,13 @@ class Status:
         save_form = system_form.SAVE_FORM()
         dungeon_form = system_form.DUNGEON_FORM()
         home_form = system_form.HOME_FORM()
+        end_form = system_form.END_FORM()
         # ステータス毎 処理分岐
         if now_status == STATUS.EXIT():
             dbg.LOG("[main.STATUS]終了ステータスのため何もしない")
         elif now_status == STATUS.END():
-            EndStatus.Status.nextStatus(status_form, ope_form, system_form.END_FORM())
+            end_request = EndStatus.Status.create_request_data(end_form, ope_form)
+            EndStatus.Status.execute(status_form, end_request)
         elif now_status == STATUS.HOME():
             home_request = HomeStatus.Status.create_request_data(home_form, ope_form)
             HomeStatus.Status.execute(status_form, home_request)
