@@ -81,5 +81,6 @@ class Display(abstractDisplay.AbstractDisplay):
             config_form.tab,
             config_form.get_volume(),
             config_form.is_config_different(),
-            Judge.hitJudgeSquare(test_x, test_y, test_width, test_height, x, y)
+            Judge.hitJudgeSquare(test_x, test_y, test_width, test_height, x, y),
+            config_form.get_test_busy_flag()
         )

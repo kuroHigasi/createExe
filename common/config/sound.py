@@ -4,7 +4,6 @@ import common.layer.request.config.configSoundRequest as configSoundRequest
 import common.config.service.sound as sub_sound
 
 
-
 class Sound(abstractSound.AbstractSound):
 	@staticmethod
 	def execute(config_form, request: configSoundRequest.ConfigSoundRequest):
@@ -21,7 +20,6 @@ class Sound(abstractSound.AbstractSound):
 
 	@staticmethod
 	def create_request_data(sound_form, config_form: form.Form, ope_form):
-
 		return configSoundRequest.ConfigSoundRequest(
 			config_form.get_test_playing_flag(),
 			sound_form.sound_list,
