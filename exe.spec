@@ -52,6 +52,7 @@ exe = EXE(
     Tree('data\\img\\save\\SAVE_BUTTON',prefix='data\\img\\save\\SAVE_BUTTON'),
     Tree('data\\fonts',prefix='data\\fonts'),
     Tree('data\\mp3\\common\\CLICK',prefix='data\\mp3\\common\\CLICK'),
+    Tree('data\\mp3\\common\\TEST',prefix='data\\mp3\\common\\TEST'),
     a.scripts,
     a.binaries,
     a.datas,

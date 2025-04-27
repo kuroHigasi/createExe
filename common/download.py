@@ -19,125 +19,129 @@ config_button_size = (250, 25)
 
 
 class Download:
-    def homeImag(case='home'):
+    @staticmethod
+    def home_img_list(case='home'):
         # return
-        imgList = []
+        img_list = []
         # init list load
-        HOME_load = []
-        BUTTON_load = []
+        home_load = []
+        button_load = []
         # download
         for file_name in range(0, IMG_NUM.HOME(), 1):
-            HOME_load.insert(int(file_name), Download.__loadImg(case, "HOME", file_name))
+            home_load.insert(int(file_name), Download.__load_img(case, "HOME", file_name))
         for file_name in range(0, IMG_NUM.BUTTON(), 1):
-            BUTTON_load.insert(int(file_name), Download.__loadImg("common", "BUTTON", file_name))
+            button_load.insert(int(file_name), Download.__load_img("common", "BUTTON", file_name))
         # init list img
-        HOME_img = []
-        BUTTON_img = []
+        home_img = []
+        button_img = []
         # img set
-        for i in range(0, len(HOME_load), 1):
-            HOME_img.insert(i, pygame.transform.scale(HOME_load[i], home_size))
-        for i in range(0, len(BUTTON_load), 1):
-            BUTTON_img.insert(i, pygame.transform.scale(BUTTON_load[i], button_size))
-        imgList.insert(HOME_INDEX.HOME(), HOME_img)
-        imgList.insert(HOME_INDEX.BUTTON(), BUTTON_img)
-        return imgList
+        for i in range(0, len(home_load), 1):
+            home_img.insert(i, pygame.transform.scale(home_load[i], home_size))
+        for i in range(0, len(button_load), 1):
+            button_img.insert(i, pygame.transform.scale(button_load[i], button_size))
+        img_list.insert(HOME_INDEX.HOME(), home_img)
+        img_list.insert(HOME_INDEX.BUTTON(), button_img)
+        return img_list
 
-    def configImag(case='config'):
+    @staticmethod
+    def config_img_list(case='config'):
         # return
-        imgList = []
+        img_list = []
         # init list load
-        CONFIG_load = []
-        CONFIG_BUTTON_load = []
-        BUTTON_load = []
-        SET_BUTTON_load = []
+        config_load = []
+        config_button_load = []
+        button_load = []
+        set_button_load = []
         # download
         for file_name in range(0, IMG_NUM.CONFIG(), 1):
-            CONFIG_load.insert(int(file_name), Download.__loadImg(case, "CONFIG", file_name))
+            config_load.insert(int(file_name), Download.__load_img(case, "CONFIG", file_name))
         for file_name in range(0, IMG_NUM.CONFIG_BUTTON(), 1):
-            CONFIG_BUTTON_load.insert(int(file_name), Download.__loadImg(case, "CONFIG_BUTTON", file_name))
+            config_button_load.insert(int(file_name), Download.__load_img(case, "CONFIG_BUTTON", file_name))
         for file_name in range(0, IMG_NUM.BUTTON(), 1):
-            BUTTON_load.insert(int(file_name), Download.__loadImg("common", "BUTTON", file_name))
+            button_load.insert(int(file_name), Download.__load_img("common", "BUTTON", file_name))
         for file_name in range(0, IMG_NUM.CONFIG_SET_BUTTON(), 1):
-            SET_BUTTON_load.insert(int(file_name), Download.__loadImg(case, "SET_BUTTON", file_name))
+            set_button_load.insert(int(file_name), Download.__load_img(case, "SET_BUTTON", file_name))
         # init list img
-        CONFIG_img = []
-        CONFIG_BUTTON_img = []
-        BUTTON_img = []
-        SET_BUTTON_img = []
+        config_img = []
+        config_button_img = []
+        button_img = []
+        set_button_img = []
         # img set
-        for i in range(0, len(CONFIG_load), 1):
-            CONFIG_img.insert(i, pygame.transform.scale(CONFIG_load[i], config_size))
-        for i in range(0, len(CONFIG_BUTTON_load), 1):
-            CONFIG_BUTTON_img.insert(i, pygame.transform.scale(CONFIG_BUTTON_load[i], config_button_size))
-        for i in range(0, len(BUTTON_load), 1):
-            BUTTON_img.insert(i, pygame.transform.scale(BUTTON_load[i], button_size))
-        for i in range(0, len(SET_BUTTON_load), 1):
-            SET_BUTTON_img.insert(i, pygame.transform.scale(SET_BUTTON_load[i], button_size))
-        imgList.insert(CONFIG_INDEX.CONFIG(),   CONFIG_img)
-        imgList.insert(CONFIG_INDEX.CONFIG_BUTTON(), CONFIG_BUTTON_img)
-        imgList.insert(CONFIG_INDEX.BUTTON(), BUTTON_img)
-        imgList.insert(CONFIG_INDEX.SET_BUTTON(), SET_BUTTON_img)
-        return imgList
+        for i in range(0, len(config_load), 1):
+            config_img.insert(i, pygame.transform.scale(config_load[i], config_size))
+        for i in range(0, len(config_button_load), 1):
+            config_button_img.insert(i, pygame.transform.scale(config_button_load[i], config_button_size))
+        for i in range(0, len(button_load), 1):
+            button_img.insert(i, pygame.transform.scale(button_load[i], button_size))
+        for i in range(0, len(set_button_load), 1):
+            set_button_img.insert(i, pygame.transform.scale(set_button_load[i], button_size))
+        img_list.insert(CONFIG_INDEX.CONFIG(),   config_img)
+        img_list.insert(CONFIG_INDEX.CONFIG_BUTTON(), config_button_img)
+        img_list.insert(CONFIG_INDEX.BUTTON(), button_img)
+        img_list.insert(CONFIG_INDEX.SET_BUTTON(), set_button_img)
+        return img_list
 
-    def endImag(case='end'):
+    @staticmethod
+    def end_img_list(case='end'):
         # return
-        imgList = []
+        img_list = []
         # init list load
-        END_load = []
-        BUTTON_load = []
+        end_load = []
+        button_load = []
         # download
         for file_name in range(0, IMG_NUM.END(), 1):
-            END_load.insert(int(file_name), Download.__loadImg(case, "END", file_name))
+            end_load.insert(int(file_name), Download.__load_img(case, "END", file_name))
         for file_name in range(0, IMG_NUM.BUTTON(), 1):
-            BUTTON_load.insert(int(file_name), Download.__loadImg("common", "BUTTON", file_name))
+            button_load.insert(int(file_name), Download.__load_img("common", "BUTTON", file_name))
         # init list img
-        END_img = []
-        BUTTON_img = []
+        end_img = []
+        button_img = []
         # img set
-        for i in range(0, len(END_load), 1):
-            END_img.insert(i, pygame.transform.scale(END_load[i], home_size))
-        for i in range(0, len(BUTTON_load), 1):
-            BUTTON_img.insert(i, pygame.transform.scale(BUTTON_load[i], button_size))
-        imgList.insert(END_INDEX.END(), END_img)
-        imgList.insert(END_INDEX.BUTTON(), BUTTON_img)
-        return imgList
+        for i in range(0, len(end_load), 1):
+            end_img.insert(i, pygame.transform.scale(end_load[i], home_size))
+        for i in range(0, len(button_load), 1):
+            button_img.insert(i, pygame.transform.scale(button_load[i], button_size))
+        img_list.insert(END_INDEX.END(), end_img)
+        img_list.insert(END_INDEX.BUTTON(), button_img)
+        return img_list
 
-    def saveImag(case='save'):
+    @staticmethod
+    def save_img_list(case='save'):
         # return
-        imgList = []
+        img_list = []
         # init list load
-        SAVE_load = []
-        BUTTON_load = []
-        LIST_load = []
-        SAVE_BUTTON_load = []
+        save_load = []
+        button_load = []
+        list_load = []
+        save_button_load = []
         # download
         for file_name in range(0, IMG_NUM.SAVE(), 1):
-            SAVE_load.insert(int(file_name), Download.__loadImg(case, "SAVE", file_name))
+            save_load.insert(int(file_name), Download.__load_img(case, "SAVE", file_name))
         for file_name in range(0, IMG_NUM.BUTTON(), 1):
-            BUTTON_load.insert(int(file_name), Download.__loadImg("common", "BUTTON", file_name))
+            button_load.insert(int(file_name), Download.__load_img("common", "BUTTON", file_name))
         for file_name in range(0, IMG_NUM.SAVE_LIST(), 1):
-            LIST_load.insert(int(file_name), Download.__loadImg(case, "LIST", file_name))
+            list_load.insert(int(file_name), Download.__load_img(case, "LIST", file_name))
         for file_name in range(0, IMG_NUM.SAVE_BUTTON(), 1):
-            SAVE_BUTTON_load.insert(int(file_name), Download.__loadImg(case, "SAVE_BUTTON", file_name))
+            save_button_load.insert(int(file_name), Download.__load_img(case, "SAVE_BUTTON", file_name))
         # init list img
-        SAVE_img = []
-        BUTTON_img = []
-        LIST_img = []
-        SAVE_BUTTON_img = []
+        save_img = []
+        button_img = []
+        list_img = []
+        save_button_img = []
         # img set
-        for i in range(0, len(SAVE_load), 1):
-            SAVE_img.insert(i, pygame.transform.scale(SAVE_load[i], save_size))
-        for i in range(0, len(BUTTON_load), 1):
-            BUTTON_img.insert(i, pygame.transform.scale(BUTTON_load[i], button_size))
-        for i in range(0, len(LIST_load), 1):
-            LIST_img.insert(i, pygame.transform.scale(LIST_load[i], list_size))
-        for i in range(0, len(SAVE_BUTTON_load), 1):
-            SAVE_BUTTON_img.insert(i, pygame.transform.scale(SAVE_BUTTON_load[i], save_button_size))
-        imgList.insert(SAVE_INDEX.SAVE(), SAVE_img)
-        imgList.insert(SAVE_INDEX.BUTTON(), BUTTON_img)
-        imgList.insert(SAVE_INDEX.LIST(), LIST_img)
-        imgList.insert(SAVE_INDEX.SAVE_BUTTON(), SAVE_BUTTON_img)
-        return imgList
+        for i in range(0, len(save_load), 1):
+            save_img.insert(i, pygame.transform.scale(save_load[i], save_size))
+        for i in range(0, len(button_load), 1):
+            button_img.insert(i, pygame.transform.scale(button_load[i], button_size))
+        for i in range(0, len(list_load), 1):
+            list_img.insert(i, pygame.transform.scale(list_load[i], list_size))
+        for i in range(0, len(save_button_load), 1):
+            save_button_img.insert(i, pygame.transform.scale(save_button_load[i], save_button_size))
+        img_list.insert(SAVE_INDEX.SAVE(), save_img)
+        img_list.insert(SAVE_INDEX.BUTTON(), button_img)
+        img_list.insert(SAVE_INDEX.LIST(), list_img)
+        img_list.insert(SAVE_INDEX.SAVE_BUTTON(), save_button_img)
+        return img_list
 
     @staticmethod
     def sound() -> list:
@@ -145,13 +149,15 @@ class Download:
 
         :rtype: list
         """
-        soundList: list = []
-        soundList.insert(0, Download.__loadMp3("common", "CLICK", 0))
-        return soundList
-
-    def __loadImg(case, name, number):
-        return pygame.image.load(cmn.resource_path(cPass.getImgPass(case, name, number)))
+        sound_list: list = []
+        sound_list.insert(0, Download.__load_mp3("common", "CLICK", 0))
+        sound_list.insert(1, Download.__load_mp3("common", "TEST", 0))
+        return sound_list
 
     @staticmethod
-    def __loadMp3(case, name, number):
+    def __load_img(case, name, number):
+        return pygame.image.load(str(cmn.resource_path(cPass.getImgPass(case, name, number))))
+
+    @staticmethod
+    def __load_mp3(case, name, number):
         return cmn.resource_path(cPass.getMp3Pass(case, name, number))

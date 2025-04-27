@@ -10,4 +10,4 @@ class Status:
         (homeX, homeY, homeSizeW, homeSizeH) = endForm.HOME_BUTTON()
         if (cmn.Judge.click(homeX, homeY, homeSizeW, homeSizeH, x, y, clickX, clickY, opeForm.is_left_click())):
             nextStatus = STATUS.HOME()
-        statusForm.updateStatus(nextStatus)
+        statusForm.update_status(nextStatus)

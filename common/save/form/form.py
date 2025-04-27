@@ -8,7 +8,7 @@ import pygame
 
 class Form:
     def __init__(self):
-        self.__img_list = IMG_LIST.Download.saveImag()
+        self.__img_list = IMG_LIST.Download.save_img_list()
         self.__buttons_form = buttons_form.Form()
         self.__pre_status = STATUS.HOME()
         self.__dispList = [[False, "データなし"], [False, "データなし"], [False, "データなし"]]

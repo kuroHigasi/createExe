@@ -17,6 +17,8 @@ class Display:
 		self._tab_touch_list = [request.tab1_touch, request.tab2_touch]
 		self._ok_touch = request.ok_touch
 		self._back_touch = request.back_touch
+		self._test_touch = request.test_touch
+		self._test_busy = request.test_busy
 		self._way_type = request.way_key_type
 		self._go_type = request.go_key_type
 		self._tab = request.tab
@@ -164,6 +166,24 @@ class Display:
 			return response.Response(data=(50, 180), result=code.Code.OK)
 		else:
 			# VOLUME SLIDER 非表示
+			return response.Response(data=(-1, -1), result=code.Code.OK)
+
+	def disp_test_button(self):
+		pos_x = 555
+		pos_y = 140
+		if self._tab == 1:
+			# TEST BUTTON 表示
+			if self._test_busy:
+				self._screen.blit(self._img_list[Index.SET_BUTTON()][12], (pos_x, pos_y))
+				return response.Response(data=(-1, -1), result=code.Code.OK)
+			else:
+				if self._test_touch:
+					self._screen.blit(self._img_list[Index.SET_BUTTON()][11], (pos_x, pos_y))
+				else:
+					self._screen.blit(self._img_list[Index.SET_BUTTON()][10], (pos_x, pos_y))
+				return response.Response(data=(pos_x, pos_y), result=code.Code.OK)
+		else:
+			# TEST BUTTON 非表示
 			return response.Response(data=(-1, -1), result=code.Code.OK)
 
 	@staticmethod
