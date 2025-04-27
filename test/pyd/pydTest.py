@@ -31,19 +31,19 @@ class TestCreatePass(unittest.TestCase):
 
 class TestHitJudge(unittest.TestCase):
     def test_1(self):
-        self.assertEqual(hitJudge.hitJudgeSquare(0, 0, 10, 10, 5, 5), True)
+        self.assertTrue(hitJudge.hitJudgeSquare(0, 0, 10, 10, 5, 5))
 
     def test_2(self):
-        self.assertEqual(hitJudge.hitJudgeSquare(0, 0, 10, 10, 5, 15), False)
+        self.assertFalse(hitJudge.hitJudgeSquare(0, 0, 10, 10, 5, 15))
 
     def test_3(self):
-        self.assertEqual(hitJudge.hitJudgeSquare(0, 0, 10, 10, 15, 15), False)
+        self.assertFalse(hitJudge.hitJudgeSquare(0, 0, 10, 10, 15, 15))
 
     def test_4(self):
-        self.assertEqual(hitJudge.hitJudgeSquare(0, 0, 10, 10, 0, 5), True)
+        self.assertTrue(hitJudge.hitJudgeSquare(0, 0, 10, 10, 0, 5))
 
     def test_5(self):
-        self.assertEqual(hitJudge.hitJudgeSquare(0, 0, 10, 10, 5, 0), True)
+        self.assertTrue(hitJudge.hitJudgeSquare(0, 0, 10, 10, 5, 0))
 
 
 class TestStatus(unittest.TestCase):
@@ -205,7 +205,7 @@ class TestNum(unittest.TestCase):
         self.assertEqual(IMG_NUM.CONFIG_BUTTON(), 3)
 
     def test_CONFIG_SET_BUTTON(self):
-        self.assertEqual(IMG_NUM.CONFIG_SET_BUTTON(), 10)
+        self.assertEqual(IMG_NUM.CONFIG_SET_BUTTON(), 13)
 
     def test_SAVE_LIST(self):
         self.assertEqual(IMG_NUM.SAVE_LIST(), 2)

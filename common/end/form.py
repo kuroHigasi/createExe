@@ -7,7 +7,7 @@ import pygame
 
 class Form:
     def __init__(self):
-        self.__imgList = EndImg.Download.endImag()
+        self.__imgList = EndImg.Download.end_img_list()
         self.__buttonForm = ButtonForm.Form()
         self.__font = pygame.font.Font(cmn.resource_path(cPass.getFontPass("DotGothic16-Regular.ttf")), 34)
         self.__actionCount = 0

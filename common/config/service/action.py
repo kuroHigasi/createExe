@@ -56,6 +56,11 @@ class Action:
 			return response.Response(data=-1, result=code.Code.ARGUMENT_ERROR)
 		return response.Response(data=-1, result=code.Code.DO_NOTHING)
 
+	def select_test(self):
+		if self._request.test_click:
+			return response.Response(data=True, result=code.Code.OK)
+		return response.Response(data=False, result=code.Code.DO_NOTHING)
+
 	def select_volume(self):
 		if self._request.slider_click:
 			if 50 <= self._request.click_pos_x <= 450:

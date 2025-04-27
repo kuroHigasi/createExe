@@ -21,6 +21,8 @@ class ConfigDisplayRequest:
 	_tab: int  # タブ選択 現在状態
 	_volume: int  # ボリューム
 	_is_set_different: bool  # 設定差分
+	_test_touch: bool  # TEST 選択状態
+	_test_busy: bool  # TEST中
 
 	@property
 	def screen(self):
@@ -93,3 +95,11 @@ class ConfigDisplayRequest:
 	@property
 	def is_set_different(self):
 		return self._is_set_different
+
+	@property
+	def test_touch(self):
+		return self._test_touch
+
+	@property
+	def test_busy(self):
+		return self._test_busy

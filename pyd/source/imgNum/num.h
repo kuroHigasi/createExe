@@ -1,7 +1,7 @@
 #define IMG_NUM_COMMON_BUTTON      16
 #define IMG_NUM_CONFIG_CONFIG      1
 #define IMG_NUM_CONFIG_BUTTON      3
-#define IMG_NUM_CONFIG_SETBUTTON   10
+#define IMG_NUM_CONFIG_SETBUTTON   13
 #define IMG_NUM_END_END            1
 #define IMG_NUM_HOME_HOME          1
 #define IMG_NUM_SAVE_SAVE          1

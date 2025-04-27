@@ -10,7 +10,7 @@ class Form:
     _buttons_form: buttons_form.Form
 
     def __init__(self):
-        self.__img_list = download.Download.homeImag()
+        self.__img_list = download.Download.home_img_list()
         self._buttons_form = buttons_form.Form()
 
     def get_img_list(self):
