@@ -87,7 +87,8 @@ class Form:
                 next_way = WAY.LEFT
             elif opeForm.get_down():
                 next_way = WAY.UP
-        self.__mapForm.set_way(next_way)
+        self.__mapForm.set_pre_way()
+        self.__mapForm.set_now_way(next_way)
 
     def go(self):
         judDepth = self.__mapForm.NOW_POS()[0]
@@ -127,13 +128,14 @@ class Form:
                 nextPos.insert(1, judWidth)
         else:
             dbg.ERROR_LOG("[action.go]存在しないWAY")
-        self.__mapForm.updatePos(nextPos)
+        self.__mapForm.set_pos(nextPos)
 
     def updateView(self):
-        self.__mapForm.updateView()
+        self.__mapForm.set_pre_view()
+        self.__mapForm.set_now_view()
 
     def updateSituation(self):
-        self.__mapForm.updateSituation()
+        self.__mapForm.set_situation()
 
     def enemyMove(self):
         if self.__actionForm.get_flag():
