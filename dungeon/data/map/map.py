@@ -6,6 +6,7 @@ import dungeon.form.enemies.enemy.form as EnemyForm
 import dungeon.form.events.event.form as EventForm
 import dungeon.form.items.item.form as ItemForm
 import dungeon.data.text.infoText as infoText
+import dungeon.form.position.form as pos_form
 
 W = 0
 P = 1
@@ -44,8 +45,8 @@ class FirstFloor:
 
     maxWidth = 5
     maxDepth = 5
-    start_pos = [4, 4]
-    goal_pos = [0, 0]
+    start_pos = pos_form.Form(4, 4)
+    goal_pos = pos_form.Form(0, 0)
     start_way = WAY.LEFT
     # ENEMY LIST
     enemyList = [EnemyForm.Form([[2, 1], [1, 1], [0, 1]], ENEMY_TYPE.DANGER())]
@@ -79,8 +80,8 @@ class SecondFloor:
     map.insert(9, [P, W, W, W, P, P, P, P, P, W])
     maxWidth = 10
     maxDepth = 10
-    start_pos = [9, 0]
-    goal_pos = [6, 8]
+    start_pos = pos_form.Form(9, 0)
+    goal_pos = pos_form.Form(6, 8)
     start_way = WAY.UP
     # ENEMY LIST
     enemyList = [EnemyForm.Form([[6, 4], [7, 4]], ENEMY_TYPE.DANGER())]
@@ -121,8 +122,8 @@ class ThirdFloor:
     map.insert(9, [P, W, W, W, P, P, P, P, P, W, W, P, P, P, W, P, W, P, P, P])
     maxWidth = 20
     maxDepth = 10
-    start_pos = [9, 0]
-    goal_pos = [4, 19]
+    start_pos = pos_form.Form(9, 0)
+    goal_pos = pos_form.Form(4, 19)
     start_way = WAY.UP
     # ENEMY LIST
     enemyList = [EnemyForm.Form([[2, 1], [1, 1], [0, 1]], ENEMY_TYPE.DANGER()),
@@ -156,8 +157,8 @@ class ForthFloor:
     map.insert(9, [P, W, W, W, P, P, P, P, P, W, W, P, P, P, W, P, W, P, P, P])
     maxWidth = 20
     maxDepth = 10
-    start_pos = [4, 19]
-    goal_pos = [4, 10]
+    start_pos = pos_form.Form(4, 19)
+    goal_pos = pos_form.Form(4, 10)
     start_way = WAY.UP
     # ENEMY LIST
     enemyList = [EnemyForm.Form([[2, 1], [1, 1], [0, 1]], ENEMY_TYPE.DANGER()),
