@@ -49,7 +49,7 @@ class Form:
             return False
 
     def updateWay(self, opeForm):
-        now_way = self.__mapForm.NOW_WAY()
+        now_way = self.__mapForm.get_now_way()
         next_way = now_way
         if now_way == WAY.UP:
             if opeForm.get_up():
@@ -91,12 +91,12 @@ class Form:
         self.__mapForm.set_now_way(next_way)
 
     def go(self):
-        judDepth = self.__mapForm.NOW_POS()[0]
-        judWidth = self.__mapForm.NOW_POS()[1]
-        nowWay = self.__mapForm.NOW_WAY()
-        map = self.__mapForm.MAP()
-        maxWidth = self.__mapForm.MAX_WIDTH()
-        maxDepth = self.__mapForm.MAX_DEPTH()
+        judDepth = self.__mapForm.get_now_pos()[0]
+        judWidth = self.__mapForm.get_now_pos()[1]
+        nowWay = self.__mapForm.get_now_way()
+        map = self.__mapForm.get_map()
+        maxWidth = self.__mapForm.get_max_width()
+        maxDepth = self.__mapForm.get_max_depth()
         nextPos = []
         if nowWay == WAY.UP:
             if cmnDungeon.Common.isPosPath(map, judDepth-1, judWidth, maxWidth, maxDepth):
@@ -139,45 +139,45 @@ class Form:
 
     def enemyMove(self):
         if self.__actionForm.get_flag():
-            self.__mapForm.enemyMove()
+            self.__mapForm.enemy_move()
 
     def FLOOR(self):
-        return self.__mapForm.FLOOR()
+        return self.__mapForm.get_now_floor()
 
     def NOW_WAY(self):
-        return self.__mapForm.NOW_WAY()
+        return self.__mapForm.get_now_way()
 
     def NOW_POS(self):
-        return self.__mapForm.NOW_POS()
+        return self.__mapForm.get_now_pos()
 
     def NOW_VIEW(self):
-        return self.__mapForm.NOW_VIEW()
+        return self.__mapForm.get_now_view()
 
     def PRE_WAY(self):
-        return self.__mapForm.PRE_WAY()
+        return self.__mapForm.get_pre_way()
 
     def PRE_POS(self):
-        return self.__mapForm.PRE_POS()
+        return self.__mapForm.get_pre_pos()
 
     def PRE_VIEW(self):
-        return self.__mapForm.PRE_VIEW()
+        return self.__mapForm.get_pre_view()
 
     def SITUATION(self):
-        return self.__mapForm.SITUATION()
+        return self.__mapForm.get_situation()
 
     def MAP(self):
-        return self.__mapForm.MAP()
+        return self.__mapForm.get_map()
 
     def START_POS(self):
-        return self.__mapForm.START_POS()
+        return self.__mapForm.get_start_pos()
 
     def GOAL_POS(self):
-        return self.__mapForm.GOAL_POS()
+        return self.__mapForm.get_goal_pos()
 
     def createAngle(self):
-        nowPos = self.__mapForm.NOW_POS()
+        nowPos = self.__mapForm.get_now_pos()
         goalPos = self.__mapForm.GOAL_POS()
-        nowWay = self.__mapForm.NOW_WAY()
+        nowWay = self.__mapForm.get_now_way()
         compassAngle = 0
         if nowPos[1] == goalPos[1]:
             if nowPos[0] < goalPos[0]:
@@ -206,68 +206,59 @@ class Form:
                 compassAngle = Form.__compassWay(270, nowWay)
         return compassAngle
 
+    @staticmethod
     def __compassWay(compassWay, nowWay):
-        addWay = 0
         if WAY.UP == nowWay:
-            addWay = 0
+            add_way = 0
         elif WAY.RIGHT == nowWay:
-            addWay = 90
+            add_way = 90
         elif WAY.LEFT == nowWay:
-            addWay = 270
+            add_way = 270
         else:
-            addWay = 180
-        return compassWay + addWay + random.randint(-2, 2)
-
-    def MAX_WIDTH(self):
-        return self.__mapForm.MAX_WIDTH()
-
-    def MAX_DEPTH(self):
-        return self.__mapForm.MAX_DEPTH()
+            add_way = 180
+        return compassWay + add_way + random.randint(-2, 2)
 
     # [ENEMY] START
     def disappearanceEnemy(self, index):
-        return self.__mapForm.disappearanceEnemy(index)
+        return self.__mapForm.disappearance_enemy(index)
 
     def ENEMY_COUNT(self):
-        return self.__mapForm.ENEMY_COUNT()
+        return self.__mapForm.get_enemy_count()
 
     def APPEAR_FLAG(self, index):
-        return self.__mapForm.APPEAR_FLAG(index)
+        return self.__mapForm.get_appear_flag(index)
 
     def ENEMIS_TYPE(self, index):
-        return self.__mapForm.ENEMY_TYPE(index)
+        return self.__mapForm.get_enemy_type(index)
 
     def ENEMIS_POS(self, index):
-        return self.__mapForm.ENEMY_POS(index)
+        return self.__mapForm.get_enemy_pos(index)
     # [ENEMY] END
 
     def eventFlagOff(self):
-        self.__mapForm.eventFlagOff()
+        self.__mapForm.event_flag_off()
 
     def getEventText(self):
-        return Form.__getEventText(self.__mapForm)
+        return self.__mapForm.get_event_text()
 
     # [ITEM] START
     def searchItem(self):
-        self.__mapForm.getItem()
+        self.__mapForm.get_item()
 
     def watchBox(self, num):
         return self.__boxForm.watch(num)
 
     def itemIntoBox(self):
-        return self.__boxForm.item_set(self.__mapForm.getItem())
+        return self.__boxForm.item_set(self.__mapForm.get_item())
 
     def itemSetBox(self, item):
         return self.__boxForm.item_set(item)
 
-    def ITEM(self):
-        return self.__mapForm.getItem()
-
     def ITEM_GET_FLAG(self):
-        return self.__mapForm.ITEM_GET_FLAG()
+        return self.__mapForm.get_item_flag()
 
     def itemFlagOff(self):
-        return self.__mapForm.itemFlagOff()
+        return self.__mapForm.item_flag_off()
 
     def itemBoxPreUpdate(self):
         return self.__boxForm.update_pre()
@@ -333,13 +324,13 @@ class Form:
     # [ACTION FORM] END
 
     def existDiffWay(self):
-        return self.__mapForm.existDiffWay()
+        return self.__mapForm.is_diff_way()
 
     def existDiffPos(self):
-        return self.__mapForm.existDiffPos()
+        return self.__mapForm.is_diff_pos()
 
     def existDiffView(self):
-        return self.__mapForm.existDiffView()
+        return self.__mapForm.is_diff_view()
 
     # [SYSTEM BUTTON] START
     def updateConfigButton(self, x, y):
@@ -412,7 +403,7 @@ class Form:
         self.__logForm.reset()
 
     def updateLog(self):
-        (text, type) = Form.__getEventText(self.__mapForm)
+        (text, type) = self.__mapForm.get_event_text()
         if "" != text:
             self.__logForm.add_log(type + text)
 
@@ -448,7 +439,7 @@ class Form:
 
     # [SAVE/LOAD] START
     def CREATE_INPUTDATA(self):
-        data0 = str(self.__mapForm.FLOOR())
+        data0 = str(self.__mapForm.get_now_floor())
         data1 = str(self.__actionForm.get_total_count())
         data2 = str(self.__boxForm.get_pre_num())
         (item0, itemNum0) = self.__boxForm.pre_watch(0)
@@ -458,7 +449,4 @@ class Form:
         (item2, itemNum2) = self.__boxForm.pre_watch(2)
         data5 = str(item2) + "," + str(itemNum2)
         return data0 + "," + data1 + "," + data2 + "," + data3 + "," + data4 + "," + data5
-
-    def __getEventText(mapForm):
-        return mapForm.getEventText()
     # [SAVE/LOAD] END

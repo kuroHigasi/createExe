@@ -13,75 +13,75 @@ dungeon = [dungeonMap.FirstFloor, dungeonMap.SecondFloor, dungeonMap.ThirdFloor,
 
 class Form:
     def __init__(self, floor=1):
-        if 0 < floor and floor <= len(dungeon):
-            initMap = dungeon[floor-1].map
-            initWay = dungeon[floor-1].start_way
+        if 0 < floor <= len(dungeon):
+            init_map = dungeon[floor-1].map
+            init_way = dungeon[floor-1].start_way
             init_pos = dungeon[floor-1].start_pos
             goal_pos = dungeon[floor-1].goal_pos
-            maxWidth = dungeon[floor-1].maxWidth
-            maxDepth = dungeon[floor-1].maxDepth
-            enemyList = dungeon[floor-1].enemyList
-            eventList = dungeon[floor-1].eventList
-            itemList = dungeon[floor-1].itemList
+            max_width = dungeon[floor-1].maxWidth
+            max_depth = dungeon[floor-1].maxDepth
+            enemy_list = dungeon[floor-1].enemyList
+            event_list = dungeon[floor-1].eventList
+            item_list = dungeon[floor-1].itemList
         else:
-            initMap = dungeon[0].map
-            initWay = dungeon[0].start_way
+            init_map = dungeon[0].map
+            init_way = dungeon[0].start_way
             init_pos = dungeon[0].start_pos
             goal_pos = dungeon[0].goal_pos
-            maxWidth = dungeon[0].maxWidth
-            maxDepth = dungeon[0].maxDepth
-            enemyList = dungeon[0].enemyList
-            eventList = dungeon[0].eventList
-            itemList = dungeon[0].itemList
+            max_width = dungeon[0].maxWidth
+            max_depth = dungeon[0].maxDepth
+            enemy_list = dungeon[0].enemyList
+            event_list = dungeon[0].eventList
+            item_list = dungeon[0].itemList
             dbg.ERROR_LOG("[MapForm.__init__]存在しない階数を指定しています")
             dbg.ERROR_LOG("[MapForm.__init__]暫定的に1階で初期化します")
         self.__floor = floor
-        self.__nowWay = initWay
-        self.__preWay = initWay
+        self.__nowWay = init_way
+        self.__preWay = init_way
         self.__nowPos = [init_pos.x, init_pos.y]
         self.__prePos = [init_pos.x, init_pos.y]
         self.__startPos = [init_pos.x, init_pos.y]
         self.__goalPos = [goal_pos.x, goal_pos.y]
-        self.__maxWidth = maxWidth
-        self.__maxDepth = maxDepth
-        self.__situation = Form.__get_situation(initMap, initWay, init_pos.x, init_pos.y, maxWidth, maxDepth)
+        self.__maxWidth = max_width
+        self.__maxDepth = max_depth
+        self.__situation = Form.__get_situation(init_map, init_way, init_pos.x, init_pos.y, max_width, max_depth)
         self.__nowView = Form.__set_view(self.__situation)
         self.__preView = self.__nowView
-        self.__map = initMap
+        self.__map = init_map
         self.__enemiesForm = EnemiesForm.Form()
-        self.__enemiesForm.regist(enemyList)
+        self.__enemiesForm.regist(enemy_list)
         self.__eventsForm = EventsForm.Form()
-        self.__eventsForm.regist(eventList)
+        self.__eventsForm.regist(event_list)
         self.__itemsForm = ItemsForm.Form()
-        self.__itemsForm.register(itemList)
+        self.__itemsForm.register(item_list)
 
     def reset(self, floor=1):
-        if 0 < floor and floor <= len(dungeon):
-            initMap = dungeon[floor-1].map
-            initWay = dungeon[floor-1].start_way
+        if 0 < floor <= len(dungeon):
+            init_map = dungeon[floor-1].map
+            init_way = dungeon[floor-1].start_way
             init_pos = dungeon[floor-1].start_pos
             goal_pos = dungeon[floor-1].goal_pos
-            maxWidth = dungeon[floor-1].maxWidth
-            maxDepth = dungeon[floor-1].maxDepth
-            enemyList = dungeon[floor-1].enemyList
-            eventList = dungeon[floor-1].eventList
-            itemList = dungeon[floor-1].itemList
+            max_width = dungeon[floor-1].maxWidth
+            max_depth = dungeon[floor-1].maxDepth
+            enemy_list = dungeon[floor-1].enemyList
+            event_list = dungeon[floor-1].eventList
+            item_list = dungeon[floor-1].itemList
             self.__floor = floor
-            self.__nowWay = initWay
-            self.__preWay = initWay
+            self.__nowWay = init_way
+            self.__preWay = init_way
             self.__nowPos = [init_pos.x, init_pos.y]
             self.__prePos = [init_pos.x, init_pos.y]
             self.__startPos = [init_pos.x, init_pos.y]
             self.__goalPos = [goal_pos.x, goal_pos.y]
-            self.__maxWidth = maxWidth
-            self.__maxDepth = maxDepth
-            self.__situation = Form.__get_situation(initMap, initWay, init_pos.x, init_pos.y, maxWidth, maxDepth)
+            self.__maxWidth = max_width
+            self.__maxDepth = max_depth
+            self.__situation = Form.__get_situation(init_map, init_way, init_pos.x, init_pos.y, max_width, max_depth)
             self.__nowView = Form.__set_view(self.__situation)
             self.__preView = self.__nowView
-            self.__map = initMap
-            self.__enemiesForm.regist(enemyList)
-            self.__eventsForm.regist(eventList)
-            self.__itemsForm.register(itemList)
+            self.__map = init_map
+            self.__enemiesForm.regist(enemy_list)
+            self.__eventsForm.regist(event_list)
+            self.__itemsForm.register(item_list)
         else:
             dbg.ERROR_LOG("[MapForm.__set]存在しない階数を指定しています")
 
@@ -102,95 +102,92 @@ class Form:
         self.__nowView = Form.__set_view(self.__situation)
 
     def set_situation(self):
-        Map = self.__map
-        Way = self.__nowWay
-        Pos = self.__nowPos
-        Width = self.__maxWidth
-        Depth = self.__maxDepth
-        self.__situation = Form.__get_situation(Map, Way, Pos[0], Pos[1], Width, Depth)
+        dungeon_map = self.__map
+        way = self.__nowWay
+        pos = self.__nowPos
+        width = self.__maxWidth
+        depth = self.__maxDepth
+        self.__situation = Form.__get_situation(dungeon_map, way, pos[0], pos[1], width, depth)
 
-    def FLOOR(self):
+    def get_now_floor(self):
         return self.__floor
 
-    def NOW_WAY(self):
+    def get_now_way(self):
         return self.__nowWay
 
-    def NOW_POS(self):
+    def get_now_pos(self):
         return self.__nowPos
 
-    def NOW_VIEW(self):
+    def get_now_view(self):
         return self.__nowView
 
-    def PRE_WAY(self):
+    def get_pre_way(self):
         return self.__preWay
 
-    def PRE_POS(self):
+    def get_pre_pos(self):
         return self.__prePos
 
-    def PRE_VIEW(self):
+    def get_pre_view(self):
         return self.__preView
 
-    def SITUATION(self):
+    def get_situation(self):
         return self.__situation
 
-    def MAP(self):
+    def get_map(self):
         return self.__map
 
-    def MAX_WIDTH(self):
+    def get_max_width(self):
         return self.__maxWidth
 
-    def MAX_DEPTH(self):
+    def get_max_depth(self):
         return self.__maxDepth
 
-    def existDiffWay(self):
+    def is_diff_way(self):
         return self.__preWay != self.__nowWay
 
-    def existDiffPos(self):
+    def is_diff_pos(self):
         return self.__prePos[0] == self.__nowPos[0] and self.__prePos[1] == self.__nowPos[1]
 
-    def existDiffView(self):
+    def is_diff_view(self):
         return self.__preView != self.__nowView
 
-    def ENEMY_COUNT(self):
+    def get_enemy_count(self):
         return self.__enemiesForm.ENEMY_COUNT()
 
-    def disappearanceEnemy(self, index):
+    def disappearance_enemy(self, index):
         self.__enemiesForm.disappearanceEnemy(index)
 
-    def APPEAR_FLAG(self, index):
+    def get_appear_flag(self, index):
         return self.__enemiesForm.APPEAR_FLAG(index)
 
-    def ENEMY_TYPE(self, index):
+    def get_enemy_type(self, index):
         return self.__enemiesForm.ENEMY_TYPE(index)
 
-    def ENEMY_POS(self, index):
+    def get_enemy_pos(self, index):
         return self.__enemiesForm.ENEMY_POS(index)
 
-    def enemyMove(self):
+    def enemy_move(self):
         return self.__enemiesForm.enemyMove()
 
-    def EVENT_FONT(self):
-        self.__eventsForm.EVENT_FONT()
-
-    def getEventText(self):
+    def get_event_text(self):
         return self.__eventsForm.getEventText(self.__nowPos, self.__nowWay)
 
-    def eventFlagOff(self):
+    def event_flag_off(self):
         self.__eventsForm.eventFlagOff(self.__nowPos)
 
-    def getItem(self):
+    def get_item(self):
         return self.__itemsForm.getItem(self.__nowPos)
 
-    def itemFlagOff(self):
+    def item_flag_off(self):
         return self.__itemsForm.flagOff()
 
-    def ITEM_GET_FLAG(self):
+    def get_item_flag(self):
         return self.__itemsForm.ITEM_GET_FLAG()
 
-    def START_POS(self):
+    def get_start_pos(self):
         return self.__startPos
 
-    def GOAL_POS(self):
+    def get_goal_pos(self):
         return self.__goalPos
 
     @staticmethod
@@ -205,206 +202,206 @@ class Form:
         return status
 
     @staticmethod
-    def __get_situation(map, now_way, depth, width, max_width, max_depth):
+    def __get_situation(dungeon_map, now_way, depth, width, max_width, max_depth):
         situation = []
         if now_way == WAY.UP:
-            situation.insert(0, Form.__create_situation(map, depth, width-1, max_width, max_depth))
-            situation.insert(1, Form.__create_situation(map, depth-1, width-1, max_width, max_depth))
-            situation.insert(2, Form.__create_situation(map, depth-1, width, max_width, max_depth))
-            situation.insert(3, Form.__create_situation(map, depth-1, width+1, max_width, max_depth))
-            situation.insert(4, Form.__create_situation(map, depth, width+1, max_width, max_depth))
-            situation.insert(5, Form.__create_situation(map, depth-2, width, max_width, max_depth))
-            situation.insert(6, Form.__create_situation(map, depth-2, width-1, max_width, max_depth))
-            situation.insert(7, Form.__create_situation(map, depth-2, width+1, max_width, max_depth))
-            situation.insert(8, Form.__create_situation(map, depth-3, width, max_width, max_depth))
-            situation.insert(9, Form.__create_situation(map, depth-3, width-1, max_width, max_depth))
-            situation.insert(10, Form.__create_situation(map, depth-3, width+1, max_width, max_depth))
-            situation.insert(11, Form.__create_situation(map, depth+1, width, max_width, max_depth))
-            situation.insert(12, Form.__create_situation(map, depth+1, width-1, max_width, max_depth))
-            situation.insert(13, Form.__create_situation(map, depth+1, width+1, max_width, max_depth))
-            situation.insert(14, Form.__create_situation(map, depth+2, width, max_width, max_depth))
-            situation.insert(15, Form.__create_situation(map, depth+2, width-1, max_width, max_depth))
-            situation.insert(16, Form.__create_situation(map, depth+2, width+1, max_width, max_depth))
-            situation.insert(17, Form.__create_situation(map, depth+3, width, max_width, max_depth))
-            situation.insert(18, Form.__create_situation(map, depth+3, width-1, max_width, max_depth))
-            situation.insert(19, Form.__create_situation(map, depth+3, width+1, max_width, max_depth))
-            situation.insert(20, Form.__create_situation(map, depth-3, width-2, max_width, max_depth))
-            situation.insert(21, Form.__create_situation(map, depth-2, width-2, max_width, max_depth))
-            situation.insert(22, Form.__create_situation(map, depth-1, width-2, max_width, max_depth))
-            situation.insert(23, Form.__create_situation(map, depth, width-2, max_width, max_depth))
-            situation.insert(24, Form.__create_situation(map, depth+1, width-2, max_width, max_depth))
-            situation.insert(25, Form.__create_situation(map, depth+2, width-2, max_width, max_depth))
-            situation.insert(26, Form.__create_situation(map, depth+3, width-2, max_width, max_depth))
-            situation.insert(27, Form.__create_situation(map, depth-3, width+2, max_width, max_depth))
-            situation.insert(28, Form.__create_situation(map, depth-2, width+2, max_width, max_depth))
-            situation.insert(29, Form.__create_situation(map, depth-1, width+2, max_width, max_depth))
-            situation.insert(30, Form.__create_situation(map, depth, width+2, max_width, max_depth))
-            situation.insert(31, Form.__create_situation(map, depth+1, width+2, max_width, max_depth))
-            situation.insert(32, Form.__create_situation(map, depth+2, width+2, max_width, max_depth))
-            situation.insert(33, Form.__create_situation(map, depth+3, width+2, max_width, max_depth))
-            situation.insert(34, Form.__create_situation(map, depth-3, width-3, max_width, max_depth))
-            situation.insert(35, Form.__create_situation(map, depth-2, width-3, max_width, max_depth))
-            situation.insert(36, Form.__create_situation(map, depth-1, width-3, max_width, max_depth))
-            situation.insert(37, Form.__create_situation(map, depth, width-3, max_width, max_depth))
-            situation.insert(38, Form.__create_situation(map, depth+1, width-3, max_width, max_depth))
-            situation.insert(39, Form.__create_situation(map, depth+2, width-3, max_width, max_depth))
-            situation.insert(40, Form.__create_situation(map, depth+3, width-3, max_width, max_depth))
-            situation.insert(41, Form.__create_situation(map, depth-3, width+3, max_width, max_depth))
-            situation.insert(42, Form.__create_situation(map, depth-2, width+3, max_width, max_depth))
-            situation.insert(43, Form.__create_situation(map, depth-1, width+3, max_width, max_depth))
-            situation.insert(44, Form.__create_situation(map, depth, width+3, max_width, max_depth))
-            situation.insert(45, Form.__create_situation(map, depth+1, width+3, max_width, max_depth))
-            situation.insert(46, Form.__create_situation(map, depth+2, width+3, max_width, max_depth))
-            situation.insert(47, Form.__create_situation(map, depth+3, width+3, max_width, max_depth))
+            situation.insert(0, Form._create_situation(dungeon_map, depth, width-1, max_width, max_depth))
+            situation.insert(1, Form._create_situation(dungeon_map, depth-1, width-1, max_width, max_depth))
+            situation.insert(2, Form._create_situation(dungeon_map, depth-1, width, max_width, max_depth))
+            situation.insert(3, Form._create_situation(dungeon_map, depth-1, width+1, max_width, max_depth))
+            situation.insert(4, Form._create_situation(dungeon_map, depth, width+1, max_width, max_depth))
+            situation.insert(5, Form._create_situation(dungeon_map, depth-2, width, max_width, max_depth))
+            situation.insert(6, Form._create_situation(dungeon_map, depth-2, width-1, max_width, max_depth))
+            situation.insert(7, Form._create_situation(dungeon_map, depth-2, width+1, max_width, max_depth))
+            situation.insert(8, Form._create_situation(dungeon_map, depth-3, width, max_width, max_depth))
+            situation.insert(9, Form._create_situation(dungeon_map, depth-3, width-1, max_width, max_depth))
+            situation.insert(10, Form._create_situation(dungeon_map, depth-3, width+1, max_width, max_depth))
+            situation.insert(11, Form._create_situation(dungeon_map, depth+1, width, max_width, max_depth))
+            situation.insert(12, Form._create_situation(dungeon_map, depth+1, width-1, max_width, max_depth))
+            situation.insert(13, Form._create_situation(dungeon_map, depth+1, width+1, max_width, max_depth))
+            situation.insert(14, Form._create_situation(dungeon_map, depth+2, width, max_width, max_depth))
+            situation.insert(15, Form._create_situation(dungeon_map, depth+2, width-1, max_width, max_depth))
+            situation.insert(16, Form._create_situation(dungeon_map, depth+2, width+1, max_width, max_depth))
+            situation.insert(17, Form._create_situation(dungeon_map, depth+3, width, max_width, max_depth))
+            situation.insert(18, Form._create_situation(dungeon_map, depth+3, width-1, max_width, max_depth))
+            situation.insert(19, Form._create_situation(dungeon_map, depth+3, width+1, max_width, max_depth))
+            situation.insert(20, Form._create_situation(dungeon_map, depth-3, width-2, max_width, max_depth))
+            situation.insert(21, Form._create_situation(dungeon_map, depth-2, width-2, max_width, max_depth))
+            situation.insert(22, Form._create_situation(dungeon_map, depth-1, width-2, max_width, max_depth))
+            situation.insert(23, Form._create_situation(dungeon_map, depth, width-2, max_width, max_depth))
+            situation.insert(24, Form._create_situation(dungeon_map, depth+1, width-2, max_width, max_depth))
+            situation.insert(25, Form._create_situation(dungeon_map, depth+2, width-2, max_width, max_depth))
+            situation.insert(26, Form._create_situation(dungeon_map, depth+3, width-2, max_width, max_depth))
+            situation.insert(27, Form._create_situation(dungeon_map, depth-3, width+2, max_width, max_depth))
+            situation.insert(28, Form._create_situation(dungeon_map, depth-2, width+2, max_width, max_depth))
+            situation.insert(29, Form._create_situation(dungeon_map, depth-1, width+2, max_width, max_depth))
+            situation.insert(30, Form._create_situation(dungeon_map, depth, width+2, max_width, max_depth))
+            situation.insert(31, Form._create_situation(dungeon_map, depth+1, width+2, max_width, max_depth))
+            situation.insert(32, Form._create_situation(dungeon_map, depth+2, width+2, max_width, max_depth))
+            situation.insert(33, Form._create_situation(dungeon_map, depth+3, width+2, max_width, max_depth))
+            situation.insert(34, Form._create_situation(dungeon_map, depth-3, width-3, max_width, max_depth))
+            situation.insert(35, Form._create_situation(dungeon_map, depth-2, width-3, max_width, max_depth))
+            situation.insert(36, Form._create_situation(dungeon_map, depth-1, width-3, max_width, max_depth))
+            situation.insert(37, Form._create_situation(dungeon_map, depth, width-3, max_width, max_depth))
+            situation.insert(38, Form._create_situation(dungeon_map, depth+1, width-3, max_width, max_depth))
+            situation.insert(39, Form._create_situation(dungeon_map, depth+2, width-3, max_width, max_depth))
+            situation.insert(40, Form._create_situation(dungeon_map, depth+3, width-3, max_width, max_depth))
+            situation.insert(41, Form._create_situation(dungeon_map, depth-3, width+3, max_width, max_depth))
+            situation.insert(42, Form._create_situation(dungeon_map, depth-2, width+3, max_width, max_depth))
+            situation.insert(43, Form._create_situation(dungeon_map, depth-1, width+3, max_width, max_depth))
+            situation.insert(44, Form._create_situation(dungeon_map, depth, width+3, max_width, max_depth))
+            situation.insert(45, Form._create_situation(dungeon_map, depth+1, width+3, max_width, max_depth))
+            situation.insert(46, Form._create_situation(dungeon_map, depth+2, width+3, max_width, max_depth))
+            situation.insert(47, Form._create_situation(dungeon_map, depth+3, width+3, max_width, max_depth))
         elif now_way == WAY.RIGHT:
-            situation.insert(0, Form.__create_situation(map, depth-1, width, max_width, max_depth))
-            situation.insert(1, Form.__create_situation(map, depth-1, width+1, max_width, max_depth))
-            situation.insert(2, Form.__create_situation(map, depth, width+1, max_width, max_depth))
-            situation.insert(3, Form.__create_situation(map, depth+1, width+1, max_width, max_depth))
-            situation.insert(4, Form.__create_situation(map, depth+1, width, max_width, max_depth))
-            situation.insert(5, Form.__create_situation(map, depth, width+2, max_width, max_depth))
-            situation.insert(6, Form.__create_situation(map, depth-1, width+2, max_width, max_depth))
-            situation.insert(7, Form.__create_situation(map, depth+1, width+2, max_width, max_depth))
-            situation.insert(8, Form.__create_situation(map, depth, width+3, max_width, max_depth))
-            situation.insert(9, Form.__create_situation(map, depth-1, width+3, max_width, max_depth))
-            situation.insert(10, Form.__create_situation(map, depth+1, width+3, max_width, max_depth))
-            situation.insert(11, Form.__create_situation(map, depth, width-1, max_width, max_depth))
-            situation.insert(12, Form.__create_situation(map, depth-1, width-1, max_width, max_depth))
-            situation.insert(13, Form.__create_situation(map, depth+1, width-1, max_width, max_depth))
-            situation.insert(14, Form.__create_situation(map, depth, width-2, max_width, max_depth))
-            situation.insert(15, Form.__create_situation(map, depth-1, width-2, max_width, max_depth))
-            situation.insert(16, Form.__create_situation(map, depth+1, width-2, max_width, max_depth))
-            situation.insert(17, Form.__create_situation(map, depth, width-3, max_width, max_depth))
-            situation.insert(18, Form.__create_situation(map, depth-1, width-3, max_width, max_depth))
-            situation.insert(19, Form.__create_situation(map, depth+1, width-3, max_width, max_depth))
-            situation.insert(20, Form.__create_situation(map, depth-2, width+3, max_width, max_depth))
-            situation.insert(21, Form.__create_situation(map, depth-2, width+2, max_width, max_depth))
-            situation.insert(22, Form.__create_situation(map, depth-2, width+1, max_width, max_depth))
-            situation.insert(23, Form.__create_situation(map, depth-2, width, max_width, max_depth))
-            situation.insert(24, Form.__create_situation(map, depth-2, width-1, max_width, max_depth))
-            situation.insert(25, Form.__create_situation(map, depth-2, width-2, max_width, max_depth))
-            situation.insert(26, Form.__create_situation(map, depth-2, width-3, max_width, max_depth))
-            situation.insert(27, Form.__create_situation(map, depth+2, width+3, max_width, max_depth))
-            situation.insert(28, Form.__create_situation(map, depth+2, width+2, max_width, max_depth))
-            situation.insert(29, Form.__create_situation(map, depth+2, width+1, max_width, max_depth))
-            situation.insert(30, Form.__create_situation(map, depth+2, width, max_width, max_depth))
-            situation.insert(31, Form.__create_situation(map, depth+2, width-1, max_width, max_depth))
-            situation.insert(32, Form.__create_situation(map, depth+2, width-2, max_width, max_depth))
-            situation.insert(33, Form.__create_situation(map, depth+2, width-3, max_width, max_depth))
-            situation.insert(34, Form.__create_situation(map, depth-3, width+3, max_width, max_depth))
-            situation.insert(35, Form.__create_situation(map, depth-3, width+2, max_width, max_depth))
-            situation.insert(36, Form.__create_situation(map, depth-3, width+1, max_width, max_depth))
-            situation.insert(37, Form.__create_situation(map, depth-3, width, max_width, max_depth))
-            situation.insert(38, Form.__create_situation(map, depth-3, width-1, max_width, max_depth))
-            situation.insert(39, Form.__create_situation(map, depth-3, width-2, max_width, max_depth))
-            situation.insert(40, Form.__create_situation(map, depth-3, width-3, max_width, max_depth))
-            situation.insert(41, Form.__create_situation(map, depth+3, width+3, max_width, max_depth))
-            situation.insert(42, Form.__create_situation(map, depth+3, width+2, max_width, max_depth))
-            situation.insert(43, Form.__create_situation(map, depth+3, width+1, max_width, max_depth))
-            situation.insert(44, Form.__create_situation(map, depth+3, width, max_width, max_depth))
-            situation.insert(45, Form.__create_situation(map, depth+3, width-1, max_width, max_depth))
-            situation.insert(46, Form.__create_situation(map, depth+3, width-2, max_width, max_depth))
-            situation.insert(47, Form.__create_situation(map, depth+3, width-3, max_width, max_depth))
+            situation.insert(0, Form._create_situation(dungeon_map, depth-1, width, max_width, max_depth))
+            situation.insert(1, Form._create_situation(dungeon_map, depth-1, width+1, max_width, max_depth))
+            situation.insert(2, Form._create_situation(dungeon_map, depth, width+1, max_width, max_depth))
+            situation.insert(3, Form._create_situation(dungeon_map, depth+1, width+1, max_width, max_depth))
+            situation.insert(4, Form._create_situation(dungeon_map, depth+1, width, max_width, max_depth))
+            situation.insert(5, Form._create_situation(dungeon_map, depth, width+2, max_width, max_depth))
+            situation.insert(6, Form._create_situation(dungeon_map, depth-1, width+2, max_width, max_depth))
+            situation.insert(7, Form._create_situation(dungeon_map, depth+1, width+2, max_width, max_depth))
+            situation.insert(8, Form._create_situation(dungeon_map, depth, width+3, max_width, max_depth))
+            situation.insert(9, Form._create_situation(dungeon_map, depth-1, width+3, max_width, max_depth))
+            situation.insert(10, Form._create_situation(dungeon_map, depth+1, width+3, max_width, max_depth))
+            situation.insert(11, Form._create_situation(dungeon_map, depth, width-1, max_width, max_depth))
+            situation.insert(12, Form._create_situation(dungeon_map, depth-1, width-1, max_width, max_depth))
+            situation.insert(13, Form._create_situation(dungeon_map, depth+1, width-1, max_width, max_depth))
+            situation.insert(14, Form._create_situation(dungeon_map, depth, width-2, max_width, max_depth))
+            situation.insert(15, Form._create_situation(dungeon_map, depth-1, width-2, max_width, max_depth))
+            situation.insert(16, Form._create_situation(dungeon_map, depth+1, width-2, max_width, max_depth))
+            situation.insert(17, Form._create_situation(dungeon_map, depth, width-3, max_width, max_depth))
+            situation.insert(18, Form._create_situation(dungeon_map, depth-1, width-3, max_width, max_depth))
+            situation.insert(19, Form._create_situation(dungeon_map, depth+1, width-3, max_width, max_depth))
+            situation.insert(20, Form._create_situation(dungeon_map, depth-2, width+3, max_width, max_depth))
+            situation.insert(21, Form._create_situation(dungeon_map, depth-2, width+2, max_width, max_depth))
+            situation.insert(22, Form._create_situation(dungeon_map, depth-2, width+1, max_width, max_depth))
+            situation.insert(23, Form._create_situation(dungeon_map, depth-2, width, max_width, max_depth))
+            situation.insert(24, Form._create_situation(dungeon_map, depth-2, width-1, max_width, max_depth))
+            situation.insert(25, Form._create_situation(dungeon_map, depth-2, width-2, max_width, max_depth))
+            situation.insert(26, Form._create_situation(dungeon_map, depth-2, width-3, max_width, max_depth))
+            situation.insert(27, Form._create_situation(dungeon_map, depth+2, width+3, max_width, max_depth))
+            situation.insert(28, Form._create_situation(dungeon_map, depth+2, width+2, max_width, max_depth))
+            situation.insert(29, Form._create_situation(dungeon_map, depth+2, width+1, max_width, max_depth))
+            situation.insert(30, Form._create_situation(dungeon_map, depth+2, width, max_width, max_depth))
+            situation.insert(31, Form._create_situation(dungeon_map, depth+2, width-1, max_width, max_depth))
+            situation.insert(32, Form._create_situation(dungeon_map, depth+2, width-2, max_width, max_depth))
+            situation.insert(33, Form._create_situation(dungeon_map, depth+2, width-3, max_width, max_depth))
+            situation.insert(34, Form._create_situation(dungeon_map, depth-3, width+3, max_width, max_depth))
+            situation.insert(35, Form._create_situation(dungeon_map, depth-3, width+2, max_width, max_depth))
+            situation.insert(36, Form._create_situation(dungeon_map, depth-3, width+1, max_width, max_depth))
+            situation.insert(37, Form._create_situation(dungeon_map, depth-3, width, max_width, max_depth))
+            situation.insert(38, Form._create_situation(dungeon_map, depth-3, width-1, max_width, max_depth))
+            situation.insert(39, Form._create_situation(dungeon_map, depth-3, width-2, max_width, max_depth))
+            situation.insert(40, Form._create_situation(dungeon_map, depth-3, width-3, max_width, max_depth))
+            situation.insert(41, Form._create_situation(dungeon_map, depth+3, width+3, max_width, max_depth))
+            situation.insert(42, Form._create_situation(dungeon_map, depth+3, width+2, max_width, max_depth))
+            situation.insert(43, Form._create_situation(dungeon_map, depth+3, width+1, max_width, max_depth))
+            situation.insert(44, Form._create_situation(dungeon_map, depth+3, width, max_width, max_depth))
+            situation.insert(45, Form._create_situation(dungeon_map, depth+3, width-1, max_width, max_depth))
+            situation.insert(46, Form._create_situation(dungeon_map, depth+3, width-2, max_width, max_depth))
+            situation.insert(47, Form._create_situation(dungeon_map, depth+3, width-3, max_width, max_depth))
         elif now_way == WAY.LEFT:
-            situation.insert(0, Form.__create_situation(map, depth+1, width, max_width, max_depth))
-            situation.insert(1, Form.__create_situation(map, depth+1, width-1, max_width, max_depth))
-            situation.insert(2, Form.__create_situation(map, depth, width-1, max_width, max_depth))
-            situation.insert(3, Form.__create_situation(map, depth-1, width-1, max_width, max_depth))
-            situation.insert(4, Form.__create_situation(map, depth-1, width, max_width, max_depth))
-            situation.insert(5, Form.__create_situation(map, depth, width-2, max_width, max_depth))
-            situation.insert(6, Form.__create_situation(map, depth+1, width-2, max_width, max_depth))
-            situation.insert(7, Form.__create_situation(map, depth-1, width-2, max_width, max_depth))
-            situation.insert(8, Form.__create_situation(map, depth, width-3, max_width, max_depth))
-            situation.insert(9, Form.__create_situation(map, depth+1, width-3, max_width, max_depth))
-            situation.insert(10, Form.__create_situation(map, depth-1, width-3, max_width, max_depth))
-            situation.insert(11, Form.__create_situation(map, depth, width+1, max_width, max_depth))
-            situation.insert(12, Form.__create_situation(map, depth+1, width+1, max_width, max_depth))
-            situation.insert(13, Form.__create_situation(map, depth-1, width+1, max_width, max_depth))
-            situation.insert(14, Form.__create_situation(map, depth, width+2, max_width, max_depth))
-            situation.insert(15, Form.__create_situation(map, depth+1, width+2, max_width, max_depth))
-            situation.insert(16, Form.__create_situation(map, depth-1, width+2, max_width, max_depth))
-            situation.insert(17, Form.__create_situation(map, depth, width+3, max_width, max_depth))
-            situation.insert(18, Form.__create_situation(map, depth+1, width+3, max_width, max_depth))
-            situation.insert(19, Form.__create_situation(map, depth-1, width+3, max_width, max_depth))
-            situation.insert(20, Form.__create_situation(map, depth+2, width-3, max_width, max_depth))
-            situation.insert(21, Form.__create_situation(map, depth+2, width-2, max_width, max_depth))
-            situation.insert(22, Form.__create_situation(map, depth+2, width-1, max_width, max_depth))
-            situation.insert(23, Form.__create_situation(map, depth+2, width, max_width, max_depth))
-            situation.insert(24, Form.__create_situation(map, depth+2, width+1, max_width, max_depth))
-            situation.insert(25, Form.__create_situation(map, depth+2, width+2, max_width, max_depth))
-            situation.insert(26, Form.__create_situation(map, depth+2, width+3, max_width, max_depth))
-            situation.insert(27, Form.__create_situation(map, depth-2, width-3, max_width, max_depth))
-            situation.insert(28, Form.__create_situation(map, depth-2, width-2, max_width, max_depth))
-            situation.insert(29, Form.__create_situation(map, depth-2, width-1, max_width, max_depth))
-            situation.insert(30, Form.__create_situation(map, depth-2, width, max_width, max_depth))
-            situation.insert(31, Form.__create_situation(map, depth-2, width+1, max_width, max_depth))
-            situation.insert(32, Form.__create_situation(map, depth-2, width+2, max_width, max_depth))
-            situation.insert(33, Form.__create_situation(map, depth-2, width+3, max_width, max_depth))
-            situation.insert(34, Form.__create_situation(map, depth+3, width-3, max_width, max_depth))
-            situation.insert(35, Form.__create_situation(map, depth+3, width-2, max_width, max_depth))
-            situation.insert(36, Form.__create_situation(map, depth+3, width-1, max_width, max_depth))
-            situation.insert(37, Form.__create_situation(map, depth+3, width, max_width, max_depth))
-            situation.insert(38, Form.__create_situation(map, depth+3, width+1, max_width, max_depth))
-            situation.insert(39, Form.__create_situation(map, depth+3, width+2, max_width, max_depth))
-            situation.insert(40, Form.__create_situation(map, depth+3, width+3, max_width, max_depth))
-            situation.insert(41, Form.__create_situation(map, depth-3, width-3, max_width, max_depth))
-            situation.insert(42, Form.__create_situation(map, depth-3, width-2, max_width, max_depth))
-            situation.insert(43, Form.__create_situation(map, depth-3, width-1, max_width, max_depth))
-            situation.insert(44, Form.__create_situation(map, depth-3, width, max_width, max_depth))
-            situation.insert(45, Form.__create_situation(map, depth-3, width+1, max_width, max_depth))
-            situation.insert(46, Form.__create_situation(map, depth-3, width+2, max_width, max_depth))
-            situation.insert(47, Form.__create_situation(map, depth-3, width+3, max_width, max_depth))
+            situation.insert(0, Form._create_situation(dungeon_map, depth+1, width, max_width, max_depth))
+            situation.insert(1, Form._create_situation(dungeon_map, depth+1, width-1, max_width, max_depth))
+            situation.insert(2, Form._create_situation(dungeon_map, depth, width-1, max_width, max_depth))
+            situation.insert(3, Form._create_situation(dungeon_map, depth-1, width-1, max_width, max_depth))
+            situation.insert(4, Form._create_situation(dungeon_map, depth-1, width, max_width, max_depth))
+            situation.insert(5, Form._create_situation(dungeon_map, depth, width-2, max_width, max_depth))
+            situation.insert(6, Form._create_situation(dungeon_map, depth+1, width-2, max_width, max_depth))
+            situation.insert(7, Form._create_situation(dungeon_map, depth-1, width-2, max_width, max_depth))
+            situation.insert(8, Form._create_situation(dungeon_map, depth, width-3, max_width, max_depth))
+            situation.insert(9, Form._create_situation(dungeon_map, depth+1, width-3, max_width, max_depth))
+            situation.insert(10, Form._create_situation(dungeon_map, depth-1, width-3, max_width, max_depth))
+            situation.insert(11, Form._create_situation(dungeon_map, depth, width+1, max_width, max_depth))
+            situation.insert(12, Form._create_situation(dungeon_map, depth+1, width+1, max_width, max_depth))
+            situation.insert(13, Form._create_situation(dungeon_map, depth-1, width+1, max_width, max_depth))
+            situation.insert(14, Form._create_situation(dungeon_map, depth, width+2, max_width, max_depth))
+            situation.insert(15, Form._create_situation(dungeon_map, depth+1, width+2, max_width, max_depth))
+            situation.insert(16, Form._create_situation(dungeon_map, depth-1, width+2, max_width, max_depth))
+            situation.insert(17, Form._create_situation(dungeon_map, depth, width+3, max_width, max_depth))
+            situation.insert(18, Form._create_situation(dungeon_map, depth+1, width+3, max_width, max_depth))
+            situation.insert(19, Form._create_situation(dungeon_map, depth-1, width+3, max_width, max_depth))
+            situation.insert(20, Form._create_situation(dungeon_map, depth+2, width-3, max_width, max_depth))
+            situation.insert(21, Form._create_situation(dungeon_map, depth+2, width-2, max_width, max_depth))
+            situation.insert(22, Form._create_situation(dungeon_map, depth+2, width-1, max_width, max_depth))
+            situation.insert(23, Form._create_situation(dungeon_map, depth+2, width, max_width, max_depth))
+            situation.insert(24, Form._create_situation(dungeon_map, depth+2, width+1, max_width, max_depth))
+            situation.insert(25, Form._create_situation(dungeon_map, depth+2, width+2, max_width, max_depth))
+            situation.insert(26, Form._create_situation(dungeon_map, depth+2, width+3, max_width, max_depth))
+            situation.insert(27, Form._create_situation(dungeon_map, depth-2, width-3, max_width, max_depth))
+            situation.insert(28, Form._create_situation(dungeon_map, depth-2, width-2, max_width, max_depth))
+            situation.insert(29, Form._create_situation(dungeon_map, depth-2, width-1, max_width, max_depth))
+            situation.insert(30, Form._create_situation(dungeon_map, depth-2, width, max_width, max_depth))
+            situation.insert(31, Form._create_situation(dungeon_map, depth-2, width+1, max_width, max_depth))
+            situation.insert(32, Form._create_situation(dungeon_map, depth-2, width+2, max_width, max_depth))
+            situation.insert(33, Form._create_situation(dungeon_map, depth-2, width+3, max_width, max_depth))
+            situation.insert(34, Form._create_situation(dungeon_map, depth+3, width-3, max_width, max_depth))
+            situation.insert(35, Form._create_situation(dungeon_map, depth+3, width-2, max_width, max_depth))
+            situation.insert(36, Form._create_situation(dungeon_map, depth+3, width-1, max_width, max_depth))
+            situation.insert(37, Form._create_situation(dungeon_map, depth+3, width, max_width, max_depth))
+            situation.insert(38, Form._create_situation(dungeon_map, depth+3, width+1, max_width, max_depth))
+            situation.insert(39, Form._create_situation(dungeon_map, depth+3, width+2, max_width, max_depth))
+            situation.insert(40, Form._create_situation(dungeon_map, depth+3, width+3, max_width, max_depth))
+            situation.insert(41, Form._create_situation(dungeon_map, depth-3, width-3, max_width, max_depth))
+            situation.insert(42, Form._create_situation(dungeon_map, depth-3, width-2, max_width, max_depth))
+            situation.insert(43, Form._create_situation(dungeon_map, depth-3, width-1, max_width, max_depth))
+            situation.insert(44, Form._create_situation(dungeon_map, depth-3, width, max_width, max_depth))
+            situation.insert(45, Form._create_situation(dungeon_map, depth-3, width+1, max_width, max_depth))
+            situation.insert(46, Form._create_situation(dungeon_map, depth-3, width+2, max_width, max_depth))
+            situation.insert(47, Form._create_situation(dungeon_map, depth-3, width+3, max_width, max_depth))
         elif now_way == WAY.DOWN:
-            situation.insert(0, Form.__create_situation(map, depth, width+1, max_width, max_depth))
-            situation.insert(1, Form.__create_situation(map, depth+1, width+1, max_width, max_depth))
-            situation.insert(2, Form.__create_situation(map, depth+1, width, max_width, max_depth))
-            situation.insert(3, Form.__create_situation(map, depth+1, width-1, max_width, max_depth))
-            situation.insert(4, Form.__create_situation(map, depth, width-1, max_width, max_depth))
-            situation.insert(5, Form.__create_situation(map, depth+2, width, max_width, max_depth))
-            situation.insert(6, Form.__create_situation(map, depth+2, width+1, max_width, max_depth))
-            situation.insert(7, Form.__create_situation(map, depth+2, width-1, max_width, max_depth))
-            situation.insert(8, Form.__create_situation(map, depth+3, width, max_width, max_depth))
-            situation.insert(9, Form.__create_situation(map, depth+3, width+1, max_width, max_depth))
-            situation.insert(10, Form.__create_situation(map, depth+3, width-1, max_width, max_depth))
-            situation.insert(11, Form.__create_situation(map, depth-1, width, max_width, max_depth))
-            situation.insert(12, Form.__create_situation(map, depth-1, width+1, max_width, max_depth))
-            situation.insert(13, Form.__create_situation(map, depth-1, width-1, max_width, max_depth))
-            situation.insert(14, Form.__create_situation(map, depth-2, width, max_width, max_depth))
-            situation.insert(15, Form.__create_situation(map, depth-2, width+1, max_width, max_depth))
-            situation.insert(16, Form.__create_situation(map, depth-2, width-1, max_width, max_depth))
-            situation.insert(17, Form.__create_situation(map, depth-3, width, max_width, max_depth))
-            situation.insert(18, Form.__create_situation(map, depth-3, width+1, max_width, max_depth))
-            situation.insert(19, Form.__create_situation(map, depth-3, width-1, max_width, max_depth))
-            situation.insert(20, Form.__create_situation(map, depth+3, width+2, max_width, max_depth))
-            situation.insert(21, Form.__create_situation(map, depth+2, width+2, max_width, max_depth))
-            situation.insert(22, Form.__create_situation(map, depth+1, width+2, max_width, max_depth))
-            situation.insert(23, Form.__create_situation(map, depth, width+2, max_width, max_depth))
-            situation.insert(24, Form.__create_situation(map, depth-1, width+2, max_width, max_depth))
-            situation.insert(25, Form.__create_situation(map, depth-2, width+2, max_width, max_depth))
-            situation.insert(26, Form.__create_situation(map, depth-3, width+2, max_width, max_depth))
-            situation.insert(27, Form.__create_situation(map, depth+3, width-2, max_width, max_depth))
-            situation.insert(28, Form.__create_situation(map, depth+2, width-2, max_width, max_depth))
-            situation.insert(29, Form.__create_situation(map, depth+1, width-2, max_width, max_depth))
-            situation.insert(30, Form.__create_situation(map, depth, width-2, max_width, max_depth))
-            situation.insert(31, Form.__create_situation(map, depth-1, width-2, max_width, max_depth))
-            situation.insert(32, Form.__create_situation(map, depth-2, width-2, max_width, max_depth))
-            situation.insert(33, Form.__create_situation(map, depth-3, width-2, max_width, max_depth))
-            situation.insert(34, Form.__create_situation(map, depth+3, width+3, max_width, max_depth))
-            situation.insert(35, Form.__create_situation(map, depth+2, width+3, max_width, max_depth))
-            situation.insert(36, Form.__create_situation(map, depth+1, width+3, max_width, max_depth))
-            situation.insert(37, Form.__create_situation(map, depth, width+3, max_width, max_depth))
-            situation.insert(38, Form.__create_situation(map, depth-1, width+3, max_width, max_depth))
-            situation.insert(39, Form.__create_situation(map, depth-2, width+3, max_width, max_depth))
-            situation.insert(40, Form.__create_situation(map, depth-3, width+3, max_width, max_depth))
-            situation.insert(41, Form.__create_situation(map, depth+3, width-3, max_width, max_depth))
-            situation.insert(42, Form.__create_situation(map, depth+2, width-3, max_width, max_depth))
-            situation.insert(43, Form.__create_situation(map, depth+1, width-3, max_width, max_depth))
-            situation.insert(44, Form.__create_situation(map, depth, width-3, max_width, max_depth))
-            situation.insert(45, Form.__create_situation(map, depth-1, width-3, max_width, max_depth))
-            situation.insert(46, Form.__create_situation(map, depth-2, width-3, max_width, max_depth))
-            situation.insert(47, Form.__create_situation(map, depth-3, width-3, max_width, max_depth))
+            situation.insert(0, Form._create_situation(dungeon_map, depth, width+1, max_width, max_depth))
+            situation.insert(1, Form._create_situation(dungeon_map, depth+1, width+1, max_width, max_depth))
+            situation.insert(2, Form._create_situation(dungeon_map, depth+1, width, max_width, max_depth))
+            situation.insert(3, Form._create_situation(dungeon_map, depth+1, width-1, max_width, max_depth))
+            situation.insert(4, Form._create_situation(dungeon_map, depth, width-1, max_width, max_depth))
+            situation.insert(5, Form._create_situation(dungeon_map, depth+2, width, max_width, max_depth))
+            situation.insert(6, Form._create_situation(dungeon_map, depth+2, width+1, max_width, max_depth))
+            situation.insert(7, Form._create_situation(dungeon_map, depth+2, width-1, max_width, max_depth))
+            situation.insert(8, Form._create_situation(dungeon_map, depth+3, width, max_width, max_depth))
+            situation.insert(9, Form._create_situation(dungeon_map, depth+3, width+1, max_width, max_depth))
+            situation.insert(10, Form._create_situation(dungeon_map, depth+3, width-1, max_width, max_depth))
+            situation.insert(11, Form._create_situation(dungeon_map, depth-1, width, max_width, max_depth))
+            situation.insert(12, Form._create_situation(dungeon_map, depth-1, width+1, max_width, max_depth))
+            situation.insert(13, Form._create_situation(dungeon_map, depth-1, width-1, max_width, max_depth))
+            situation.insert(14, Form._create_situation(dungeon_map, depth-2, width, max_width, max_depth))
+            situation.insert(15, Form._create_situation(dungeon_map, depth-2, width+1, max_width, max_depth))
+            situation.insert(16, Form._create_situation(dungeon_map, depth-2, width-1, max_width, max_depth))
+            situation.insert(17, Form._create_situation(dungeon_map, depth-3, width, max_width, max_depth))
+            situation.insert(18, Form._create_situation(dungeon_map, depth-3, width+1, max_width, max_depth))
+            situation.insert(19, Form._create_situation(dungeon_map, depth-3, width-1, max_width, max_depth))
+            situation.insert(20, Form._create_situation(dungeon_map, depth+3, width+2, max_width, max_depth))
+            situation.insert(21, Form._create_situation(dungeon_map, depth+2, width+2, max_width, max_depth))
+            situation.insert(22, Form._create_situation(dungeon_map, depth+1, width+2, max_width, max_depth))
+            situation.insert(23, Form._create_situation(dungeon_map, depth, width+2, max_width, max_depth))
+            situation.insert(24, Form._create_situation(dungeon_map, depth-1, width+2, max_width, max_depth))
+            situation.insert(25, Form._create_situation(dungeon_map, depth-2, width+2, max_width, max_depth))
+            situation.insert(26, Form._create_situation(dungeon_map, depth-3, width+2, max_width, max_depth))
+            situation.insert(27, Form._create_situation(dungeon_map, depth+3, width-2, max_width, max_depth))
+            situation.insert(28, Form._create_situation(dungeon_map, depth+2, width-2, max_width, max_depth))
+            situation.insert(29, Form._create_situation(dungeon_map, depth+1, width-2, max_width, max_depth))
+            situation.insert(30, Form._create_situation(dungeon_map, depth, width-2, max_width, max_depth))
+            situation.insert(31, Form._create_situation(dungeon_map, depth-1, width-2, max_width, max_depth))
+            situation.insert(32, Form._create_situation(dungeon_map, depth-2, width-2, max_width, max_depth))
+            situation.insert(33, Form._create_situation(dungeon_map, depth-3, width-2, max_width, max_depth))
+            situation.insert(34, Form._create_situation(dungeon_map, depth+3, width+3, max_width, max_depth))
+            situation.insert(35, Form._create_situation(dungeon_map, depth+2, width+3, max_width, max_depth))
+            situation.insert(36, Form._create_situation(dungeon_map, depth+1, width+3, max_width, max_depth))
+            situation.insert(37, Form._create_situation(dungeon_map, depth, width+3, max_width, max_depth))
+            situation.insert(38, Form._create_situation(dungeon_map, depth-1, width+3, max_width, max_depth))
+            situation.insert(39, Form._create_situation(dungeon_map, depth-2, width+3, max_width, max_depth))
+            situation.insert(40, Form._create_situation(dungeon_map, depth-3, width+3, max_width, max_depth))
+            situation.insert(41, Form._create_situation(dungeon_map, depth+3, width-3, max_width, max_depth))
+            situation.insert(42, Form._create_situation(dungeon_map, depth+2, width-3, max_width, max_depth))
+            situation.insert(43, Form._create_situation(dungeon_map, depth+1, width-3, max_width, max_depth))
+            situation.insert(44, Form._create_situation(dungeon_map, depth, width-3, max_width, max_depth))
+            situation.insert(45, Form._create_situation(dungeon_map, depth-1, width-3, max_width, max_depth))
+            situation.insert(46, Form._create_situation(dungeon_map, depth-2, width-3, max_width, max_depth))
+            situation.insert(47, Form._create_situation(dungeon_map, depth-3, width-3, max_width, max_depth))
         return situation
 
     @staticmethod
-    def __create_situation(map, depth, width, max_width, max_depth):
-        return [cmnDungeon.Common.isPosPath(map, depth, width, max_width, max_depth), depth, width]
+    def _create_situation(dungeon_map, depth, width, max_width, max_depth):
+        return [cmnDungeon.Common.isPosPath(dungeon_map, depth, width, max_width, max_depth), depth, width]
