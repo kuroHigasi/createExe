@@ -23,7 +23,7 @@ class Action(abstractAction.AbstractAction):
         act_flag = dungeon_form.ACTION_FLAG()
         res_log = service.judge_log_flag(now_pos, is_diff, is_diff_way, act_flag)
         if res_log.is_ok() and res_log.data:
-            dungeon_form.logFlagOn()
+            dungeon_form.log_flag_on()
         # UPDATE FLAG (BOX FLAG)
         res_box = service.judge_item_box_flag(is_diff)
         if res_box.is_ok():
@@ -39,7 +39,7 @@ class Action(abstractAction.AbstractAction):
             pre_enemy_pos_list.insert(index, dungeon_form.ENEMIS_POS(index))
         res_enemy_move = service.action_enemy_move()
         if res_enemy_move.is_ok():
-            dungeon_form.enemyMove()
+            dungeon_form.enemy_move()
         # ENEMY ACTION(TOUCH)
         pre_pos = dungeon_form.PRE_POS()
         enemy_pos_list = []
@@ -57,9 +57,9 @@ class Action(abstractAction.AbstractAction):
         if res_act_click.is_ok():
             next_flag, search_flag = res_act_click.data
             if next_flag:
-                if dungeon_form.reset(dungeon_form.FLOOR()+1):
+                if dungeon_form.reset(dungeon_form.get_floor()+1):
                     dungeon_form.reset(1)
-                    dungeon_form.onEndFlag()
+                    dungeon_form.end_flag_on()
                 else:
                     dungeon_form.itemBoxPreUpdate()
                 dungeon_form.resetActionButton(ACTION.GO_UP_THE_STAIRS())
@@ -73,7 +73,7 @@ class Action(abstractAction.AbstractAction):
         # BUTTON CLICK(RETRY)
         res_retry_click = service.retry_button_click()
         if res_retry_click.is_ok():
-            dungeon_form.reset(dungeon_form.FLOOR())
+            dungeon_form.reset(dungeon_form.get_floor())
             dungeon_form.resetActionButton(ACTION.GO_UP_THE_STAIRS())
 
     @staticmethod
@@ -81,7 +81,7 @@ class Action(abstractAction.AbstractAction):
         go_key_type = config_form.get_go_key_type()
         space = ope_form.get_space()
         enter = ope_form.get_enter()
-        start_pos = dungeon_form.START_POS()
+        start_pos = dungeon_form.get_start_pos()
         (x, y) = ope_form.get_mouse()
         (click_x, click_y) = ope_form.left_click_move_mouse()
         left_click = ope_form.is_left_click()
@@ -92,10 +92,10 @@ class Action(abstractAction.AbstractAction):
         (box1_x, box1_y, box1_width, box1_height) = dungeon_form.BOX_BUTTON(1)
         (box2_x, box2_y, box2_width, box2_height) = dungeon_form.BOX_BUTTON(2)
         return dungeonActionRequest.DungeonActionRequest(
-            dungeon_form.IS_DEATH(),
+            dungeon_form.is_death(),
             (space and go_key_type == 0) or (enter and go_key_type == 1),
             (space and go_key_type == 1) or (enter and go_key_type == 0),
-            dungeon_form.UPDATE_LOG_FLAG(),
+            dungeon_form.get_log_flag(),
             dungeon_form.BOX_FLAG(),
             start_pos[0],
             start_pos[1],

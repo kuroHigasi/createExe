@@ -93,7 +93,7 @@ class Display():
             screen.blit(Display.__getRaderImg(dungeon_form, 47), (pos_x + 80, pos_y + 120))
 
     def dispInfo(screen, dungeon_form, flash, pos_x: int, pos_y: int):
-        floor = dungeon_form.FLOOR()
+        floor = dungeon_form.get_floor()
         font = dungeon_form.font()
         img_list = dungeon_form.IMG_LIST()
         numberPosX = pos_x+90
@@ -112,11 +112,10 @@ class Display():
     def dispConversationText(screen, dungeon_form, x: int, y: int):
         img_list = dungeon_form.IMG_LIST()
         font = dungeon_form.event_font()
-        log = dungeon_form.LOG()
-        logNum = dungeon_form.LOG_NUM()
+        log = dungeon_form.get_log()
         screen.blit(img_list[INDEX.BOARD_M()][0], (x, y))
         (textX, textY) = (x+20, y+30)
-        if (logNum != 0):
+        if dungeon_form.get_log_num() != 0:
             index = 0
             for text in log:
                 if index < 7:
@@ -144,7 +143,7 @@ class Display():
             screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
             screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 60, pos_y + 20))
             # 階段
-            if map.Judge.isStairs(dungeon_form.MAP()[dungeon_form.NOW_POS()[0]][dungeon_form.NOW_POS()[1]]):
+            if map.Judge.isStairs(dungeon_form.get_dungeon_map()[dungeon_form.NOW_POS()[0]][dungeon_form.NOW_POS()[1]]):
                 Display.__dispActionButton(screen, img_list, dungeon_form, x, y, pos_x, pos_y, ACTION.GO_UP_THE_STAIRS())
             else:
                 dungeon_form.updateActionButton(ACTION.GO_UP_THE_STAIRS(), -1, -1)
@@ -212,16 +211,16 @@ class Display():
         (item2, itemNum2) = dungeon_form.itemBoxPickUp(2)
         if item0 == ITEM.COMPASS():
             image = img_list[INDEX.COMPASS()][0]
-            imag_rotate = pygame.transform.rotate(image, dungeon_form.createAngle())
-            screen.blit(imag_rotate, imag_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
+            image_rotate = pygame.transform.rotate(image, dungeon_form.create_angle())
+            screen.blit(image_rotate, image_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
         if item1 == ITEM.COMPASS():
             image = img_list[INDEX.COMPASS()][0]
-            imag_rotate = pygame.transform.rotate(image, dungeon_form.createAngle())
-            screen.blit(imag_rotate, imag_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
+            image_rotate = pygame.transform.rotate(image, dungeon_form.create_angle())
+            screen.blit(image_rotate, image_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
         if item2 == ITEM.COMPASS():
             image = img_list[INDEX.COMPASS()][0]
-            imag_rotate = pygame.transform.rotate(image, dungeon_form.createAngle())
-            screen.blit(imag_rotate, imag_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
+            image_rotate = pygame.transform.rotate(image, dungeon_form.create_angle())
+            screen.blit(image_rotate, image_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
 
     def __isEnemy(dungeon_form, x: int, y: int):
         for index in range(0, dungeon_form.ENEMY_COUNT(), 1):

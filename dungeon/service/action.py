@@ -24,7 +24,7 @@ class Action:
 				ope_form.space_off()  # 処理が連続で判定されないように実施
 				ope_form.enter_off()  # 処理が連続で判定されないように実施
 				# 更新(前進時)
-				dungeon_form.go()
+				dungeon_form.player_move()
 				if not (dungeon_form.existDiffPos()) and not (dungeon_form.ACTION_FLAG()):
 					dungeon_form.actionFlagOn()
 			elif self.is_step_action_on:
@@ -36,9 +36,9 @@ class Action:
 				if dungeon_form.ACTION_FLAG():
 					dungeon_form.actionFlagOff()
 			# 更新(毎ターン)
-			dungeon_form.updateWay(ope_form)
-			dungeon_form.updateSituation()
-			dungeon_form.updateView()
+			dungeon_form.update_way(ope_form)
+			dungeon_form.update_situation()
+			dungeon_form.update_view()
 
 	def judge_log_flag(self, now_pos, is_diff, is_diff_way, act_flag):
 		if not self._request.log_flag:

@@ -36,11 +36,10 @@ class Display:
             saveDisp.Display.execute(save_form, saveDisp.Display.create_request_data(screen, save_form, ope_form))
         elif now_status == STATUS.DUNGEON():
             if pre_status == STATUS.HOME():
-                dungeon_form.offEndFlag()
-                floor = dungeon_form.FLOOR()
-                dungeon_form.reset(floor)
+                dungeon_form.end_flag_off()
+                dungeon_form.reset(dungeon_form.get_floor())
             if pre_status == STATUS.SAVE() and save_form.OUTPUT_DATA() != "":
-                dungeon_form.offEndFlag()
+                dungeon_form.end_flag_off()
                 floor = ConvertDungeon.Convert.getFloor(save_form.OUTPUT_DATA())
                 dungeon_form.reset(floor)
             Display.__dungeonInfo(screen, system_form.DUNGEON_FORM(), system_form, ope_form)

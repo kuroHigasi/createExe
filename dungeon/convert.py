@@ -2,8 +2,9 @@ import common.debug.debug as dbg
 
 
 class Convert:
-    def createInput(dungeonForm):
-        return dungeonForm.CREATE_INPUTDATA()
+    @staticmethod
+    def createInput(dungeon_form):
+        return dungeon_form.create_input_data()
 
     def convertOutput(dungeonForm, data: str):
         try:
@@ -11,7 +12,7 @@ class Convert:
             dungeonForm.reset(int(dataList[0]))
             dungeonForm.updateTotalCount(int(dataList[1]))
             dungeonForm.itemBoxClear()
-            dungeonForm.resetLog()
+            dungeonForm.log_reset()
             if (int(dataList[3]) != -1):
                 for i in range(0, int(dataList[4]), 1):
                     dungeonForm.itemSetBox(int(dataList[3]))
@@ -25,7 +26,7 @@ class Convert:
             dbg.ERROR_LOG("[Convert.convertOutput]OUTPUT_DATA不備")
             dungeonForm.reset(1)
             dungeonForm.updateTotalCount(0)
-            dungeonForm.resetLog()
+            dungeonForm.log_reset()
 
     def getFloor(data: str):
         try:
