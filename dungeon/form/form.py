@@ -251,9 +251,6 @@ class Form:
     def itemIntoBox(self):
         return self.__boxForm.item_set(self.__mapForm.get_item())
 
-    def itemSetBox(self, item):
-        return self.__boxForm.item_set(item)
-
     def ITEM_GET_FLAG(self):
         return self.__mapForm.get_item_flag()
 

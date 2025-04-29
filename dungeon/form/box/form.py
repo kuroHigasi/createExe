@@ -1,5 +1,5 @@
 import dataclasses
-
+import common.debug.debug as dbg
 import common.button.form as button_form
 import pyd.typeItem as typeItem
 
@@ -58,6 +58,9 @@ class Form:
         self.__box_use_turn = [-2, -1, -1]
 
     def item_set(self, item):
+        dbg.ERROR_LOG(str(self))
+        dbg.ERROR_LOG("===================")
+        dbg.ERROR_LOG(str(item))
         flag = False
         item_index = -1
         if self.__num < self.__max:

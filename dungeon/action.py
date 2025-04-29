@@ -3,6 +3,7 @@ import dungeon.abstract.abstractAction as abstractAction
 import dungeon.service.action as sub_action
 import dungeon.layer.request.dungeonActionRequest as dungeonActionRequest
 import dungeon.form.form as main_form
+import common.debug.debug as dbg
 import pyd.typeAction as ACTION
 import pyd.typeEnemy as ENEMY_TYPE
 
@@ -65,6 +66,7 @@ class Action(abstractAction.AbstractAction):
             if search_flag:
                 if dungeon_form.ITEM_GET_FLAG():
                     if dungeon_form.itemIntoBox():
+                        dbg.ERROR_LOG("=====ITEM GET=====")
                         dungeon_form.itemFlagOff()
                         dungeon_form.eventFlagOff()
                 dungeon_form.resetActionButton(ACTION.SEARCH())
