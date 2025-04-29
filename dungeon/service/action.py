@@ -18,23 +18,23 @@ class Action:
 			return response.Response(data=True, result=code.Code.OK)
 		return response.Response(data=False, result=code.Code.DO_NOTHING)
 
-	def action_move(self, dungeon_form, ope_form):
+	def action_player_move(self, dungeon_form, ope_form):
 		if not self._is_death:  # 死亡時は行動しない
 			if self.is_go_action_on:
 				ope_form.space_off()  # 処理が連続で判定されないように実施
 				ope_form.enter_off()  # 処理が連続で判定されないように実施
 				# 更新(前進時)
 				dungeon_form.player_move()
-				if not (dungeon_form.existDiffPos()) and not (dungeon_form.ACTION_FLAG()):
-					dungeon_form.actionFlagOn()
+				if dungeon_form.existDiffPos() and not (dungeon_form.get_action_flag()):
+					dungeon_form.action_flag_on()
 			elif self.is_step_action_on:
 				ope_form.space_off()  # 処理が連続で判定されないように実施
 				ope_form.enter_off()  # 処理が連続で判定されないように実施
-				if not (dungeon_form.ACTION_FLAG()):
-					dungeon_form.actionFlagOn()
+				if not (dungeon_form.get_action_flag()):
+					dungeon_form.action_flag_on()
 			else:
-				if dungeon_form.ACTION_FLAG():
-					dungeon_form.actionFlagOff()
+				if dungeon_form.get_action_flag():
+					dungeon_form.action_flag_off()
 			# 更新(毎ターン)
 			dungeon_form.update_way(ope_form)
 			dungeon_form.update_situation()

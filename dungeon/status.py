@@ -15,18 +15,17 @@ class Status(abstractStatus.AbstractStatus):
             next_status = res_status.data
             status_form.update_status(next_status)
 
-
     @staticmethod
     def create_request_data(dungeon_form, ope_form):
         left_click = ope_form.is_left_click()
         (x, y) = ope_form.get_mouse()
         (clickX, clickY) = ope_form.left_click_move_mouse()
         (configX, configY, configSizeW, configSizeH) = dungeon_form.get_config_button()
-        (saveX, saveY, saveSizeW, saveSizeH) = dungeon_form.SAVE_BUTTON()
+        (saveX, saveY, saveSizeW, saveSizeH) = dungeon_form.get_save_button()
         return dungeonStatusRequest.DungeonStatusRequest(
             cmn.Judge.click(configX, configY, configSizeW, configSizeH, x, y, clickX, clickY, left_click),
             cmn.Judge.click(saveX, saveY, saveSizeW, saveSizeH, x, y, clickX, clickY, left_click),
-            dungeon_form.get_dnd_flag()
+            dungeon_form.end_flag
         )
 
     @staticmethod
@@ -38,7 +37,7 @@ class Status(abstractStatus.AbstractStatus):
     @staticmethod
     def fromHomeReset(dungeon_form):
         dungeon_form.reset(1)
-        dungeon_form.updateTotalCount(0)
+        dungeon_form.set_total_count(0)
         dungeon_form.log_reset()
         dungeon_form.itemBoxClear()
 

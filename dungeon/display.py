@@ -12,7 +12,7 @@ class Display():
     def dispView(screen, dungeon_form, ope_form, pos_x: int, pos_y: int):
         (x, y) = ope_form.get_mouse()
         now_view = dungeon_form.NOW_VIEW()
-        img_list = dungeon_form.IMG_LIST()
+        img_list = dungeon_form.img_list
         if not (dungeon_form.is_death()):
             screen.blit(img_list[INDEX.RIGHT()][INDEX.UP_POS()][img.Select.RU(now_view)], (pos_x + 600, pos_y))
             screen.blit(img_list[INDEX.RIGHT()][INDEX.CENTER_POS()][img.Select.RC(now_view)], (pos_x + 600, pos_y + 150))
@@ -32,10 +32,10 @@ class Display():
             screen.blit(img_list[INDEX.FLAME()][1], (pos_x, pos_y))
             # RETRY
             Display.__dispButton(screen, img_list, x, y, pos_x+350, pos_y+270, 12)
-            dungeon_form.updateRetryButton(pos_x+350, pos_y+270)
+            dungeon_form.set_retry_button(pos_x+350, pos_y+270)
 
     def dispRader(screen, dungeon_form, flash, x: int, y: int):
-        img_list = dungeon_form.IMG_LIST()
+        img_list = dungeon_form.img_list
         pos_x = x + 70
         pos_y = y + 40
         screen.blit(img_list[INDEX.BOARD_S()][0], (x, y))
@@ -95,7 +95,7 @@ class Display():
     def dispInfo(screen, dungeon_form, flash, pos_x: int, pos_y: int):
         floor = dungeon_form.get_floor()
         font = dungeon_form.font()
-        img_list = dungeon_form.IMG_LIST()
+        img_list = dungeon_form.img_list
         numberPosX = pos_x+90
         if not (dungeon_form.is_death()):
             screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
@@ -105,12 +105,12 @@ class Display():
             # ACTION COUNT
             screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 27, pos_y + 90))
             screen.blit(img_list[INDEX.TEXT5()][img.Select.TEXT_FLASH(flash(1)) + 6], (pos_x + 103, pos_y + 90))
-            Display.__dispNumber(screen, font, dungeon_form.COUNT(), numberPosX, pos_y+130)
+            Display.__dispNumber(screen, font, dungeon_form.get_count(), numberPosX, pos_y+130)
         else:
             screen.blit(img_list[INDEX.BOARD_S()][1], (pos_x, pos_y))
 
     def dispConversationText(screen, dungeon_form, x: int, y: int):
-        img_list = dungeon_form.IMG_LIST()
+        img_list = dungeon_form.img_list
         font = dungeon_form.event_font()
         log = dungeon_form.get_log()
         screen.blit(img_list[INDEX.BOARD_M()][0], (x, y))
@@ -125,20 +125,20 @@ class Display():
 
     def dispSystemButton(screen, dungeon_form, ope_form, flash, pos_x, pos_y):
         (x, y) = ope_form.get_mouse()
-        img_list = dungeon_form.IMG_LIST()
+        img_list = dungeon_form.img_list
         buttonPosX = pos_x+25
         screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
         screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1))], (pos_x + 60, pos_y + 20))
         # CONFIG BUTTON
         Display.__dispButton(screen, img_list, x, y, buttonPosX, pos_y+45, 10)
-        dungeon_form.updateConfigButton(buttonPosX, pos_y+45)
+        dungeon_form.set_config_button(buttonPosX, pos_y+45)
         # SAVE BUTTON
         Display.__dispButton(screen, img_list, x, y, buttonPosX, pos_y+115, 8)
-        dungeon_form.updateSaveButton(buttonPosX, pos_y+115)
+        dungeon_form.set_save_button(buttonPosX, pos_y+115)
 
     def dispActionButton(screen, dungeon_form, ope_form, flash, pos_x: int, pos_y: int):
         (x, y) = ope_form.get_mouse()
-        img_list = dungeon_form.IMG_LIST()
+        img_list = dungeon_form.img_list
         if not (dungeon_form.is_death()):
             screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
             screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 60, pos_y + 20))
@@ -146,17 +146,17 @@ class Display():
             if map.Judge.isStairs(dungeon_form.get_dungeon_map()[dungeon_form.NOW_POS()[0]][dungeon_form.NOW_POS()[1]]):
                 Display.__dispActionButton(screen, img_list, dungeon_form, x, y, pos_x, pos_y, ACTION.GO_UP_THE_STAIRS())
             else:
-                dungeon_form.updateActionButton(ACTION.GO_UP_THE_STAIRS(), -1, -1)
+                dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), -1, -1)
             dungeon_form.searchItem()
             # アイテム
             if dungeon_form.ITEM_GET_FLAG():
                 Display.__dispActionButton(screen, img_list, dungeon_form, x, y, pos_x, pos_y, ACTION.SEARCH())
             else:
-                dungeon_form.updateActionButton(ACTION.SEARCH(), -1, -1)
+                dungeon_form.set_action_button(ACTION.SEARCH(), -1, -1)
         else:
             screen.blit(img_list[INDEX.BOARD_S()][1], (pos_x, pos_y))
-            dungeon_form.updateActionButton(ACTION.GO_UP_THE_STAIRS(), -1, -1)
-            dungeon_form.updateActionButton(ACTION.SEARCH(), -1, -1)
+            dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), -1, -1)
+            dungeon_form.set_action_button(ACTION.SEARCH(), -1, -1)
 
     def __dispActionButton(screen, img_list, dungeon_form, x: int, y: int, pos_x, pos_y, actionType: int):
         actionIndex = [0, 2]
@@ -166,7 +166,7 @@ class Display():
         else:
             screen.blit(img_list[INDEX.ACTION()][actionIndex[actionType]], (pos_x+25, pos_y+45))
         # UPDATE BUTTON
-        dungeon_form.updateActionButton(actionType, pos_x+25, pos_y+45)
+        dungeon_form.set_action_button(actionType, pos_x+25, pos_y+45)
 
     def __dispButton(screen, img_list, x: int, y: int, pos_x: int, pos_y: int, index: int):
         if hitJudge.hitJudgeSquare(pos_x, pos_y, 150, 60, x, y):
@@ -232,9 +232,10 @@ class Display():
                     return 0
         return 0
 
+    @staticmethod
     def __getRaderImg(dungeon_form, number):
         situation = dungeon_form.SITUATION()
-        img_list = dungeon_form.IMG_LIST()
+        img_list = dungeon_form.img_list
         wallOrPath = img.Select.WALL_OR_PATH(situation[number][0])
         isEnemy = Display.__isEnemy(dungeon_form, situation[number][1], situation[number][2])
         return img_list[wallOrPath][isEnemy]

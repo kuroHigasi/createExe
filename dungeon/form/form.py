@@ -266,8 +266,11 @@ class Form:
     def watchBox(self, num):
         return self.__box_form.watch(num)
 
-    def itemIntoBox(self):
-        return self.__box_form.item_set(self.__map_form.get_item())
+    def item_set_box(self, item: int = -3, load_flag: bool = False):
+        if load_flag:
+            return self.__box_form.item_set(item)
+        else:
+            return self.__box_form.item_set(self.__map_form.get_item())
 
     def ITEM_GET_FLAG(self):
         return self.__map_form.get_item_flag()
@@ -277,9 +280,6 @@ class Form:
 
     def itemBoxPreUpdate(self):
         return self.__box_form.update_pre()
-
-    def itemBoxReset(self):
-        return self.__box_form.reset()
 
     def itemBoxClear(self):
         return self.__box_form.clear()
@@ -314,27 +314,28 @@ class Form:
         self.__box_form.get_flag()
     # [ITEM] END
 
-    def IMG_LIST(self):
+    @property
+    def img_list(self):
         return self.__img_list
 
     # [ACTION FORM] START
-    def actionFlagOn(self):
+    def action_flag_on(self):
         self.__action_form.flag_on()
 
-    def actionFlagOff(self):
+    def action_flag_off(self):
         if self.__action_form.flag_off():
             self.__action_form.count_up()
 
-    def ACTION_FLAG(self):
+    def get_action_flag(self):
         return self.__action_form.get_flag()
 
-    def COUNT(self):
+    def get_count(self):
         return self.__action_form.get_count()
 
-    def updateTotalCount(self, count: int):
+    def set_total_count(self, count: int):
         return self.__action_form.count_to_total_count(count)
 
-    def TOTAL_COUNT(self):
+    def get_total_count(self):
         return self.__action_form.get_total_count()
     # [ACTION FORM] END
 
@@ -348,45 +349,30 @@ class Form:
         return self.__map_form.is_diff_view()
 
     # [SYSTEM BUTTON] START
-    def updateConfigButton(self, x, y):
+    def set_config_button(self, x, y):
         self.__button_form.set_config_button_pos(x, y)
 
     def get_config_button(self):
         return self.__button_form.get_config_button_pos() + self.__button_form.get_config_button_size()
 
-    def set_home_button(self, x, y):
-        self.__button_form.set_home_button_pos(x, y)
+    def set_save_button(self, x, y):
+        self.__button_form.set_save_button_pos(x, y)
 
-    def get_home_button(self):
-        return self.__button_form.get_home_button_pos() + self.__button_form.get_home_button_size()
-
-    def updateExitButton(self, x, y):
-        self.__button_form.set_exit_button_pos(x, y)
-
-    def EXIT_BUTTON(self):
-        return self.__button_form.get_exit_button_pos() + self.__button_form.get_exit_button_size()
+    def get_save_button(self):
+        return self.__button_form.get_save_button_pos() + self.__button_form.get_save_button_size()
     # [SYSTEM BUTTON] END
 
     # [ACTION BUTTON] START
-    def updateRetryButton(self, x, y):
+    def set_retry_button(self, x, y):
         self.__button_form.set_retry_button_pos(x, y)
 
-    def RETRY_BUTTON(self):
+    def get_retry_button(self):
         return self.__button_form.get_retry_button_pos() + self.__button_form.get_retry_button_size()
 
-    def updateSaveButton(self, x, y):
-        self.__button_form.set_save_button_pos(x, y)
-
-    def SAVE_BUTTON(self):
-        return self.__button_form.get_save_button_pos() + self.__button_form.get_save_button_size()
-
-    def updateActionButton(self, index, x, y):
+    def set_action_button(self, index, x, y):
         self.__button_form.set_action_button_pos(index, x, y)
 
-    def resetActionButton(self, index):
-        self.__button_form.set_action_button_pos(index, -1, -1)
-
-    def ACTION_BUTTON(self, index):
+    def get_action_button(self, index):
         return self.__button_form.get_action_button_pos(index) + self.__button_form.get_action_button_size(index)
     # [ACTION BUTTON] END
 
@@ -397,15 +383,15 @@ class Form:
     def is_death(self):
         return self.__abnormal_form.IS_DEATH()
 
-    def end_flag_off(self):
-        self.__end_flag = False
-
-    def end_flag_on(self):
-        dbg.LOG("ゲーム クリア!")
-        self.__end_flag = True
-
-    def get_dnd_flag(self):
+    @property
+    def end_flag(self):
         return self.__end_flag
+
+    @end_flag.setter
+    def end_flag(self, flag_: bool):
+        if flag_:
+            dbg.LOG("ゲーム クリア!")
+        self.__end_flag = flag_
 
     # [LOG] START
     def log_reset(self):

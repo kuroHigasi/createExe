@@ -1,4 +1,5 @@
 import common.debug.debug as dbg
+import dungeon.form.form as form
 
 
 class Convert:
@@ -6,43 +7,44 @@ class Convert:
     def createInput(dungeon_form):
         return dungeon_form.create_input_data()
 
-    def convertOutput(dungeonForm, data: str):
+    @staticmethod
+    def convertOutput(dungeon_form: form.Form, data: str):
         try:
-            dataList = data.split(",")
-            dungeonForm.reset(int(dataList[0]))
-            dungeonForm.updateTotalCount(int(dataList[1]))
-            dungeonForm.itemBoxClear()
-            dungeonForm.log_reset()
-            if (int(dataList[3]) != -1):
-                for i in range(0, int(dataList[4]), 1):
-                    dungeonForm.itemSetBox(int(dataList[3]))
-            if (int(dataList[5]) != -1):
-                for i in range(0, int(dataList[6]), 1):
-                    dungeonForm.itemSetBox(int(dataList[5]))
-            if (int(dataList[7]) != -1):
-                for i in range(0, int(dataList[8]), 1):
-                    dungeonForm.itemSetBox(int(dataList[7]))
+            data_list = data.split(",")
+            dungeon_form.reset(int(data_list[0]))
+            dungeon_form.set_total_count(int(data_list[1]))
+            dungeon_form.itemBoxClear()
+            dungeon_form.log_reset()
+            if int(data_list[3]) != -1:
+                for i in range(0, int(data_list[4]), 1):
+                    dungeon_form.item_set_box(item=int(data_list[3]), load_flag=True)
+            if int(data_list[5]) != -1:
+                for i in range(0, int(data_list[6]), 1):
+                    dungeon_form.item_set_box(item=int(data_list[5]), load_flag=True)
+            if int(data_list[7]) != -1:
+                for i in range(0, int(data_list[8]), 1):
+                    dungeon_form.item_set_box(item=int(data_list[7]), load_flag=True)
         except BaseException:
             dbg.ERROR_LOG("[Convert.convertOutput]OUTPUT_DATA不備")
-            dungeonForm.reset(1)
-            dungeonForm.updateTotalCount(0)
-            dungeonForm.log_reset()
+            dungeon_form.reset(1)
+            dungeon_form.set_total_count(0)
+            dungeon_form.log_reset()
 
     def getFloor(data: str):
         try:
-            dataList = data.split(",")
-            return int(dataList[0])
+            data_list = data.split(",")
+            return int(data_list[0])
         except BaseException:
             dbg.ERROR_LOG("[Convert.getFloor]OUTPUT_DATA不備")
             return 1
 
     def getDispData(data: str):
         try:
-            dataList = data.split(",")
+            data_list = data.split(",")
             space = " "
-            for count in range(4-len(dataList[1])):
+            for count in range(4-len(data_list[1])):
                 space += " "
-            return str(dataList[0]) + "F ActionCount:" + str(dataList[1]) + space + "ITEM:" + str(dataList[2])
+            return str(data_list[0]) + "F ActionCount:" + str(data_list[1]) + space + "ITEM:" + str(data_list[2])
         except BaseException:
             dbg.LOG("[Convert.getDispData]OUTPUT_DATAなし")
             return ""

@@ -15,7 +15,7 @@ class Form:
         return self.__img_list
 
     def set_action_count(self, dungeon_form):
-        self.__action_count = dungeon_form.TOTAL_COUNT()
+        self.__action_count = dungeon_form.get_total_count()
 
     def get_count(self):
         return self.__action_count

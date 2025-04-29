@@ -146,7 +146,7 @@ class Form:
         return self.__pre_way != self.__now_way
 
     def is_diff_pos(self):
-        return self.__pre_pos[0] == self.__now_pos[0] and self.__pre_pos[1] == self.__now_pos[1]
+        return self.__pre_pos[0] != self.__now_pos[0] or self.__pre_pos[1] != self.__now_pos[1]
 
     def is_diff_view(self):
         return self.__pre_view != self.__now_view

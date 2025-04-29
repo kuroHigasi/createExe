@@ -13,14 +13,14 @@ class Action(abstractAction.AbstractAction):
     def execute(dungeon_form: main_form.Form, ope_form, request: dungeonActionRequest.DungeonActionRequest):
         service = sub_action.Action(request)
         # MOVE
-        service.action_move(dungeon_form, ope_form)
+        service.action_player_move(dungeon_form, ope_form)
         # UPDATE FLAG (LOG FLAG)
         now_pos = dungeon_form.NOW_POS()
         is_diff_way = dungeon_form.existDiffWay()
         is_diff_view = dungeon_form.existDiffView()
         is_diff_pos = dungeon_form.existDiffPos()
         is_diff = (is_diff_way | is_diff_pos | is_diff_view)
-        act_flag = dungeon_form.ACTION_FLAG()
+        act_flag = dungeon_form.get_action_flag()
         res_log = service.judge_log_flag(now_pos, is_diff, is_diff_way, act_flag)
         if res_log.is_ok() and res_log.data:
             dungeon_form.log_flag_on()
@@ -59,22 +59,22 @@ class Action(abstractAction.AbstractAction):
             if next_flag:
                 if dungeon_form.reset(dungeon_form.get_floor()+1):
                     dungeon_form.reset(1)
-                    dungeon_form.end_flag_on()
+                    dungeon_form.end_flag = True
                 else:
                     dungeon_form.itemBoxPreUpdate()
-                dungeon_form.resetActionButton(ACTION.GO_UP_THE_STAIRS())
+                dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), -1, -1)
             if search_flag:
                 if dungeon_form.ITEM_GET_FLAG():
-                    if dungeon_form.itemIntoBox():
-                        dbg.ERROR_LOG("=====ITEM GET=====")
+                    if dungeon_form.item_set_box():
+                        dbg.LOG("=====ITEM GET=====")
                         dungeon_form.itemFlagOff()
                         dungeon_form.eventFlagOff()
-                dungeon_form.resetActionButton(ACTION.SEARCH())
+                dungeon_form.set_action_button(ACTION.SEARCH(), -1, -1)
         # BUTTON CLICK(RETRY)
         res_retry_click = service.retry_button_click()
         if res_retry_click.is_ok():
             dungeon_form.reset(dungeon_form.get_floor())
-            dungeon_form.resetActionButton(ACTION.GO_UP_THE_STAIRS())
+            dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), -1, -1)
 
     @staticmethod
     def create_request_data(dungeon_form: main_form.Form, ope_form, config_form):
@@ -85,9 +85,9 @@ class Action(abstractAction.AbstractAction):
         (x, y) = ope_form.get_mouse()
         (click_x, click_y) = ope_form.left_click_move_mouse()
         left_click = ope_form.is_left_click()
-        (act0_x, act0_y, act0_width, act0_height) = dungeon_form.ACTION_BUTTON(0)
-        (act1_x, act1_y, act1_width, act1_height) = dungeon_form.ACTION_BUTTON(1)
-        (retry_x, retry_y, retry_width, retry_height) = dungeon_form.RETRY_BUTTON()
+        (act0_x, act0_y, act0_width, act0_height) = dungeon_form.get_action_button(0)
+        (act1_x, act1_y, act1_width, act1_height) = dungeon_form.get_action_button(1)
+        (retry_x, retry_y, retry_width, retry_height) = dungeon_form.get_retry_button()
         (box0_x, box0_y, box0_width, box0_height) = dungeon_form.BOX_BUTTON(0)
         (box1_x, box1_y, box1_width, box1_height) = dungeon_form.BOX_BUTTON(1)
         (box2_x, box2_y, box2_width, box2_height) = dungeon_form.BOX_BUTTON(2)
