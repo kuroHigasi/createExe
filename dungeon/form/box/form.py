@@ -58,20 +58,17 @@ class Form:
         self.__box_use_turn = [-2, -1, -1]
 
     def item_set(self, item):
-        dbg.ERROR_LOG(str(self))
-        dbg.ERROR_LOG("===================")
-        dbg.ERROR_LOG(str(item))
         flag = False
         item_index = -1
         if self.__num < self.__max:
             # 同じアイテム存在チェック
-            for index in range(0, self.__num, 1):
+            for index in range(0, self.__num+1, 1):
                 if self.__box[index] == item:
                     item_index = index
                     flag = True
             # アイテム被りなし
             if not flag:
-                for index in range(0, self.__num, 1):
+                for index in range(0, self.__num+1, 1):
                     if self.__box[index] == -1:
                         self.__box[index] = item
                         self.__box_num[index] += 1
