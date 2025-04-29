@@ -13,7 +13,7 @@ class Display():
         (x, y) = ope_form.get_mouse()
         now_view = dungeon_form.NOW_VIEW()
         img_list = dungeon_form.IMG_LIST()
-        if not (dungeon_form.IS_DEATH()):
+        if not (dungeon_form.is_death()):
             screen.blit(img_list[INDEX.RIGHT()][INDEX.UP_POS()][img.Select.RU(now_view)], (pos_x + 600, pos_y))
             screen.blit(img_list[INDEX.RIGHT()][INDEX.CENTER_POS()][img.Select.RC(now_view)], (pos_x + 600, pos_y + 150))
             screen.blit(img_list[INDEX.RIGHT()][INDEX.DOWN_POS()][img.Select.RD(now_view)], (pos_x + 600, pos_y + 450))
@@ -40,7 +40,7 @@ class Display():
         pos_y = y + 40
         screen.blit(img_list[INDEX.BOARD_S()][0], (x, y))
         screen.blit(img_list[INDEX.TEXT5()][img.Select.TEXT_FLASH(flash(1))], (pos_x - 10, pos_y - 20))
-        if not (dungeon_form.IS_DEATH()):
+        if not (dungeon_form.is_death()):
             # 中心
             screen.blit(Display.__getRaderImg(dungeon_form, 9), (pos_x, pos_y))
             screen.blit(Display.__getRaderImg(dungeon_form, 6), (pos_x, pos_y + 20))
@@ -97,7 +97,7 @@ class Display():
         font = dungeon_form.font()
         img_list = dungeon_form.IMG_LIST()
         numberPosX = pos_x+90
-        if not (dungeon_form.IS_DEATH()):
+        if not (dungeon_form.is_death()):
             screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
             # FLOOR
             screen.blit(img_list[INDEX.TEXT5()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 60, pos_y + 20))
@@ -139,7 +139,7 @@ class Display():
     def dispActionButton(screen, dungeon_form, ope_form, flash, pos_x: int, pos_y: int):
         (x, y) = ope_form.get_mouse()
         img_list = dungeon_form.IMG_LIST()
-        if not (dungeon_form.IS_DEATH()):
+        if not (dungeon_form.is_death()):
             screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
             screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 60, pos_y + 20))
             # 階段

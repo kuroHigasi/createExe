@@ -14,21 +14,25 @@ S = 2
 
 
 class Judge:
+    @staticmethod
     def isWall(situation):
         if situation == W:
             return True
         return False
 
+    @staticmethod
     def isNotWall(situation):
         if situation == W:
             return False
         return True
 
+    @staticmethod
     def isStairs(situation):
         if situation == S:
             return True
         return False
 
+    @staticmethod
     def isNotStairs(situation):
         if situation == S:
             return False

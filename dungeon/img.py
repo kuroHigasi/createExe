@@ -295,6 +295,7 @@ class pos:
                 status = calc.bitmask(status, 1)  # 1
         return status
 
+    @staticmethod
     def C(situation, status):
         if map.Judge.isWall(situation[2][0]):
             status = status | (0 << 4)  # 0
@@ -320,7 +321,7 @@ class pos:
                             status = calc.bitmask(status, 29 << 4)  # 29
                     else:
                         dbg.ERROR_LOG("画像なし")
-                        dunDbg.Debug.showSituation(situation, True)
+                        dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                         # ?□?
                         # ■□□
                         # ■□■
@@ -343,7 +344,7 @@ class pos:
                     else:
                         if map.Judge.isWall(situation[9][0]):
                             dbg.ERROR_LOG("画像なし")
-                            dunDbg.Debug.showSituation(situation, True)
+                            dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                             # ■□?
                             # □□■
                             # ■□■
@@ -351,7 +352,7 @@ class pos:
                             status = calc.bitmask(status, 14 << 4)  # 14
                         else:
                             dbg.ERROR_LOG("画像なし")
-                            dunDbg.Debug.showSituation(situation, True)
+                            dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                             # □□?
                             # □□■
                             # ■□■
@@ -360,7 +361,7 @@ class pos:
                 elif map.Judge.isNotWall(situation[6][0]) and map.Judge.isNotWall(situation[7][0]):
                     if map.Judge.isNotWall(situation[8][0]):
                         dbg.ERROR_LOG("画像なし")
-                        dunDbg.Debug.showSituation(situation, True)
+                        dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                         # ?□?
                         # □□□
                         # ■□■
@@ -417,21 +418,21 @@ class pos:
             if map.Judge.isNotWall(situation[5][0]):
                 if map.Judge.isWall(situation[6][0]) and map.Judge.isNotWall(situation[7][0]):
                     dbg.ERROR_LOG("画像なし")
-                    dunDbg.Debug.showSituation(situation, True)
+                    dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                     # ■□□
                     # □□□
                     # ?○?
                     status = calc.bitmask(status, 4 << 4)  # 4
                 elif map.Judge.isNotWall(situation[6][0]) and map.Judge.isWall(situation[7][0]):
                     dbg.ERROR_LOG("画像なし")
-                    dunDbg.Debug.showSituation(situation, True)
+                    dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                     # □□■
                     # □□□
                     # ?○?
                     status = calc.bitmask(status, 4 << 4)  # 4
                 else:
                     dbg.ERROR_LOG("画像なし")
-                    dunDbg.Debug.showSituation(situation, True)
+                    dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                     # □□□
                     # □□□
                     # ?○?
@@ -481,7 +482,7 @@ class pos:
                         status = calc.bitmask(status, 22 << 4)  # 22
                 elif map.Judge.isNotWall(situation[6][0]) and map.Judge.isWall(situation[7][0]):
                     dbg.ERROR_LOG("画像なし")
-                    dunDbg.Debug.showSituation(situation, True)
+                    dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                     # □□■
                     # □□■
                     # ?○?
@@ -501,7 +502,7 @@ class pos:
                         status = calc.bitmask(status, 26 << 4)  # 26
                 else:
                     dbg.ERROR_LOG("画像なし")
-                    dunDbg.Debug.showSituation(situation, True)
+                    dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                     # □□□
                     # □□■
                     # ?○?
@@ -524,7 +525,7 @@ class pos:
             if map.Judge.isNotWall(situation[5][0]):
                 if map.Judge.isWall(situation[6][0]) and map.Judge.isNotWall(situation[7][0]):
                     dbg.ERROR_LOG("画像なし")
-                    dunDbg.Debug.showSituation(situation, True)
+                    dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                     # ■□□
                     # ■□□
                     # ?○?
@@ -539,7 +540,7 @@ class pos:
                     else:
                         if map.Judge.isNotWall(situation[9][0]):
                             dbg.ERROR_LOG("画像なし")
-                            dunDbg.Debug.showSituation(situation, True)
+                            dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                             # □■?
                             # □□■
                             # ■□□
@@ -553,7 +554,7 @@ class pos:
                             status = calc.bitmask(status, 12 << 4)  # 12
                 else:  # 4
                     dbg.ERROR_LOG("画像なし")
-                    dunDbg.Debug.showSituation(situation, True)
+                    dunDbg.Debug.show_situation(get_situation=situation, error_flag=True)
                     # □□□
                     # ■□□
                     # ?○?

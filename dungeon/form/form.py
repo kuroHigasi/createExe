@@ -1,3 +1,5 @@
+import dataclasses
+import dungeon.form.position.form as pos_form
 import dungeon.img as DungeonImg
 # Form
 import dungeon.form.map.form as MapForm
@@ -17,7 +19,17 @@ import math
 import random
 
 
+@dataclasses.dataclass
 class Form:
+    __map_form: MapForm.Form
+    __button_form: ButtonForm.Form
+    __action_form: ActionForm.Form
+    __abnormal_form: AbnormalForm.Form
+    __log_form: LogForm.Form
+    __box_form: BoxForm.Form
+    __img_list: list
+    __end_flag: bool
+
     def __init__(self, floor: int):
         self.__map_form = MapForm.Form(floor)
         self.__button_form = ButtonForm.Form()
@@ -91,44 +103,44 @@ class Form:
         self.__map_form.set_now_way(next_way)
 
     def player_move(self):
-        judDepth = self.__map_form.get_now_pos()[0]
-        judWidth = self.__map_form.get_now_pos()[1]
-        nowWay = self.__map_form.get_now_way()
-        map = self.__map_form.get_map()
-        maxWidth = self.__map_form.get_max_width()
-        maxDepth = self.__map_form.get_max_depth()
-        nextPos = []
-        if nowWay == WAY.UP:
-            if cmnDungeon.Common.isPosPath(map, judDepth-1, judWidth, maxWidth, maxDepth):
-                nextPos.insert(0, judDepth-1)
-                nextPos.insert(1, judWidth)
+        depth = self.__map_form.get_now_pos()[0]
+        width = self.__map_form.get_now_pos()[1]
+        way = self.__map_form.get_now_way()
+        dungeon_map = self.__map_form.get_map()
+        width_max = self.__map_form.get_max_width()
+        depth_max = self.__map_form.get_max_depth()
+        next_pos = pos_form.Form(depth, width)
+        if way == WAY.UP:
+            if cmnDungeon.Common.isPosPath(dungeon_map, depth-1, width, width_max, depth_max):
+                next_pos.x = depth-1
+                next_pos.y = width
             else:
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth)
-        elif nowWay == WAY.RIGHT:
-            if cmnDungeon.Common.isPosPath(map, judDepth, judWidth+1, maxWidth, maxDepth):
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth+1)
+                next_pos.x = depth
+                next_pos.y = width
+        elif way == WAY.RIGHT:
+            if cmnDungeon.Common.isPosPath(dungeon_map, depth, width+1, width_max, depth_max):
+                next_pos.x = depth
+                next_pos.y = width+1
             else:
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth)
-        elif nowWay == WAY.LEFT:
-            if cmnDungeon.Common.isPosPath(map, judDepth, judWidth-1, maxWidth, maxDepth):
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth-1)
+                next_pos.x = depth
+                next_pos.y = width
+        elif way == WAY.LEFT:
+            if cmnDungeon.Common.isPosPath(dungeon_map, depth, width-1, width_max, depth_max):
+                next_pos.x = depth
+                next_pos.y = width-1
             else:
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth)
-        elif nowWay == WAY.DOWN:
-            if cmnDungeon.Common.isPosPath(map, judDepth+1, judWidth, maxWidth, maxDepth):
-                nextPos.insert(0, judDepth+1)
-                nextPos.insert(1, judWidth)
+                next_pos.x = depth
+                next_pos.y = width
+        elif way == WAY.DOWN:
+            if cmnDungeon.Common.isPosPath(dungeon_map, depth+1, width, width_max, depth_max):
+                next_pos.x = depth+1
+                next_pos.y = width
             else:
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth)
+                next_pos.x = depth
+                next_pos.y = width
         else:
             dbg.ERROR_LOG("[action.go]存在しないWAY")
-        self.__map_form.set_pos(nextPos)
+        self.__map_form.set_pos([next_pos.x, next_pos.y])
 
     def update_view(self):
         self.__map_form.set_pre_view()
@@ -144,22 +156,31 @@ class Form:
     def get_floor(self):
         return self.__map_form.get_now_floor()
 
-    def NOW_WAY(self):
+    def debug_now_way(self):
         return self.__map_form.get_now_way()
 
     def NOW_POS(self):
         return self.__map_form.get_now_pos()
 
+    def debug_now_pos(self):
+        return self.__map_form.get_now_pos()
+
     def NOW_VIEW(self):
         return self.__map_form.get_now_view()
 
-    def PRE_WAY(self):
+    def debug_now_view(self):
+        return self.__map_form.get_now_view()
+
+    def debug_pre_way(self):
         return self.__map_form.get_pre_way()
 
     def PRE_POS(self):
         return self.__map_form.get_pre_pos()
 
-    def PRE_VIEW(self):
+    def debug_pre_pos(self):
+        return self.__map_form.get_pre_pos()
+
+    def debug_pre_view(self):
         return self.__map_form.get_pre_view()
 
     def SITUATION(self):
