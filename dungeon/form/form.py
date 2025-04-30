@@ -103,8 +103,8 @@ class Form:
         self.__map_form.set_now_way(next_way)
 
     def player_move(self):
-        depth = self.__map_form.get_now_pos()[0]
-        width = self.__map_form.get_now_pos()[1]
+        depth = self.__map_form.get_now_pos().x
+        width = self.__map_form.get_now_pos().y
         way = self.__map_form.get_now_way()
         dungeon_map = self.__map_form.get_map()
         width_max = self.__map_form.get_max_width()
@@ -160,10 +160,12 @@ class Form:
         return self.__map_form.get_now_way()
 
     def NOW_POS(self):
-        return self.__map_form.get_now_pos()
+        now_pos = self.__map_form.get_now_pos()
+        return [now_pos.x, now_pos.y]
 
     def debug_now_pos(self):
-        return self.__map_form.get_now_pos()
+        now_pos = self.__map_form.get_now_pos()
+        return [now_pos.x, now_pos.y]
 
     def NOW_VIEW(self):
         return self.__map_form.get_now_view()
@@ -175,10 +177,12 @@ class Form:
         return self.__map_form.get_pre_way()
 
     def PRE_POS(self):
-        return self.__map_form.get_pre_pos()
+        pre_pos = self.__map_form.get_pre_pos()
+        return [pre_pos.x, pre_pos.y]
 
     def debug_pre_pos(self):
-        return self.__map_form.get_pre_pos()
+        pre_pos = self.__map_form.get_pre_pos()
+        return [pre_pos.x, pre_pos.y]
 
     def debug_pre_view(self):
         return self.__map_form.get_pre_view()
@@ -190,35 +194,36 @@ class Form:
         return self.__map_form.get_map()
 
     def get_start_pos(self):
-        return self.__map_form.get_start_pos()
+        start_pos = self.__map_form.get_start_pos()
+        return [start_pos.x, start_pos.y]
 
     def create_angle(self):
         now_pos = self.__map_form.get_now_pos()
         goal_pos = self.__map_form.get_goal_pos()
         now_way = self.__map_form.get_now_way()
         compass_angle = 0
-        if now_pos[1] == goal_pos[1]:
-            if now_pos[0] < goal_pos[0]:
+        if now_pos.y == goal_pos.y:
+            if now_pos.x < goal_pos.x:
                 compass_angle = Form.__compass_way(180, now_way)
-            elif now_pos[0] > goal_pos[0]:
+            elif now_pos.x > goal_pos.x:
                 compass_angle = Form.__compass_way(0, now_way)
             else:
                 compass_angle = Form.__compass_way(90, now_way)
-        elif now_pos[1] > goal_pos[1]:
-            if now_pos[0] < goal_pos[0]:
-                angel = math.degrees(math.atan((goal_pos[1] - now_pos[1])) / (goal_pos[0] - now_pos[0]))
+        elif now_pos.y > goal_pos.y:
+            if now_pos.x < goal_pos.x:
+                angel = math.degrees(math.atan((goal_pos.y - now_pos.y)) / (goal_pos.x - now_pos.x))
                 compass_angle = Form.__compass_way(angel + 180, now_way)
-            elif now_pos[0] > goal_pos[0]:
-                angel = math.degrees(math.atan((goal_pos[1] - now_pos[1]) / (goal_pos[0] - now_pos[0])))
+            elif now_pos.x > goal_pos.x:
+                angel = math.degrees(math.atan((goal_pos.y - now_pos.y) / (goal_pos.x - now_pos.x)))
                 compass_angle = Form.__compass_way(angel, now_way)
             else:
                 compass_angle = Form.__compass_way(90, now_way)
-        elif now_pos[1] < goal_pos[1]:
-            if now_pos[0] < goal_pos[0]:
-                angel = math.degrees(math.atan((goal_pos[1] - now_pos[1]) / (goal_pos[0] - now_pos[0])))
+        elif now_pos.y < goal_pos.y:
+            if now_pos.x < goal_pos.x:
+                angel = math.degrees(math.atan((goal_pos.y - now_pos.y) / (goal_pos.x - now_pos.x)))
                 compass_angle = Form.__compass_way(angel + 180, now_way)
-            elif now_pos[0] > goal_pos[0]:
-                angel = math.degrees(math.atan((goal_pos[1] - now_pos[1]) / (now_pos[0] - goal_pos[0])))
+            elif now_pos.x > goal_pos.x:
+                angel = math.degrees(math.atan((goal_pos.y - now_pos.y) / (now_pos.x - goal_pos.x)))
                 compass_angle = Form.__compass_way(-angel, now_way)
             else:
                 compass_angle = Form.__compass_way(270, now_way)
