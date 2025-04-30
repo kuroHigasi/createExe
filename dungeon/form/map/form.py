@@ -1,7 +1,10 @@
+import copy
+
 import dungeon.data.map.map as dungeonMap
 import dungeon.form.enemies.form as EnemiesForm
 import dungeon.form.events.form as EventsForm
 import dungeon.form.items.form as ItemsForm
+import dungeon.form.position.form as pos_form
 import common.debug.debug as dbg
 import dungeon.img as dungeonImg
 import pyd.way as WAY
@@ -70,7 +73,7 @@ class Form:
             self.__now_way = init_way
             self.__pre_way = init_way
             self.__now_pos = init_pos
-            self.__pre_pos = [init_pos.x, init_pos.y]
+            self.__pre_pos = init_pos
             self.__start_pos = [init_pos.x, init_pos.y]
             self.__goal_pos = [goal_pos.x, goal_pos.y]
             self.__max_width = max_width
@@ -92,7 +95,7 @@ class Form:
         self.__now_way = way
 
     def set_pos(self, pos: list[int]):
-        self.__pre_pos = [self.__now_pos.x, self.__now_pos.y]
+        self.__pre_pos = copy.deepcopy(self.__now_pos)
         self.__now_pos.x = pos[0]
         self.__now_pos.y = pos[1]
 
@@ -126,7 +129,7 @@ class Form:
         return self.__pre_way
 
     def get_pre_pos(self):
-        return self.__pre_pos
+        return [self.__pre_pos.x, self.__pre_pos.y]
 
     def get_pre_view(self):
         return self.__pre_view
@@ -147,7 +150,7 @@ class Form:
         return self.__pre_way != self.__now_way
 
     def is_diff_pos(self):
-        return self.__pre_pos[0] != self.__now_pos.x or self.__pre_pos[1] != self.__now_pos.y
+        return self.__pre_pos != self.__now_pos
 
     def is_diff_view(self):
         return self.__pre_view != self.__now_view
