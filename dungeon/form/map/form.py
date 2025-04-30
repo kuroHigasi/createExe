@@ -92,7 +92,7 @@ class Form:
         self.__now_way = way
 
     def set_pos(self, pos: list[int]):
-        self.__pre_pos = [self.__now_pos.x, self.__now_pos.x]
+        self.__pre_pos = [self.__now_pos.x, self.__now_pos.y]
         self.__now_pos.x = pos[0]
         self.__now_pos.y = pos[1]
 
