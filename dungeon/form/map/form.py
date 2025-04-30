@@ -38,8 +38,8 @@ class Form:
         self.__floor = floor
         self.__now_way = init_way
         self.__pre_way = init_way
-        self.__now_pos = [init_pos.x, init_pos.y]
-        self.__pre_pos = [init_pos.x, init_pos.y]
+        self.__now_pos = init_pos
+        self.__pre_pos = init_pos
         self.__start_pos = [init_pos.x, init_pos.y]
         self.__goal_pos = [goal_pos.x, goal_pos.y]
         self.__max_width = max_width
@@ -69,7 +69,7 @@ class Form:
             self.__floor = floor
             self.__now_way = init_way
             self.__pre_way = init_way
-            self.__now_pos = [init_pos.x, init_pos.y]
+            self.__now_pos = init_pos
             self.__pre_pos = [init_pos.x, init_pos.y]
             self.__start_pos = [init_pos.x, init_pos.y]
             self.__goal_pos = [goal_pos.x, goal_pos.y]
@@ -92,8 +92,9 @@ class Form:
         self.__now_way = way
 
     def set_pos(self, pos: list[int]):
-        self.__pre_pos = self.__now_pos
-        self.__now_pos = pos
+        self.__pre_pos = [self.__now_pos.x, self.__now_pos.x]
+        self.__now_pos.x = pos[0]
+        self.__now_pos.y = pos[1]
 
     def set_pre_view(self):
         self.__pre_view = self.__now_view
@@ -107,7 +108,7 @@ class Form:
         pos = self.__now_pos
         width = self.__max_width
         depth = self.__max_depth
-        self.__situation = Form.__get_situation(dungeon_map, way, pos[0], pos[1], width, depth)
+        self.__situation = Form.__get_situation(dungeon_map, way, pos.x, pos.y, width, depth)
 
     def get_now_floor(self):
         return self.__floor
@@ -116,7 +117,7 @@ class Form:
         return self.__now_way
 
     def get_now_pos(self):
-        return self.__now_pos
+        return [self.__now_pos.x, self.__now_pos.y]
 
     def get_now_view(self):
         return self.__now_view
@@ -146,7 +147,7 @@ class Form:
         return self.__pre_way != self.__now_way
 
     def is_diff_pos(self):
-        return self.__pre_pos[0] != self.__now_pos[0] or self.__pre_pos[1] != self.__now_pos[1]
+        return self.__pre_pos[0] != self.__now_pos.x or self.__pre_pos[1] != self.__now_pos.y
 
     def is_diff_view(self):
         return self.__pre_view != self.__now_view
@@ -170,13 +171,13 @@ class Form:
         return self.__enemies_form.enemyMove()
 
     def get_event_text(self):
-        return self.__events_form.getEventText(self.__now_pos, self.__now_way)
+        return self.__events_form.getEventText([self.__now_pos.x, self.__now_pos.y], self.__now_way)
 
     def event_flag_off(self):
-        self.__events_form.eventFlagOff(self.__now_pos)
+        self.__events_form.eventFlagOff([self.__now_pos.x, self.__now_pos.y])
 
     def get_item(self):
-        return self.__items_form.getItem(self.__now_pos)
+        return self.__items_form.getItem([self.__now_pos.x, self.__now_pos.y])
 
     def item_flag_off(self):
         return self.__items_form.flagOff()

@@ -29,5 +29,6 @@ class Form:
 			self._y = pos_y
 
 	def __eq__(self, other):
-		if other is None or type(self) != type(other): return False
-		return self._x == other.x and self._y == other.y
+		if other is None or not(isinstance(other, Form)):
+			return False
+		return self.x == other.x and self.y == other.y
