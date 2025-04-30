@@ -73,7 +73,7 @@ class Form:
         self.__enemies_form = enemies_form.Form()
         self.__enemies_form.registry(enemy_list)
         self.__events_form = events_form.Form()
-        self.__events_form.regist(event_list)
+        self.__events_form.registry(event_list)
         self.__items_form = items_form.Form()
         self.__items_form.register(item_list)
 
@@ -102,7 +102,7 @@ class Form:
             self.__pre_view = self.__now_view
             self.__map = init_map
             self.__enemies_form.registry(enemy_list)
-            self.__events_form.regist(event_list)
+            self.__events_form.registry(event_list)
             self.__items_form.register(item_list)
         else:
             dbg.ERROR_LOG("[MapForm.__set]存在しない階数を指定しています")
@@ -202,10 +202,10 @@ class Form:
         return self.__enemies_form.ENEMY_TYPE(index)
 
     def get_enemy_pos(self, index):
-        return self.__enemies_form.ENEMY_POS(index)
+        return self.__enemies_form.get_enemy_pos(index)
 
     def enemy_move(self):
-        return self.__enemies_form.enemyMove()
+        return self.__enemies_form.enemy_move()
 
     def get_event_text(self):
         return self.__events_form.getEventText([self.__now_pos.x, self.__now_pos.y], self.__now_way)

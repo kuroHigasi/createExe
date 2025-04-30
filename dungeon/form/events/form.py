@@ -11,14 +11,14 @@ class Form:
         self.__eventType = []
         self.__eventFlag = []
 
-    def regist(self, eventList):
+    def registry(self, event_list):
         self.__eventPos = []
         self.__eventWay = []
         self.__eventText = []
         self.__eventType = []
         self.__eventFlag = []
         index: int = 0
-        for event in eventList:
+        for event in event_list:
             self.__eventPos.insert(index, [event.pos[0], event.pos[1]])
             self.__eventWay.insert(index, event.way)
             self.__eventText.insert(index, event.text)
