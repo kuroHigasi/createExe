@@ -1,70 +1,82 @@
+import dataclasses
+
 import common.debug.debug as dbg
 
 
+@dataclasses.dataclass
 class Form:
-    def __init__(self):
-        self.__enemyCount = 0
-        self.__enemyMove = []
-        self.__enemyMoveIndex = []
-        self.__enemyMoveDistance = []
-        self.__enemyType = []
-        self.__appearFlag = []
-        self.__enemyWay = []
+    __enemy_count: int
+    __enemy_move: list
+    __enemy_move_index: list
+    __enemy_move_distance: list
+    __enemy_type: list
+    __appear_flag: list
+    __enemy_way: list
 
-    def regist(self, enemyList):
+    def __init__(self):
+        self.__enemy_count = 0
+        self.__enemy_move = []
+        self.__enemy_move_index = []
+        self.__enemy_move_distance = []
+        self.__enemy_type = []
+        self.__appear_flag = []
+        self.__enemy_way = []
+
+    def registry(self, enemy_list):
         count: int = 0
-        self.__enemyCount = 0
-        self.__enemyMove = []
-        self.__enemyMoveIndex = []
-        self.__enemyMoveDistance = []
-        self.__enemyType = []
-        self.__appearFlag = []
-        self.__enemyWay = []
-        for enemy in enemyList:
+        self.__enemy_count = 0
+        self.__enemy_move = []
+        self.__enemy_move_index = []
+        self.__enemy_move_distance = []
+        self.__enemy_type = []
+        self.__appear_flag = []
+        self.__enemy_way = []
+        for enemy in enemy_list:
             i: int = 0
-            posList = []
-            for pos in enemy.move:
-                posList.insert(i, [pos[0], pos[1]])
+            pos_list = []
+            for pos in enemy.route:
+                pos_list.insert(i, [pos[0], pos[1]])
                 i += 1
-            self.__enemyMove.insert(count, posList)
-            self.__enemyType.insert(count, enemy.type)
+            self.__enemy_move.insert(count, pos_list)
+            self.__enemy_type.insert(count, enemy.type)
             count += 1
         if count == 0:
-            print(self.__enemyMove)
+            print(self.__enemy_move)
             dbg.ERROR_LOG("敵がいないMAP")
-        self.__enemyCount = count
+        self.__enemy_count = count
         for k in range(0, count, 1):
-            self.__enemyMoveIndex.insert(k, 0)
-            self.__enemyMoveDistance.insert(k, len(self.__enemyMove[k]))
-            self.__appearFlag.insert(k, True)
-            self.__enemyWay.insert(k, True)
+            self.__enemy_move_index.insert(k, 0)
+            self.__enemy_move_distance.insert(k, len(self.__enemy_move[k]))
+            self.__appear_flag.insert(k, True)
+            self.__enemy_way.insert(k, True)
 
     def disappearanceEnemy(self, index):
-        self.__appearFlag[index] = False
+        self.__appear_flag[index] = False
 
     def APPEAR_FLAG(self, index):
-        return self.__appearFlag[index]
+        return self.__appear_flag[index]
 
-    def ENEMY_COUNT(self):
-        return self.__enemyCount
+    @property
+    def enemy_count(self):
+        return self.__enemy_count
 
     def ENEMY_POS(self, index):
-        return self.__enemyMove[index][self.__enemyMoveIndex[index]]
+        return self.__enemy_move[index][self.__enemy_move_index[index]]
 
     def ENEMY_TYPE(self, index):
-        return self.__enemyType[index]
+        return self.__enemy_type[index]
 
     def enemyMove(self):
-        for i in range(0, self.__enemyCount, 1):
-            if self.__enemyWay[i]:  # 加算
-                if self.__enemyMoveIndex[i]+1 < self.__enemyMoveDistance[i]:
-                    self.__enemyMoveIndex[i] += 1
+        for i in range(0, self.__enemy_count, 1):
+            if self.__enemy_way[i]:  # 加算
+                if self.__enemy_move_index[i]+1 < self.__enemy_move_distance[i]:
+                    self.__enemy_move_index[i] += 1
                 else:
-                    self.__enemyWay[i] = False
-                    self.__enemyMoveIndex[i] -= 1
+                    self.__enemy_way[i] = False
+                    self.__enemy_move_index[i] -= 1
             else:  # 減算
-                if self.__enemyMoveIndex[i]-1 >= 0:
-                    self.__enemyMoveIndex[i] -= 1
+                if self.__enemy_move_index[i]-1 >= 0:
+                    self.__enemy_move_index[i] -= 1
                 else:
-                    self.__enemyMoveIndex[i] += 1
-                    self.__enemyWay[i] = True
+                    self.__enemy_move_index[i] += 1
+                    self.__enemy_way[i] = True

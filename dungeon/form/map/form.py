@@ -5,6 +5,7 @@ import dungeon.data.map.map as dungeon_map
 import dungeon.form.enemies.form as enemies_form
 import dungeon.form.events.form as events_form
 import dungeon.form.items.form as items_form
+import dungeon.form.position.form as pos_form
 import common.debug.debug as dbg
 import dungeon.img as dungeon_img
 import pyd.way as WAY
@@ -16,6 +17,23 @@ dungeon = [dungeon_map.FirstFloor, dungeon_map.SecondFloor, dungeon_map.ThirdFlo
 
 @dataclasses.dataclass
 class Form:
+    __floor: int
+    __now_way: any
+    __pre_way: any
+    __now_pos: pos_form.Form
+    __pre_pos: pos_form.Form
+    __start_pos: pos_form.Form
+    __goal_pos: pos_form.Form
+    __max_width: int
+    __max_depth: int
+    __situation: list
+    __now_view: int
+    __pre_view: int
+    __map: list
+    __enemies_form: enemies_form.Form
+    __events_form: events_form.Form
+    __items_form: items_form.Form()
+
     def __init__(self, floor=1):
         if 0 < floor <= len(dungeon):
             init_map = dungeon[floor-1].map
@@ -53,7 +71,7 @@ class Form:
         self.__pre_view = self.__now_view
         self.__map = init_map
         self.__enemies_form = enemies_form.Form()
-        self.__enemies_form.regist(enemy_list)
+        self.__enemies_form.registry(enemy_list)
         self.__events_form = events_form.Form()
         self.__events_form.regist(event_list)
         self.__items_form = items_form.Form()
@@ -83,30 +101,26 @@ class Form:
             self.__now_view = Form.__set_view(self.__situation)
             self.__pre_view = self.__now_view
             self.__map = init_map
-            self.__enemies_form.regist(enemy_list)
+            self.__enemies_form.registry(enemy_list)
             self.__events_form.regist(event_list)
             self.__items_form.register(item_list)
         else:
             dbg.ERROR_LOG("[MapForm.__set]存在しない階数を指定しています")
 
-    def set_pre_way(self):
+    def update_way(self, way: int):
         self.__pre_way = self.__now_way
-
-    def set_now_way(self, way: int):
         self.__now_way = way
 
-    def set_pos(self, pos: list[int]):
+    def update_pos(self, pos: list[int]):
         self.__pre_pos = copy.deepcopy(self.__now_pos)
         self.__now_pos.x = pos[0]
         self.__now_pos.y = pos[1]
 
-    def set_pre_view(self):
+    def update_view(self):
         self.__pre_view = self.__now_view
-
-    def set_now_view(self):
         self.__now_view = Form.__set_view(self.__situation)
 
-    def set_situation(self):
+    def update_situation(self):
         dungeon_map_ = self.__map
         way_ = self.__now_way
         pos_ = self.__now_pos
@@ -114,38 +128,57 @@ class Form:
         depth_ = self.__max_depth
         self.__situation = Form.__get_situation(dungeon_map_, way_, pos_.x, pos_.y, width_, depth_)
 
-    def get_now_floor(self):
+    @property
+    def floor(self):
         return self.__floor
 
-    def get_now_way(self):
+    @property
+    def now_way(self):
         return self.__now_way
 
-    def get_now_pos(self):
+    @property
+    def now_pos(self):
         return self.__now_pos
 
-    def get_now_view(self):
+    @property
+    def now_view(self):
         return self.__now_view
 
-    def get_pre_way(self):
+    @property
+    def pre_way(self):
         return self.__pre_way
 
-    def get_pre_pos(self):
+    @property
+    def pre_pos(self):
         return self.__pre_pos
 
-    def get_pre_view(self):
+    @property
+    def pre_view(self):
         return self.__pre_view
 
-    def get_situation(self):
+    @property
+    def situation(self):
         return self.__situation
 
-    def get_map(self):
+    @property
+    def map(self):
         return self.__map
 
-    def get_max_width(self):
+    @property
+    def max_width(self):
         return self.__max_width
 
-    def get_max_depth(self):
+    @property
+    def max_depth(self):
         return self.__max_depth
+
+    @property
+    def start_pos(self):
+        return self.__start_pos
+
+    @property
+    def goal_pos(self):
+        return self.__goal_pos
 
     def is_diff_way(self):
         return self.__pre_way != self.__now_way
@@ -157,7 +190,7 @@ class Form:
         return self.__pre_view != self.__now_view
 
     def get_enemy_count(self):
-        return self.__enemies_form.ENEMY_COUNT()
+        return self.__enemies_form.enemy_count
 
     def disappearance_enemy(self, index):
         self.__enemies_form.disappearanceEnemy(index)
@@ -188,12 +221,6 @@ class Form:
 
     def get_item_flag(self):
         return self.__items_form.ITEM_GET_FLAG()
-
-    def get_start_pos(self):
-        return self.__start_pos
-
-    def get_goal_pos(self):
-        return self.__goal_pos
 
     @staticmethod
     def __set_view(situation):

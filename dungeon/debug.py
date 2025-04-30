@@ -42,7 +42,7 @@ class Debug:
                 dbg.ERROR_LOG("[dungeon_debug]show_situation 引数不備")
                 return
             else:
-                temp_situation = form.SITUATION()
+                temp_situation = form.get_situation()
         else:
             temp_situation = get_situation
         if cmn.DEBUG_FLAG:

@@ -234,7 +234,7 @@ class Display():
 
     @staticmethod
     def __getRaderImg(dungeon_form, number):
-        situation = dungeon_form.SITUATION()
+        situation = dungeon_form.get_situation()
         img_list = dungeon_form.img_list
         wallOrPath = img.Select.WALL_OR_PATH(situation[number][0])
         isEnemy = Display.__isEnemy(dungeon_form, situation[number][1], situation[number][2])
