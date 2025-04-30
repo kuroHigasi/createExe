@@ -53,7 +53,8 @@ class FirstFloor:
     goal_pos = pos_form.Form(0, 0)
     start_way = WAY.LEFT
     # ENEMY LIST
-    enemyList = [EnemyForm.Form([[2, 1], [1, 1], [0, 1]], ENEMY_TYPE.DANGER())]
+    enemyList = \
+        [EnemyForm.Form([pos_form.Form(2, 1), pos_form.Form(1, 1), pos_form.Form(0, 1)], ENEMY_TYPE.DANGER())]
     # EVENT LIST
     eventList = [EventForm.Form([4, 4], WAY.LEFT, "冒険の始まりはいつだって静かだ", EVENT_TYPE.FLAVOR()),
                  EventForm.Form([4, 2], WAY.LEFT, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
@@ -88,7 +89,7 @@ class SecondFloor:
     goal_pos = pos_form.Form(6, 8)
     start_way = WAY.UP
     # ENEMY LIST
-    enemyList = [EnemyForm.Form([[6, 4], [7, 4]], ENEMY_TYPE.DANGER())]
+    enemyList = [EnemyForm.Form([pos_form.Form(6, 4), pos_form.Form(7, 4)], ENEMY_TYPE.DANGER())]
     # EVENT LIST
     eventList = [EventForm.Form([2, 0], WAY.UP, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
                  EventForm.Form([6, 3], WAY.DOWN, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
@@ -130,8 +131,8 @@ class ThirdFloor:
     goal_pos = pos_form.Form(4, 19)
     start_way = WAY.UP
     # ENEMY LIST
-    enemyList = [EnemyForm.Form([[2, 1], [1, 1], [0, 1]], ENEMY_TYPE.DANGER()),
-                 EnemyForm.Form([[6, 4], [7, 4]], ENEMY_TYPE.DANGER())]
+    enemyList = [EnemyForm.Form([pos_form.Form(2, 1), pos_form.Form(1, 1), pos_form.Form(0, 1)], ENEMY_TYPE.DANGER()),
+                 EnemyForm.Form([pos_form.Form(6, 4), pos_form.Form(7, 4)], ENEMY_TYPE.DANGER())]
     # EVENT LIST
     eventList = [EventForm.Form([2, 19], WAY.DOWN, infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
                  EventForm.Form([2, 0], WAY.UP, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
@@ -165,8 +166,8 @@ class ForthFloor:
     goal_pos = pos_form.Form(4, 10)
     start_way = WAY.UP
     # ENEMY LIST
-    enemyList = [EnemyForm.Form([[2, 1], [1, 1], [0, 1]], ENEMY_TYPE.DANGER()),
-                 EnemyForm.Form([[6, 4], [7, 4]], ENEMY_TYPE.DANGER())]
+    enemyList = [EnemyForm.Form([pos_form.Form(2, 1), pos_form.Form(1, 1), pos_form.Form(0, 1)], ENEMY_TYPE.DANGER()),
+                 EnemyForm.Form([pos_form.Form(6, 4), pos_form.Form(7, 4)], ENEMY_TYPE.DANGER())]
     # EVENT LIST
     eventList = [EventForm.Form([2, 19], WAY.DOWN, infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
                  EventForm.Form([2, 0], WAY.UP, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),

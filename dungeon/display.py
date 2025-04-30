@@ -225,7 +225,7 @@ class Display():
     def __isEnemy(dungeon_form, x: int, y: int):
         for index in range(0, dungeon_form.ENEMY_COUNT(), 1):
             enemyPos = dungeon_form.ENEMIS_POS(index)
-            if enemyPos[0] == x and enemyPos[1] == y:
+            if enemyPos.x == x and enemyPos.y == y:
                 if dungeon_form.APPEAR_FLAG(index):
                     return 1
                 else:
