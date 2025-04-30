@@ -236,7 +236,7 @@ class Form:
     @staticmethod
     def __get_situation(dungeon_map_, now_way, depth, width, max_width, max_depth):
         situation = []
-        if now_way == WAY.UP:
+        if now_way == WAY.UP():
             situation.insert(0, Form._create_situation(dungeon_map_, depth, width-1, max_width, max_depth))
             situation.insert(1, Form._create_situation(dungeon_map_, depth-1, width-1, max_width, max_depth))
             situation.insert(2, Form._create_situation(dungeon_map_, depth-1, width, max_width, max_depth))
@@ -285,7 +285,7 @@ class Form:
             situation.insert(45, Form._create_situation(dungeon_map_, depth+1, width+3, max_width, max_depth))
             situation.insert(46, Form._create_situation(dungeon_map_, depth+2, width+3, max_width, max_depth))
             situation.insert(47, Form._create_situation(dungeon_map_, depth+3, width+3, max_width, max_depth))
-        elif now_way == WAY.RIGHT:
+        elif now_way == WAY.RIGHT():
             situation.insert(0, Form._create_situation(dungeon_map_, depth-1, width, max_width, max_depth))
             situation.insert(1, Form._create_situation(dungeon_map_, depth-1, width+1, max_width, max_depth))
             situation.insert(2, Form._create_situation(dungeon_map_, depth, width+1, max_width, max_depth))
@@ -334,7 +334,7 @@ class Form:
             situation.insert(45, Form._create_situation(dungeon_map_, depth+3, width-1, max_width, max_depth))
             situation.insert(46, Form._create_situation(dungeon_map_, depth+3, width-2, max_width, max_depth))
             situation.insert(47, Form._create_situation(dungeon_map_, depth+3, width-3, max_width, max_depth))
-        elif now_way == WAY.LEFT:
+        elif now_way == WAY.LEFT():
             situation.insert(0, Form._create_situation(dungeon_map_, depth+1, width, max_width, max_depth))
             situation.insert(1, Form._create_situation(dungeon_map_, depth+1, width-1, max_width, max_depth))
             situation.insert(2, Form._create_situation(dungeon_map_, depth, width-1, max_width, max_depth))
@@ -383,7 +383,7 @@ class Form:
             situation.insert(45, Form._create_situation(dungeon_map_, depth-3, width+1, max_width, max_depth))
             situation.insert(46, Form._create_situation(dungeon_map_, depth-3, width+2, max_width, max_depth))
             situation.insert(47, Form._create_situation(dungeon_map_, depth-3, width+3, max_width, max_depth))
-        elif now_way == WAY.DOWN:
+        elif now_way == WAY.DOWN():
             situation.insert(0, Form._create_situation(dungeon_map_, depth, width+1, max_width, max_depth))
             situation.insert(1, Form._create_situation(dungeon_map_, depth+1, width+1, max_width, max_depth))
             situation.insert(2, Form._create_situation(dungeon_map_, depth+1, width, max_width, max_depth))

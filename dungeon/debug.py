@@ -82,16 +82,16 @@ class Debug:
     @staticmethod
     def __print_way(now_way: int):
         if cmn.DEBUG_FLAG:
-            if now_way == WAY.UP and cmn.DEBUG_FLAG:
+            if now_way == WAY.UP() and cmn.DEBUG_FLAG:
                 dbg.LOG('UP_WAY')
                 return False
-            elif now_way == WAY.RIGHT and cmn.DEBUG_FLAG:
+            elif now_way == WAY.RIGHT() and cmn.DEBUG_FLAG:
                 dbg.LOG('RIGHT_WAY')
                 return False
-            elif now_way == WAY.LEFT and cmn.DEBUG_FLAG:
+            elif now_way == WAY.LEFT() and cmn.DEBUG_FLAG:
                 dbg.LOG('LEFT_WAY')
                 return False
-            elif now_way == WAY.DOWN and cmn.DEBUG_FLAG:
+            elif now_way == WAY.DOWN() and cmn.DEBUG_FLAG:
                 dbg.LOG('DOWN_WAY')
                 return False
             else:

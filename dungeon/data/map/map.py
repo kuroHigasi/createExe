@@ -51,22 +51,22 @@ class FirstFloor:
     maxDepth = 5
     start_pos = pos_form.Form(4, 4)
     goal_pos = pos_form.Form(0, 0)
-    start_way = WAY.LEFT
+    start_way = WAY.LEFT()
     # ENEMY LIST
     enemyList = \
         [EnemyForm.Form([pos_form.Form(2, 1), pos_form.Form(1, 1), pos_form.Form(0, 1)], ENEMY_TYPE.DANGER())]
     # EVENT LIST
-    eventList = [EventForm.Form([4, 4], WAY.LEFT, "冒険の始まりはいつだって静かだ", EVENT_TYPE.FLAVOR()),
-                 EventForm.Form([4, 2], WAY.LEFT, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([2, 0], WAY.UP, infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([4, 0], WAY.UP, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 0], WAY.DOWN, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 0], WAY.RIGHT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 0], WAY.LEFT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.LEFT, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([0, 0], WAY.RIGHT, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([0, 0], WAY.DOWN, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([0, 0], WAY.UP, infoText.GOAL_TEXT0, EVENT_TYPE.INFO())]
+    eventList = [EventForm.Form([4, 4], WAY.LEFT(), "冒険の始まりはいつだって静かだ", EVENT_TYPE.FLAVOR()),
+                 EventForm.Form([4, 2], WAY.LEFT(), infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([2, 0], WAY.UP(), infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([4, 0], WAY.UP(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 0], WAY.DOWN(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 0], WAY.RIGHT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 0], WAY.LEFT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.LEFT(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([0, 0], WAY.RIGHT(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([0, 0], WAY.DOWN(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([0, 0], WAY.UP(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO())]
     # ITEM LIST
     itemList = [ItemForm.Form([4, 0], ITEM_TYPE.COMPASS())]
 
@@ -87,27 +87,27 @@ class SecondFloor:
     maxDepth = 10
     start_pos = pos_form.Form(9, 0)
     goal_pos = pos_form.Form(6, 8)
-    start_way = WAY.UP
+    start_way = WAY.UP()
     # ENEMY LIST
     enemyList = [EnemyForm.Form([pos_form.Form(6, 4), pos_form.Form(7, 4)], ENEMY_TYPE.DANGER())]
     # EVENT LIST
-    eventList = [EventForm.Form([2, 0], WAY.UP, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([6, 3], WAY.DOWN, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([4, 8], WAY.DOWN, infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([6, 6], WAY.RIGHT, infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([8, 8], WAY.UP, infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([0, 0], WAY.UP, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.DOWN, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.RIGHT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.LEFT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([8, 3], WAY.RIGHT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([8, 3], WAY.LEFT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([8, 3], WAY.UP, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([8, 3], WAY.DOWN, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([6, 8], WAY.LEFT, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([6, 8], WAY.RIGHT, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([6, 8], WAY.DOWN, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([6, 8], WAY.UP, infoText.GOAL_TEXT0, EVENT_TYPE.INFO())]
+    eventList = [EventForm.Form([2, 0], WAY.UP(), infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([6, 3], WAY.DOWN(), infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([4, 8], WAY.DOWN(), infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([6, 6], WAY.RIGHT(), infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([8, 8], WAY.UP(), infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([0, 0], WAY.UP(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.DOWN(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.RIGHT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.LEFT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([8, 3], WAY.RIGHT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([8, 3], WAY.LEFT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([8, 3], WAY.UP(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([8, 3], WAY.DOWN(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([6, 8], WAY.LEFT(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([6, 8], WAY.RIGHT(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([6, 8], WAY.DOWN(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([6, 8], WAY.UP(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO())]
     # ITEM LIST
     itemList = [ItemForm.Form([0, 0], ITEM_TYPE.COMPASS()),
                 ItemForm.Form([8, 3], ITEM_TYPE.COMPASS())]
@@ -129,21 +129,21 @@ class ThirdFloor:
     maxDepth = 10
     start_pos = pos_form.Form(9, 0)
     goal_pos = pos_form.Form(4, 19)
-    start_way = WAY.UP
+    start_way = WAY.UP()
     # ENEMY LIST
     enemyList = [EnemyForm.Form([pos_form.Form(2, 1), pos_form.Form(1, 1), pos_form.Form(0, 1)], ENEMY_TYPE.DANGER()),
                  EnemyForm.Form([pos_form.Form(6, 4), pos_form.Form(7, 4)], ENEMY_TYPE.DANGER())]
     # EVENT LIST
-    eventList = [EventForm.Form([2, 19], WAY.DOWN, infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([2, 0], WAY.UP, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([0, 0], WAY.UP, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.DOWN, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.RIGHT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.LEFT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 19], WAY.RIGHT, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([4, 19], WAY.LEFT, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([4, 19], WAY.UP, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([4, 19], WAY.DOWN, infoText.GOAL_TEXT0, EVENT_TYPE.INFO())]
+    eventList = [EventForm.Form([2, 19], WAY.DOWN(), infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([2, 0], WAY.UP(), infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([0, 0], WAY.UP(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.DOWN(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.RIGHT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.LEFT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 19], WAY.RIGHT(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([4, 19], WAY.LEFT(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([4, 19], WAY.UP(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([4, 19], WAY.DOWN(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO())]
     # ITEM LIST
     itemList = [ItemForm.Form([0, 0], ITEM_TYPE.COMPASS())]
 
@@ -164,35 +164,35 @@ class ForthFloor:
     maxDepth = 10
     start_pos = pos_form.Form(4, 19)
     goal_pos = pos_form.Form(4, 10)
-    start_way = WAY.UP
+    start_way = WAY.UP()
     # ENEMY LIST
     enemyList = [EnemyForm.Form([pos_form.Form(2, 1), pos_form.Form(1, 1), pos_form.Form(0, 1)], ENEMY_TYPE.DANGER()),
                  EnemyForm.Form([pos_form.Form(6, 4), pos_form.Form(7, 4)], ENEMY_TYPE.DANGER())]
     # EVENT LIST
-    eventList = [EventForm.Form([2, 19], WAY.DOWN, infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([2, 0], WAY.UP, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([0, 0], WAY.UP, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.DOWN, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.RIGHT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([0, 0], WAY.LEFT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 8], WAY.UP, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 8], WAY.DOWN, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 8], WAY.RIGHT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 8], WAY.LEFT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([6, 6], WAY.RIGHT, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([8, 8], WAY.UP, infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([6, 8], WAY.UP, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([6, 8], WAY.DOWN, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([6, 8], WAY.RIGHT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([6, 8], WAY.LEFT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([9, 0], WAY.UP, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([9, 0], WAY.DOWN, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([9, 0], WAY.RIGHT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([9, 0], WAY.LEFT, infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
-                 EventForm.Form([4, 10], WAY.RIGHT, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([4, 10], WAY.LEFT, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([4, 10], WAY.UP, infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
-                 EventForm.Form([4, 10], WAY.DOWN, infoText.GOAL_TEXT0, EVENT_TYPE.INFO())]
+    eventList = [EventForm.Form([2, 19], WAY.DOWN(), infoText.WALL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([2, 0], WAY.UP(), infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([0, 0], WAY.UP(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.DOWN(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.RIGHT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([0, 0], WAY.LEFT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 8], WAY.UP(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 8], WAY.DOWN(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 8], WAY.RIGHT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 8], WAY.LEFT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([6, 6], WAY.RIGHT(), infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([8, 8], WAY.UP(), infoText.ITEM_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([6, 8], WAY.UP(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([6, 8], WAY.DOWN(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([6, 8], WAY.RIGHT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([6, 8], WAY.LEFT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([9, 0], WAY.UP(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([9, 0], WAY.DOWN(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([9, 0], WAY.RIGHT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([9, 0], WAY.LEFT(), infoText.ITEM_TEXT1, EVENT_TYPE.ITEM()),
+                 EventForm.Form([4, 10], WAY.RIGHT(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([4, 10], WAY.LEFT(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([4, 10], WAY.UP(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO()),
+                 EventForm.Form([4, 10], WAY.DOWN(), infoText.GOAL_TEXT0, EVENT_TYPE.INFO())]
     # ITEM LIST
     itemList = [ItemForm.Form([0, 0], ITEM_TYPE.COMPASS()),
                 ItemForm.Form([4, 8], ITEM_TYPE.COMPASS()),

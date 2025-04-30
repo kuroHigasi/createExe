@@ -63,42 +63,42 @@ class Form:
     def update_way(self, ope_form):
         now_way = self.__map_form.now_way
         next_way = now_way
-        if now_way == WAY.UP:
+        if now_way == WAY.UP():
             if ope_form.get_up():
-                next_way = WAY.UP
+                next_way = WAY.UP()
             elif ope_form.get_left():
-                next_way = WAY.LEFT
+                next_way = WAY.LEFT()
             elif ope_form.get_right():
-                next_way = WAY.RIGHT
+                next_way = WAY.RIGHT()
             elif ope_form.get_down():
-                next_way = WAY.DOWN
-        if now_way == WAY.RIGHT:
+                next_way = WAY.DOWN()
+        if now_way == WAY.RIGHT():
             if ope_form.get_up():
-                next_way = WAY.RIGHT
+                next_way = WAY.RIGHT()
             elif ope_form.get_left():
-                next_way = WAY.UP
+                next_way = WAY.UP()
             elif ope_form.get_right():
-                next_way = WAY.DOWN
+                next_way = WAY.DOWN()
             elif ope_form.get_down():
-                next_way = WAY.LEFT
-        if now_way == WAY.LEFT:
+                next_way = WAY.LEFT()
+        if now_way == WAY.LEFT():
             if ope_form.get_up():
-                next_way = WAY.LEFT
+                next_way = WAY.LEFT()
             elif ope_form.get_left():
-                next_way = WAY.DOWN
+                next_way = WAY.DOWN()
             elif ope_form.get_right():
-                next_way = WAY.UP
+                next_way = WAY.UP()
             elif ope_form.get_down():
-                next_way = WAY.RIGHT
-        if now_way == WAY.DOWN:
+                next_way = WAY.RIGHT()
+        if now_way == WAY.DOWN():
             if ope_form.get_up():
-                next_way = WAY.DOWN
+                next_way = WAY.DOWN()
             elif ope_form.get_left():
-                next_way = WAY.RIGHT
+                next_way = WAY.RIGHT()
             elif ope_form.get_right():
-                next_way = WAY.LEFT
+                next_way = WAY.LEFT()
             elif ope_form.get_down():
-                next_way = WAY.UP
+                next_way = WAY.UP()
         self.__map_form.update_way(next_way)
 
     def player_move(self):
@@ -109,28 +109,28 @@ class Form:
         width_max = self.__map_form.max_width
         depth_max = self.__map_form.max_depth
         next_pos = pos_form.Form(depth, width)
-        if way == WAY.UP:
+        if way == WAY.UP():
             if cmn_dungeon.Common.isPosPath(dungeon_map, depth-1, width, width_max, depth_max):
                 next_pos.x = depth-1
                 next_pos.y = width
             else:
                 next_pos.x = depth
                 next_pos.y = width
-        elif way == WAY.RIGHT:
+        elif way == WAY.RIGHT():
             if cmn_dungeon.Common.isPosPath(dungeon_map, depth, width+1, width_max, depth_max):
                 next_pos.x = depth
                 next_pos.y = width+1
             else:
                 next_pos.x = depth
                 next_pos.y = width
-        elif way == WAY.LEFT:
+        elif way == WAY.LEFT():
             if cmn_dungeon.Common.isPosPath(dungeon_map, depth, width-1, width_max, depth_max):
                 next_pos.x = depth
                 next_pos.y = width-1
             else:
                 next_pos.x = depth
                 next_pos.y = width
-        elif way == WAY.DOWN:
+        elif way == WAY.DOWN():
             if cmn_dungeon.Common.isPosPath(dungeon_map, depth+1, width, width_max, depth_max):
                 next_pos.x = depth+1
                 next_pos.y = width
@@ -225,11 +225,11 @@ class Form:
 
     @staticmethod
     def __compass_way(compass_way, now_way):
-        if WAY.UP == now_way:
+        if WAY.UP() == now_way:
             add_way = 0
-        elif WAY.RIGHT == now_way:
+        elif WAY.RIGHT() == now_way:
             add_way = 90
-        elif WAY.LEFT == now_way:
+        elif WAY.LEFT() == now_way:
             add_way = 270
         else:
             add_way = 180
