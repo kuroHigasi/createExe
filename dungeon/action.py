@@ -15,7 +15,7 @@ class Action(abstractAction.AbstractAction):
         # MOVE
         service.action_player_move(dungeon_form, ope_form)
         # UPDATE FLAG (LOG FLAG)
-        now_pos = dungeon_form.NOW_POS()
+        now_pos = dungeon_form.get_now_pos()
         is_diff_way = dungeon_form.existDiffWay()
         is_diff_view = dungeon_form.existDiffView()
         is_diff_pos = dungeon_form.existDiffPos()
@@ -41,7 +41,7 @@ class Action(abstractAction.AbstractAction):
         if res_enemy_move.is_ok():
             dungeon_form.enemy_move()
         # ENEMY ACTION(TOUCH)
-        pre_pos = dungeon_form.PRE_POS()
+        pre_pos = dungeon_form.get_pre_pos()
         enemy_pos_list = []
         for index in range(0, dungeon_form.ENEMY_COUNT(), 1):
             enemy_pos_list.insert(index, dungeon_form.ENEMIS_POS(index))
@@ -49,7 +49,7 @@ class Action(abstractAction.AbstractAction):
         if res_enemy_touch.is_ok():
             flag, index = res_enemy_touch.data
             enemy_type = dungeon_form.ENEMIS_TYPE(index)
-            dungeon_form.disappearanceEnemy(index)
+            dungeon_form.disappearance_enemy(index)
             if enemy_type == ENEMY_TYPE.DANGER():
                 dungeon_form.death()
         # BUTTON CLICK(ACTION)

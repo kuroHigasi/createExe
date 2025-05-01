@@ -9,9 +9,10 @@ import pygame
 
 
 class Display():
+    @staticmethod
     def dispView(screen, dungeon_form, ope_form, pos_x: int, pos_y: int):
         (x, y) = ope_form.get_mouse()
-        now_view = dungeon_form.NOW_VIEW()
+        now_view = dungeon_form.get_now_view()
         img_list = dungeon_form.img_list
         if not (dungeon_form.is_death()):
             screen.blit(img_list[INDEX.RIGHT()][INDEX.UP_POS()][img.Select.RU(now_view)], (pos_x + 600, pos_y))
@@ -34,6 +35,7 @@ class Display():
             Display.__dispButton(screen, img_list, x, y, pos_x+350, pos_y+270, 12)
             dungeon_form.set_retry_button(pos_x+350, pos_y+270)
 
+    @staticmethod
     def dispRader(screen, dungeon_form, flash, x: int, y: int):
         img_list = dungeon_form.img_list
         pos_x = x + 70
@@ -92,6 +94,7 @@ class Display():
             screen.blit(Display.__getRaderImg(dungeon_form, 46), (pos_x + 80, pos_y + 100))
             screen.blit(Display.__getRaderImg(dungeon_form, 47), (pos_x + 80, pos_y + 120))
 
+    @staticmethod
     def dispInfo(screen, dungeon_form, flash, pos_x: int, pos_y: int):
         floor = dungeon_form.get_floor()
         font = dungeon_form.font()
@@ -109,6 +112,7 @@ class Display():
         else:
             screen.blit(img_list[INDEX.BOARD_S()][1], (pos_x, pos_y))
 
+    @staticmethod
     def dispConversationText(screen, dungeon_form, x: int, y: int):
         img_list = dungeon_form.img_list
         font = dungeon_form.event_font()
@@ -123,6 +127,7 @@ class Display():
                     textY += 23
                 index += 1
 
+    @staticmethod
     def dispSystemButton(screen, dungeon_form, ope_form, flash, pos_x, pos_y):
         (x, y) = ope_form.get_mouse()
         img_list = dungeon_form.img_list
@@ -136,6 +141,7 @@ class Display():
         Display.__dispButton(screen, img_list, x, y, buttonPosX, pos_y+115, 8)
         dungeon_form.set_save_button(buttonPosX, pos_y+115)
 
+    @staticmethod
     def dispActionButton(screen, dungeon_form, ope_form, flash, pos_x: int, pos_y: int):
         (x, y) = ope_form.get_mouse()
         img_list = dungeon_form.img_list
@@ -143,7 +149,7 @@ class Display():
             screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
             screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 60, pos_y + 20))
             # 階段
-            if map.Judge.isStairs(dungeon_form.get_dungeon_map()[dungeon_form.NOW_POS()[0]][dungeon_form.NOW_POS()[1]]):
+            if map.Judge.isStairs(dungeon_form.get_dungeon_map()[dungeon_form.get_now_pos()[0]][dungeon_form.get_now_pos()[1]]):
                 Display.__dispActionButton(screen, img_list, dungeon_form, x, y, pos_x, pos_y, ACTION.GO_UP_THE_STAIRS())
             else:
                 dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), -1, -1)

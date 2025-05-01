@@ -157,13 +157,13 @@ class Form:
     def debug_now_way(self):
         return self.__map_form.now_way
 
-    def NOW_POS(self):
+    def get_now_pos(self):
         return [self.__map_form.now_pos.x, self.__map_form.now_pos.y]
 
     def debug_now_pos(self):
         return [self.__map_form.now_pos.x, self.__map_form.now_pos.y]
 
-    def NOW_VIEW(self):
+    def get_now_view(self):
         return self.__map_form.now_view
 
     def debug_now_view(self):
@@ -172,7 +172,7 @@ class Form:
     def debug_pre_way(self):
         return self.__map_form.pre_way
 
-    def PRE_POS(self):
+    def get_pre_pos(self):
         return [self.__map_form.pre_pos.x, self.__map_form.pre_pos.y]
 
     def debug_pre_pos(self):
@@ -236,7 +236,7 @@ class Form:
         return compass_way + add_way + random.randint(-2, 2)
 
     # [ENEMY] START
-    def disappearanceEnemy(self, index):
+    def disappearance_enemy(self, index):
         return self.__map_form.disappearance_enemy(index)
 
     def ENEMY_COUNT(self):
@@ -254,9 +254,6 @@ class Form:
 
     def eventFlagOff(self):
         self.__map_form.event_flag_off()
-
-    def getEventText(self):
-        return self.__map_form.get_event_text()
 
     # [ITEM] START
     def searchItem(self):
