@@ -30,13 +30,14 @@ class Action:
 			return response.Response(data=True, result=code.Code.OK)
 		return response.Response(data=False, result=code.Code.DO_NOTHING)
 
-	def action_player_move(self, dungeon_form, ope_form):
+	def action_player_move(self, act_flag):
 		now_pos = self._now_pos
 		next_pos = copy.deepcopy(self._now_pos)
+		reset_flag = False
+		next_act_flag = act_flag
 		if not self._is_death:  # 死亡時は行動しない
 			if self._is_go_action_on:
-				ope_form.space_off()  # 処理が連続で判定されないように実施
-				ope_form.enter_off()  # 処理が連続で判定されないように実施
+				reset_flag = True
 				# 更新(前進時)
 				way = self._now_way
 				dungeon_map = self._dungeon_map
@@ -44,21 +45,14 @@ class Action:
 				depth_max = self._depth_max
 				next_pos, move_flag = \
 					action_component.Action.get_player_next_pos(now_pos, way, dungeon_map, width_max, depth_max)
-				if move_flag and not (dungeon_form.get_action_flag()):
-					dungeon_form.action_flag_on()
+				if move_flag and not act_flag: next_act_flag = True
 			elif self._is_step_action_on:
-				ope_form.space_off()  # 処理が連続で判定されないように実施
-				ope_form.enter_off()  # 処理が連続で判定されないように実施
-				if not (dungeon_form.get_action_flag()):
-					dungeon_form.action_flag_on()
+				reset_flag = True
+				if not act_flag: next_act_flag = True
 			else:
-				if dungeon_form.get_action_flag():
-					dungeon_form.action_flag_off()
+				if act_flag: next_act_flag = False
 			# 更新(毎ターン)
-			dungeon_form.update_pos([next_pos.x, next_pos.y])
-			dungeon_form.update_way(ope_form)
-			dungeon_form.update_situation()
-			dungeon_form.update_view()
+		return response.Response(data=(next_pos, reset_flag, next_act_flag), result=code.Code.OK)
 
 	def judge_log_flag(self, now_pos, is_diff, is_diff_way, act_flag):
 		if not self._log_flag:

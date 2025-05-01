@@ -13,7 +13,20 @@ class Action(abstractAction.AbstractAction):
     def execute(dungeon_form: main_form.Form, ope_form, request: dungeonActionRequest.DungeonActionRequest):
         service = sub_action.Action(request)
         # MOVE
-        service.action_player_move(dungeon_form, ope_form)
+        res_player = service.action_player_move(dungeon_form.get_action_flag())
+        if res_player.is_ok():
+            next_pos, reset_flag, action_flag = res_player.data
+            if reset_flag:
+                ope_form.space_off()
+                ope_form.enter_off()
+            if action_flag:
+                dungeon_form.action_flag_on()
+            else:
+                dungeon_form.action_flag_off()
+            dungeon_form.update_pos([next_pos.x, next_pos.y])
+            dungeon_form.update_way(ope_form)
+            dungeon_form.update_situation()
+            dungeon_form.update_view()
         # UPDATE FLAG (LOG FLAG)
         now_pos = dungeon_form.get_now_pos()
         is_diff_way = dungeon_form.existDiffWay()
