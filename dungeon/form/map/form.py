@@ -60,9 +60,9 @@ class Form:
         self.__floor = floor
         self.__now_way = init_way
         self.__pre_way = init_way
-        self.__now_pos = init_pos
-        self.__pre_pos = init_pos
-        self.__start_pos = init_pos
+        self.__now_pos = copy.deepcopy(init_pos)
+        self.__pre_pos = copy.deepcopy(init_pos)
+        self.__start_pos = copy.deepcopy(init_pos)
         self.__goal_pos = goal_pos
         self.__max_width = max_width
         self.__max_depth = max_depth
@@ -91,9 +91,9 @@ class Form:
             self.__floor = floor
             self.__now_way = init_way
             self.__pre_way = init_way
-            self.__now_pos = init_pos
-            self.__pre_pos = init_pos
-            self.__start_pos = init_pos
+            self.__now_pos = copy.deepcopy(init_pos)
+            self.__pre_pos = copy.deepcopy(init_pos)
+            self.__start_pos = copy.deepcopy(init_pos)
             self.__goal_pos = goal_pos
             self.__max_width = max_width
             self.__max_depth = max_depth

@@ -139,7 +139,10 @@ class Form:
                 next_pos.y = width
         else:
             dbg.ERROR_LOG("[action.go]存在しないWAY")
-        self.__map_form.update_pos([next_pos.x, next_pos.y])
+        return [next_pos.x, next_pos.y]
+
+    def update_pos(self, pos):
+        self.__map_form.update_pos(pos)
 
     def update_view(self):
         self.__map_form.update_view()

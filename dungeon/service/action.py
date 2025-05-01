@@ -19,13 +19,15 @@ class Action:
 		return response.Response(data=False, result=code.Code.DO_NOTHING)
 
 	def action_player_move(self, dungeon_form, ope_form):
+		now_pos = dungeon_form.get_now_pos()
+		next_pos = dungeon_form.get_now_pos()
 		if not self._is_death:  # 死亡時は行動しない
 			if self.is_go_action_on:
 				ope_form.space_off()  # 処理が連続で判定されないように実施
 				ope_form.enter_off()  # 処理が連続で判定されないように実施
 				# 更新(前進時)
-				dungeon_form.player_move()
-				if dungeon_form.existDiffPos() and not (dungeon_form.get_action_flag()):
+				next_pos = dungeon_form.player_move()
+				if (next_pos[0] != now_pos[0] or next_pos[1] != now_pos[1]) and not (dungeon_form.get_action_flag()):
 					dungeon_form.action_flag_on()
 			elif self.is_step_action_on:
 				ope_form.space_off()  # 処理が連続で判定されないように実施
@@ -36,6 +38,7 @@ class Action:
 				if dungeon_form.get_action_flag():
 					dungeon_form.action_flag_off()
 			# 更新(毎ターン)
+			dungeon_form.update_pos(next_pos)
 			dungeon_form.update_way(ope_form)
 			dungeon_form.update_situation()
 			dungeon_form.update_view()
@@ -43,7 +46,7 @@ class Action:
 	def judge_log_flag(self, now_pos, is_diff, is_diff_way, act_flag):
 		if not self._request.log_flag:
 			if (is_diff and act_flag) or is_diff_way or \
-					self._request.start_pos_x == now_pos[0] and self._request.start_pos_y == now_pos[1]:
+					(self._request.start_pos_x == now_pos[0] and self._request.start_pos_y == now_pos[1]):
 				return response.Response(data=True, result=code.Code.OK)
 		return response.Response(data=False, result=code.Code.DO_NOTHING)
 
