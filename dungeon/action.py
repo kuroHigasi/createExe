@@ -82,6 +82,7 @@ class Action(abstractAction.AbstractAction):
         space = ope_form.get_space()
         enter = ope_form.get_enter()
         start_pos = dungeon_form.get_start_pos()
+        now_pos = dungeon_form.get_now_pos()
         (x, y) = ope_form.get_mouse()
         (click_x, click_y) = ope_form.left_click_move_mouse()
         left_click = ope_form.is_left_click()
@@ -99,6 +100,12 @@ class Action(abstractAction.AbstractAction):
             dungeon_form.BOX_FLAG(),
             start_pos[0],
             start_pos[1],
+            now_pos[0],
+            now_pos[1],
+            dungeon_form.get_now_way(),
+            dungeon_form.get_width_max(),
+            dungeon_form.get_depth_max(),
+            dungeon_form.get_dungeon_map(),
             dungeon_form.ENEMY_COUNT(),
             cmn.Judge.click(act0_x, act0_y, act0_width, act0_height, x, y, click_x, click_y, left_click),
             cmn.Judge.click(act1_x, act1_y, act1_width, act1_height, x, y, click_x, click_y, left_click),

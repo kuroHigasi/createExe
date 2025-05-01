@@ -101,46 +101,6 @@ class Form:
                 next_way = WAY.UP()
         self.__map_form.update_way(next_way)
 
-    def player_move(self):
-        depth = self.__map_form.now_pos.x
-        width = self.__map_form.now_pos.y
-        way = self.__map_form.now_way
-        dungeon_map = self.__map_form.map
-        width_max = self.__map_form.max_width
-        depth_max = self.__map_form.max_depth
-        next_pos = pos_form.Form(depth, width)
-        if way == WAY.UP():
-            if cmn_dungeon.Common.isPosPath(dungeon_map, depth-1, width, width_max, depth_max):
-                next_pos.x = depth-1
-                next_pos.y = width
-            else:
-                next_pos.x = depth
-                next_pos.y = width
-        elif way == WAY.RIGHT():
-            if cmn_dungeon.Common.isPosPath(dungeon_map, depth, width+1, width_max, depth_max):
-                next_pos.x = depth
-                next_pos.y = width+1
-            else:
-                next_pos.x = depth
-                next_pos.y = width
-        elif way == WAY.LEFT():
-            if cmn_dungeon.Common.isPosPath(dungeon_map, depth, width-1, width_max, depth_max):
-                next_pos.x = depth
-                next_pos.y = width-1
-            else:
-                next_pos.x = depth
-                next_pos.y = width
-        elif way == WAY.DOWN():
-            if cmn_dungeon.Common.isPosPath(dungeon_map, depth+1, width, width_max, depth_max):
-                next_pos.x = depth+1
-                next_pos.y = width
-            else:
-                next_pos.x = depth
-                next_pos.y = width
-        else:
-            dbg.ERROR_LOG("[action.go]存在しないWAY")
-        return [next_pos.x, next_pos.y]
-
     def update_pos(self, pos):
         self.__map_form.update_pos(pos)
 
@@ -156,6 +116,9 @@ class Form:
 
     def get_floor(self):
         return self.__map_form.floor
+
+    def get_now_way(self):
+        return self.__map_form.now_way
 
     def debug_now_way(self):
         return self.__map_form.now_way
@@ -189,6 +152,12 @@ class Form:
 
     def get_dungeon_map(self):
         return self.__map_form.map
+
+    def get_width_max(self):
+        return self.__map_form.max_width
+
+    def get_depth_max(self):
+        return self.__map_form.max_depth
 
     def get_start_pos(self):
         start_pos = self.__map_form.start_pos
