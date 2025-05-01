@@ -199,19 +199,19 @@ class Form:
         return self.__enemies_form.APPEAR_FLAG(index)
 
     def get_enemy_type(self, index):
-        return self.__enemies_form.ENEMY_TYPE(index)
+        return self.__enemies_form.get_type(index)
 
     def get_enemy_pos(self, index):
         return self.__enemies_form.get_enemy_pos(index)
 
     def enemy_move(self):
-        return self.__enemies_form.enemy_move()
+        return self.__enemies_form.update_pos()
 
     def get_event_text(self):
-        return self.__events_form.getEventText([self.__now_pos.x, self.__now_pos.y], self.__now_way)
+        return self.__events_form.get_text([self.__now_pos.x, self.__now_pos.y], self.__now_way)
 
     def event_flag_off(self):
-        self.__events_form.eventFlagOff([self.__now_pos.x, self.__now_pos.y])
+        self.__events_form.flag_off([self.__now_pos.x, self.__now_pos.y])
 
     def get_item(self):
         return self.__items_form.getItem([self.__now_pos.x, self.__now_pos.y])

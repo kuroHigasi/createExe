@@ -1,7 +1,5 @@
 import copy
 import dataclasses
-import dungeon.form.enemies.enemy.form as enemy_form
-import common.debug.debug as dbg
 
 
 @dataclasses.dataclass
@@ -30,9 +28,9 @@ class Form:
     def get_enemy_pos(self, index):
         return self.__enemy_list[index].get_pos()
 
-    def ENEMY_TYPE(self, index):
+    def get_type(self, index):
         return self.__enemy_list[index].type
 
-    def enemy_move(self):
+    def update_pos(self):
         for i in range(0, self.__enemy_count, 1):
             self.__enemy_list[i].move()
