@@ -2,9 +2,9 @@ import pyd.way as WAY
 import pyd.typeEnemy as ENEMY_TYPE
 import pyd.typeEvent as EVENT_TYPE
 import pyd.typeItem as ITEM_TYPE
-import dungeon.form.enemies.enemy.form as EnemyForm
-import dungeon.form.events.event.form as EventForm
-import dungeon.form.items.item.form as ItemForm
+import dungeon.form.map.enemies.enemy.form as EnemyForm
+import dungeon.form.map.events.event.form as EventForm
+import dungeon.form.map.items.item.form as ItemForm
 import dungeon.data.text.infoText as infoText
 import dungeon.form.position.form as pos_form
 

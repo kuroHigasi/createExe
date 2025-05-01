@@ -2,9 +2,9 @@ import copy
 import dataclasses
 
 import dungeon.data.map.map as dungeon_map
-import dungeon.form.enemies.form as enemies_form
-import dungeon.form.events.form as events_form
-import dungeon.form.items.form as items_form
+import dungeon.form.map.enemies.form as enemies_form
+import dungeon.form.map.events.form as events_form
+import dungeon.form.map.items.form as items_form
 import dungeon.form.position.form as pos_form
 import common.debug.debug as dbg
 import dungeon.img as dungeon_img
