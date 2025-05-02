@@ -46,11 +46,12 @@ class Display:
         else:
             dbg.ERROR_LOG("[Main.DISP]存在しないステータス:"+str(status_form.NOW_STATUS()))
 
+    @staticmethod
     def __dungeonInfo(screen, dungeon_form, system_form, ope_form):
+        req = dungeonDisp.Display.create_request_data(screen, dungeon_form, ope_form, system_form)
+        dungeonDisp.Display.execute(dungeon_form, req)
         flash = system_form.FLASH
-        dungeonDisp.Display.dispRader(screen, dungeon_form, flash, 800, 0)
         dungeonDisp.Display.dispConversationText(screen, dungeon_form, 0, 600)
         dungeonDisp.Display.dispInfo(screen, dungeon_form, flash, 800, 200)
         dungeonDisp.Display.dispActionButton(screen, dungeon_form, ope_form, flash, 800, 400)
         dungeonDisp.Display.dispSystemButton(screen, dungeon_form, ope_form, flash, 800, 600)
-        dungeonDisp.Display.dispView(screen, dungeon_form, ope_form, 0, 0)

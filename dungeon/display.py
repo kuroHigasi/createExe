@@ -1,3 +1,6 @@
+import dungeon.layer.request.dungeonDisplayRequest as dungeonDisplayRequest
+import dungeon.service.display as service_display
+import dungeon.form.form as form
 import common.common as cmn
 import pyd.hitJudge as hitJudge
 import dungeon.img as img
@@ -7,92 +10,87 @@ import pyd.typeItem as ITEM
 import pyd.typeAction as ACTION
 import pygame
 
+from dungeon.abstract.abstractDisplay import AbstractDisplay
 
-class Display():
+
+class Display(AbstractDisplay):
     @staticmethod
-    def dispView(screen, dungeon_form, ope_form, pos_x: int, pos_y: int):
-        (x, y) = ope_form.get_mouse()
-        now_view = dungeon_form.get_now_view()
-        img_list = dungeon_form.img_list
-        if not (dungeon_form.is_death()):
-            screen.blit(img_list[INDEX.RIGHT()][INDEX.UP_POS()][img.Select.RU(now_view)], (pos_x + 600, pos_y))
-            screen.blit(img_list[INDEX.RIGHT()][INDEX.CENTER_POS()][img.Select.RC(now_view)], (pos_x + 600, pos_y + 150))
-            screen.blit(img_list[INDEX.RIGHT()][INDEX.DOWN_POS()][img.Select.RD(now_view)], (pos_x + 600, pos_y + 450))
-            screen.blit(img_list[INDEX.CENTER()][INDEX.UP_POS()][img.Select.CU(now_view)], (pos_x + 200, pos_y))
-            screen.blit(img_list[INDEX.CENTER()][INDEX.CENTER_POS()][img.Select.CC(now_view)], (pos_x + 200, pos_y + 150))
-            screen.blit(img_list[INDEX.CENTER()][INDEX.DOWN_POS()][img.Select.CD(now_view)], (pos_x + 200, pos_y + 450))
-            screen.blit(img_list[INDEX.LEFT()][INDEX.UP_POS()][img.Select.LU(now_view)], (pos_x, pos_y))
-            screen.blit(img_list[INDEX.LEFT()][INDEX.CENTER_POS()][img.Select.LC(now_view)], (pos_x, pos_y + 150))
-            screen.blit(img_list[INDEX.LEFT()][INDEX.DOWN_POS()][img.Select.LD(now_view)], (pos_x, pos_y + 450))
-            screen.blit(img_list[INDEX.FLAME()][img.Select.FLAME(now_view)], (pos_x, pos_y))
-            # ITEM BOX
-            Display.__dispBox(screen, img_list, pos_x+606, pos_y+526, x, y, dungeon_form)
-            # USE ITEM
-            Display.__dispItem(screen, dungeon_form, img_list)
-        else:
-            screen.blit(img_list[INDEX.FLAME()][1], (pos_x, pos_y))
-            # RETRY
-            Display.__dispButton(screen, img_list, x, y, pos_x+350, pos_y+270, 12)
-            dungeon_form.set_retry_button(pos_x+350, pos_y+270)
+    def execute(dungeon_form: form.Form, request: dungeonDisplayRequest.DungeonDisplayRequest):
+        service = service_display.Display(request)
+        res_radar = service.disp_radar()
+        res_view = service.disp_view()
+        if res_view.is_ok():
+            if not (res_view.data[0] is None):
+                (index, pos_x, pos_y) = res_view.data[0]
+                dungeon_form.itemBoxButtonUpdate(index, pos_x, pos_y)
+            if not (res_view.data[1] is None):
+                (pos_x, pos_y) = res_view.data[1]
+                dungeon_form.set_retry_button(pos_x, pos_y)
+            else:
+                dungeon_form.set_retry_button(-1, -1)
 
     @staticmethod
-    def dispRader(screen, dungeon_form, flash, x: int, y: int):
-        img_list = dungeon_form.img_list
-        pos_x = x + 70
-        pos_y = y + 40
-        screen.blit(img_list[INDEX.BOARD_S()][0], (x, y))
-        screen.blit(img_list[INDEX.TEXT5()][img.Select.TEXT_FLASH(flash(1))], (pos_x - 10, pos_y - 20))
-        if not (dungeon_form.is_death()):
-            # 中心
-            screen.blit(Display.__getRaderImg(dungeon_form, 9), (pos_x, pos_y))
-            screen.blit(Display.__getRaderImg(dungeon_form, 6), (pos_x, pos_y + 20))
-            screen.blit(Display.__getRaderImg(dungeon_form, 1), (pos_x, pos_y + 40))
-            screen.blit(Display.__getRaderImg(dungeon_form, 0), (pos_x, pos_y + 60))
-            screen.blit(Display.__getRaderImg(dungeon_form, 12), (pos_x, pos_y + 80))
-            screen.blit(Display.__getRaderImg(dungeon_form, 15), (pos_x, pos_y + 100))
-            screen.blit(Display.__getRaderImg(dungeon_form, 18), (pos_x, pos_y + 120))
-            screen.blit(Display.__getRaderImg(dungeon_form, 8), (pos_x + 20, pos_y))
-            screen.blit(Display.__getRaderImg(dungeon_form, 5), (pos_x + 20, pos_y + 20))
-            screen.blit(Display.__getRaderImg(dungeon_form, 2), (pos_x + 20, pos_y + 40))
-            screen.blit(img_list[INDEX.PLAYER()][img.Select.PLAYER(flash(0))], (pos_x + 20, pos_y + 60))
-            screen.blit(Display.__getRaderImg(dungeon_form, 11), (pos_x + 20, pos_y + 80))
-            screen.blit(Display.__getRaderImg(dungeon_form, 14), (pos_x + 20, pos_y + 100))
-            screen.blit(Display.__getRaderImg(dungeon_form, 17), (pos_x + 20, pos_y + 120))
-            screen.blit(Display.__getRaderImg(dungeon_form, 10), (pos_x + 40, pos_y))
-            screen.blit(Display.__getRaderImg(dungeon_form, 7), (pos_x + 40, pos_y + 20))
-            screen.blit(Display.__getRaderImg(dungeon_form, 3), (pos_x + 40, pos_y + 40))
-            screen.blit(Display.__getRaderImg(dungeon_form, 4), (pos_x + 40, pos_y + 60))
-            screen.blit(Display.__getRaderImg(dungeon_form, 13), (pos_x + 40, pos_y + 80))
-            screen.blit(Display.__getRaderImg(dungeon_form, 16), (pos_x + 40, pos_y + 100))
-            screen.blit(Display.__getRaderImg(dungeon_form, 19), (pos_x + 40, pos_y + 120))
-            screen.blit(Display.__getRaderImg(dungeon_form, 20), (pos_x - 20, pos_y))
-            screen.blit(Display.__getRaderImg(dungeon_form, 21), (pos_x - 20, pos_y + 20))
-            screen.blit(Display.__getRaderImg(dungeon_form, 22), (pos_x - 20, pos_y + 40))
-            screen.blit(Display.__getRaderImg(dungeon_form, 23), (pos_x - 20, pos_y + 60))
-            screen.blit(Display.__getRaderImg(dungeon_form, 24), (pos_x - 20, pos_y + 80))
-            screen.blit(Display.__getRaderImg(dungeon_form, 25), (pos_x - 20, pos_y + 100))
-            screen.blit(Display.__getRaderImg(dungeon_form, 26), (pos_x - 20, pos_y + 120))
-            screen.blit(Display.__getRaderImg(dungeon_form, 27), (pos_x + 60, pos_y))
-            screen.blit(Display.__getRaderImg(dungeon_form, 28), (pos_x + 60, pos_y + 20))
-            screen.blit(Display.__getRaderImg(dungeon_form, 29), (pos_x + 60, pos_y + 40))
-            screen.blit(Display.__getRaderImg(dungeon_form, 30), (pos_x + 60, pos_y + 60))
-            screen.blit(Display.__getRaderImg(dungeon_form, 31), (pos_x + 60, pos_y + 80))
-            screen.blit(Display.__getRaderImg(dungeon_form, 32), (pos_x + 60, pos_y + 100))
-            screen.blit(Display.__getRaderImg(dungeon_form, 33), (pos_x + 60, pos_y + 120))
-            screen.blit(Display.__getRaderImg(dungeon_form, 34), (pos_x - 40, pos_y))
-            screen.blit(Display.__getRaderImg(dungeon_form, 35), (pos_x - 40, pos_y + 20))
-            screen.blit(Display.__getRaderImg(dungeon_form, 36), (pos_x - 40, pos_y + 40))
-            screen.blit(Display.__getRaderImg(dungeon_form, 37), (pos_x - 40, pos_y + 60))
-            screen.blit(Display.__getRaderImg(dungeon_form, 38), (pos_x - 40, pos_y + 80))
-            screen.blit(Display.__getRaderImg(dungeon_form, 39), (pos_x - 40, pos_y + 100))
-            screen.blit(Display.__getRaderImg(dungeon_form, 40), (pos_x - 40, pos_y + 120))
-            screen.blit(Display.__getRaderImg(dungeon_form, 41), (pos_x + 80, pos_y))
-            screen.blit(Display.__getRaderImg(dungeon_form, 42), (pos_x + 80, pos_y + 20))
-            screen.blit(Display.__getRaderImg(dungeon_form, 43), (pos_x + 80, pos_y + 40))
-            screen.blit(Display.__getRaderImg(dungeon_form, 44), (pos_x + 80, pos_y + 60))
-            screen.blit(Display.__getRaderImg(dungeon_form, 45), (pos_x + 80, pos_y + 80))
-            screen.blit(Display.__getRaderImg(dungeon_form, 46), (pos_x + 80, pos_y + 100))
-            screen.blit(Display.__getRaderImg(dungeon_form, 47), (pos_x + 80, pos_y + 120))
+    def create_request_data(screen, dungeon_form: form.Form, ope_form, system_form):
+        (mouse_x, mouse_y) = ope_form.get_mouse()
+        dungeon_map = dungeon_form.get_dungeon_map()
+        now_pos = dungeon_form.get_now_pos()
+        flash = system_form.FLASH
+        enemy_pos_list = []
+        enemy_type_list = []
+        enemy_index_list = []
+        count = 0
+        for index in range(0, dungeon_form.ENEMY_COUNT(), 1):
+            if dungeon_form.APPEAR_FLAG(index):
+                enemy_pos_list.insert(count, dungeon_form.ENEMIS_POS(index))
+                enemy_type_list.insert(count, dungeon_form.ENEMIS_TYPE(index))
+                enemy_index_list.insert(count, index)
+                count += 1
+        (config_x, config_y, config_width, config_height) = dungeon_form.get_config_button()
+        (save_x, save_y, save_width, save_height) = dungeon_form.get_save_button()
+        (retry_x, retry_y, retry_width, retry_height) = dungeon_form.get_retry_button()
+        box0_item, box0_num = dungeon_form.watchBox(0)
+        box1_item, box1_num = dungeon_form.watchBox(1)
+        box2_item, box2_num = dungeon_form.watchBox(2)
+        (box0_x, box0_y, box0_width, box0_height) = dungeon_form.BOX_BUTTON(0)
+        (box1_x, box1_y, box1_width, box1_height) = dungeon_form.BOX_BUTTON(1)
+        (box2_x, box2_y, box2_width, box2_height) = dungeon_form.BOX_BUTTON(2)
+        return dungeonDisplayRequest.DungeonDisplayRequest(
+            screen,
+            dungeon_form.img_list,
+            dungeon_form.font(),
+            dungeon_form.item_font(),
+            dungeon_form.event_font(),
+            dungeon_form.is_death(),
+            map.Judge.isStairs(dungeon_map[now_pos[0]][now_pos[1]]),
+            dungeon_form.ITEM_GET_FLAG(),
+            dungeon_form.get_now_view(),
+            dungeon_form.get_situation(),
+            flash(1),
+            flash(0),
+            enemy_pos_list,
+            enemy_type_list,
+            enemy_index_list,
+            dungeon_form.get_log(),
+            dungeon_form.get_log_num(),
+            hitJudge.hitJudgeSquare(config_x, config_y, config_width, config_height, mouse_x, mouse_y),
+            hitJudge.hitJudgeSquare(save_x, save_y, save_width, save_height, mouse_x, mouse_y),
+            hitJudge.hitJudgeSquare(retry_x, retry_y, retry_width, retry_height, mouse_x, mouse_y),
+            box0_item,
+            box0_num,
+            dungeon_form.itemBoxUseFlag(0),
+            hitJudge.hitJudgeSquare(box0_x, box0_y, box0_width, box0_height, mouse_x, mouse_y),
+            box1_item,
+            box1_num,
+            dungeon_form.itemBoxUseFlag(1),
+            hitJudge.hitJudgeSquare(box1_x, box1_y, box1_width, box1_height, mouse_x, mouse_y),
+            box2_item,
+            box2_num,
+            dungeon_form.itemBoxUseFlag(2),
+            hitJudge.hitJudgeSquare(box2_x, box2_y, box2_width, box2_height, mouse_x, mouse_y),
+            dungeon_form.create_angle(),
+            mouse_x,
+            mouse_y
+        )
 
     @staticmethod
     def dispInfo(screen, dungeon_form, flash, pos_x: int, pos_y: int):
@@ -179,72 +177,6 @@ class Display():
             screen.blit(img_list[INDEX.BUTTON()][index+1], (pos_x, pos_y))
         else:
             screen.blit(img_list[INDEX.BUTTON()][index], (pos_x, pos_y))
-
-    def __dispBox(screen, img_list, pos_x, pos_y, x, y, dungeon_form):
-        textList = ["", "", ""]
-        textList[0] = Display.__dispBoxItem(screen, img_list, pos_x, pos_y, x, y, dungeon_form, 0)
-        textList[1] = Display.__dispBoxItem(screen, img_list, pos_x+60, pos_y, x, y, dungeon_form, 1)
-        textList[2] = Display.__dispBoxItem(screen, img_list, pos_x+120, pos_y, x, y, dungeon_form, 2)
-        for text in textList:
-            if text != "":
-                Display.__dispText(screen, dungeon_form.item_font(), text, x+10, y-10, cmn.Colors.black)
-
-    def __dispBoxItem(screen, img_list, pos_x, pos_y, x, y, dungeon_form, index):
-        itemFont = dungeon_form.item_font()
-        color = cmn.Colors.black
-        text = ""
-        (item, itemCount) = dungeon_form.watchBox(index)
-        screen.blit(img_list[INDEX.BOX()][0], (pos_x, pos_y))
-        if not (item == -1):
-            screen.blit(img_list[INDEX.ITEM()][item], (pos_x+5, pos_y+5))
-        if dungeon_form.itemBoxUseFlag(index):
-            screen.blit(img_list[INDEX.BOX()][1], (pos_x, pos_y))
-            Display.__dispText(screen, itemFont, str(itemCount), pos_x+2, pos_y+10, color)
-            dungeon_form.itemBoxButtonUpdate(index, -1, -1)
-        else:
-            if not (item == -1):
-                Display.__dispText(screen, itemFont, str(itemCount), pos_x+2, pos_y+10, color)
-                dungeon_form.itemBoxButtonUpdate(index, pos_x, pos_y+5)
-        if hitJudge.hitJudgeSquare(pos_x, pos_y, 60, 60, x, y) and not (item == -1):
-            text = ITEM.getText(item) + ":" + str(itemCount)
-            if not (dungeon_form.itemBoxUseFlag(index)):
-                screen.blit(img_list[INDEX.BOX_TAG()][0], (pos_x, pos_y-20))
-        return text
-
-    def __dispItem(screen, dungeon_form, img_list):
-        (item0, itemNum0) = dungeon_form.itemBoxPickUp(0)
-        (item1, itemNum1) = dungeon_form.itemBoxPickUp(1)
-        (item2, itemNum2) = dungeon_form.itemBoxPickUp(2)
-        if item0 == ITEM.COMPASS():
-            image = img_list[INDEX.COMPASS()][0]
-            image_rotate = pygame.transform.rotate(image, dungeon_form.create_angle())
-            screen.blit(image_rotate, image_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
-        if item1 == ITEM.COMPASS():
-            image = img_list[INDEX.COMPASS()][0]
-            image_rotate = pygame.transform.rotate(image, dungeon_form.create_angle())
-            screen.blit(image_rotate, image_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
-        if item2 == ITEM.COMPASS():
-            image = img_list[INDEX.COMPASS()][0]
-            image_rotate = pygame.transform.rotate(image, dungeon_form.create_angle())
-            screen.blit(image_rotate, image_rotate.get_rect(center=image.get_rect(center=(65, 530)).center))
-
-    def __isEnemy(dungeon_form, x: int, y: int):
-        for index in range(0, dungeon_form.ENEMY_COUNT(), 1):
-            enemyPos = dungeon_form.ENEMIS_POS(index)
-            if enemyPos.x == x and enemyPos.y == y:
-                if dungeon_form.APPEAR_FLAG(index):
-                    return 1
-                else:
-                    return 0
-        return 0
-
-    @staticmethod
-    def __getRaderImg(dungeon_form, number):
-        situation = dungeon_form.get_situation()
-        img_list = dungeon_form.img_list
-        wallOrPath = img.Select.WALL_OR_PATH(situation[number][0])
-        isEnemy = Display.__isEnemy(dungeon_form, situation[number][1], situation[number][2])
-        return img_list[wallOrPath][isEnemy]
 
     def __dispText(screen, font, text, x, y, color=cmn.Colors.white):
         text_surface = font.render(text, True, color)
