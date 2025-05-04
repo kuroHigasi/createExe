@@ -224,8 +224,9 @@ class Download:
         imgList.insert(INDEX.BOX_TAG(), BOX_TAG_img)
         return imgList
 
+    @staticmethod
     def __loadImg(case, name, number):
-        return pygame.image.load(cmn.resource_path(cPass.getImgPass(case, name, number)))
+        return pygame.image.load(str(cmn.resource_path(cPass.getImgPass(case, name, number))))
 
 
 class Select:
@@ -273,6 +274,7 @@ class Select:
 
 
 class pos:
+    @staticmethod
     def L(situation, status):
         if map.Judge.isWall(situation[0][0]):
             # 左が壁
@@ -284,6 +286,7 @@ class pos:
                 status = calc.bitmask(status, 1 << 12)  # 1
         return status
 
+    @staticmethod
     def R(situation, status):
         if map.Judge.isWall(situation[4][0]):
             # 右が壁

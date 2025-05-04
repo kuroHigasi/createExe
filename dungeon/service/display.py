@@ -4,13 +4,12 @@ import dungeon.service.component.displayRadar as displayRadar
 import dungeon.service.component.displayItemBox as displayItemBox
 import dungeon.service.component.displayUseItem as displayUseItem
 import dungeon.service.component.displayButton as displayButton
+import dungeon.service.component.displayActionButton as displayActionButton
 import dungeon.service.component.displayNumber as displayNumber
 import dungeon.service.component.displayText as displayText
 import common.layer.response.response as response
 import common.layer.code.code as code
 import pyd.indexDungeon as INDEX
-import pyd.typeItem as ITEM
-import pyd.typeAction as ACTION
 import dungeon.img as img
 
 
@@ -23,6 +22,8 @@ class Display:
 		self._screen = request.screen
 		self._img_list = request.img_list
 		self._is_death = request.is_death
+		self._is_stairs = request.is_stairs
+		self._is_item_get = request.is_item_get
 		self._radar_flash = request.radar_flash
 		self._text_flash = request.text_flash
 		self._situation = request.situation
@@ -44,6 +45,10 @@ class Display:
 		self._mouse_y = request.mouse_y
 		self._compass_angle = request.compass_angle
 		self._retry_touch = request.retry_touch
+		self._config_touch = request.config_touch
+		self._save_touch = request.save_touch
+		self._act0_touch = request.act0_touch
+		self._act1_touch = request.act1_touch
 		self._floor = request.floor
 		self._count = request.count
 		self._log_num = request.log_num
@@ -145,3 +150,49 @@ class Display:
 					component_disp_text.execute(log, text_x, text_y)
 					text_y += 23
 				index += 1
+		return response.Response(data=True, result=code.Code.OK)
+
+	def disp_system_button(self):
+		pos_x = 800
+		pos_y = 600
+		component_disp_button = displayButton.DisplayButton(
+			self._screen,
+			self._img_list,
+		)
+		ret_data = [None, None]
+		self._screen.blit(self._img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
+		self._screen.blit(self._img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(self._text_flash)], (pos_x + 60, pos_y + 20))
+		component_disp_button.execute(10, self._config_touch, pos_x + 25, pos_y + 45)
+		ret_data[0] = (pos_x + 25, pos_y + 45)
+		component_disp_button.execute(8, self._save_touch, pos_x + 25, pos_y + 115)
+		ret_data[1] = (pos_x + 25, pos_y + 115)
+		return response.Response(data=ret_data, result=code.Code.OK)
+
+	def disp_action_button(self):
+		pos_x = 800
+		pos_y = 400
+		ret_data = [None, None]
+		component_display_action = displayActionButton.DisplayButton(
+			self._screen,
+			self._img_list
+		)
+		if self._is_death:
+			self._screen.blit(self._img_list[INDEX.BOARD_S()][1], (pos_x, pos_y))
+			ret_data[0] = (-1, -1)
+			ret_data[1] = (-1, -1)
+		else:
+			self._screen.blit(self._img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
+			self._screen.blit(self._img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(self._text_flash) + 3], (pos_x + 60, pos_y + 20))
+			# 階段
+			if self._is_stairs:
+				component_display_action.execute(0, self._act0_touch, pos_x + 25, pos_y + 45)
+				ret_data[0] = (pos_x + 25, pos_y + 45)
+			else:
+				ret_data[0] = (-1, -1)
+			# アイテム
+			if self._is_item_get:
+				component_display_action.execute(2, self._act0_touch, pos_x + 25, pos_y + 45)
+				ret_data[1] = (pos_x + 25, pos_y + 45)
+			else:
+				ret_data[1] = (-1, -1)
+		return response.Response(data=ret_data, result=code.Code.OK)

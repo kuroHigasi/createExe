@@ -1,15 +1,9 @@
 import dungeon.layer.request.dungeonDisplayRequest as dungeonDisplayRequest
 import dungeon.service.display as service_display
 import dungeon.form.form as form
-import common.common as cmn
 import pyd.hitJudge as hitJudge
-import dungeon.img as img
 import dungeon.data.map.map as map
-import pyd.indexDungeon as INDEX
-import pyd.typeItem as ITEM
 import pyd.typeAction as ACTION
-import pygame
-
 from dungeon.abstract.abstractDisplay import AbstractDisplay
 
 
@@ -30,9 +24,26 @@ class Display(AbstractDisplay):
                 dungeon_form.set_retry_button(-1, -1)
         service.disp_info()
         service.disp_log()
+        res_sys = service.disp_system_button()
+        if res_sys.is_ok():
+            if not (res_sys.data[0] is None):
+                (pos_x, pos_y) = res_sys.data[0]
+                dungeon_form.set_config_button(pos_x, pos_y)
+            if not (res_sys.data[1] is None):
+                (pos_x, pos_y) = res_sys.data[1]
+                dungeon_form.set_save_button(pos_x, pos_y)
+        res_act = service.disp_action_button()
+        if res_act.is_ok():
+            if not (res_act.data[0] is None):
+                (pos_x, pos_y) = res_act.data[0]
+                dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), pos_x, pos_y)
+            if not (res_act.data[1] is None):
+                (pos_x, pos_y) = res_act.data[1]
+                dungeon_form.set_action_button(ACTION.SEARCH(), pos_x, pos_y)
 
     @staticmethod
     def create_request_data(screen, dungeon_form: form.Form, ope_form, system_form):
+        dungeon_form.searchItem()
         (mouse_x, mouse_y) = ope_form.get_mouse()
         dungeon_map = dungeon_form.get_dungeon_map()
         now_pos = dungeon_form.get_now_pos()
@@ -56,6 +67,8 @@ class Display(AbstractDisplay):
         (box0_x, box0_y, box0_width, box0_height) = dungeon_form.BOX_BUTTON(0)
         (box1_x, box1_y, box1_width, box1_height) = dungeon_form.BOX_BUTTON(1)
         (box2_x, box2_y, box2_width, box2_height) = dungeon_form.BOX_BUTTON(2)
+        (act0_x, act0_y, act0_width, act0_height) = dungeon_form.get_action_button(ACTION.GO_UP_THE_STAIRS())
+        (act1_x, act1_y, act1_width, act1_height) = dungeon_form.get_action_button(ACTION.SEARCH())
         return dungeonDisplayRequest.DungeonDisplayRequest(
             screen,
             dungeon_form.img_list,
@@ -93,58 +106,7 @@ class Display(AbstractDisplay):
             dungeon_form.get_floor(),
             dungeon_form.get_count(),
             mouse_x,
-            mouse_y
+            mouse_y,
+            hitJudge.hitJudgeSquare(act0_x, act0_y, act0_width, act0_height, mouse_x, mouse_y),
+            hitJudge.hitJudgeSquare(act1_x, act1_y, act1_width, act1_height, mouse_x, mouse_y)
         )
-
-    @staticmethod
-    def dispSystemButton(screen, dungeon_form, ope_form, flash, pos_x, pos_y):
-        (x, y) = ope_form.get_mouse()
-        img_list = dungeon_form.img_list
-        buttonPosX = pos_x+25
-        screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
-        screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1))], (pos_x + 60, pos_y + 20))
-        # CONFIG BUTTON
-        Display.__dispButton(screen, img_list, x, y, buttonPosX, pos_y+45, 10)
-        dungeon_form.set_config_button(buttonPosX, pos_y+45)
-        # SAVE BUTTON
-        Display.__dispButton(screen, img_list, x, y, buttonPosX, pos_y+115, 8)
-        dungeon_form.set_save_button(buttonPosX, pos_y+115)
-
-    @staticmethod
-    def dispActionButton(screen, dungeon_form, ope_form, flash, pos_x: int, pos_y: int):
-        (x, y) = ope_form.get_mouse()
-        img_list = dungeon_form.img_list
-        if not (dungeon_form.is_death()):
-            screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
-            screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 60, pos_y + 20))
-            # 階段
-            if map.Judge.isStairs(dungeon_form.get_dungeon_map()[dungeon_form.get_now_pos()[0]][dungeon_form.get_now_pos()[1]]):
-                Display.__dispActionButton(screen, img_list, dungeon_form, x, y, pos_x, pos_y, ACTION.GO_UP_THE_STAIRS())
-            else:
-                dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), -1, -1)
-            dungeon_form.searchItem()
-            # アイテム
-            if dungeon_form.ITEM_GET_FLAG():
-                Display.__dispActionButton(screen, img_list, dungeon_form, x, y, pos_x, pos_y, ACTION.SEARCH())
-            else:
-                dungeon_form.set_action_button(ACTION.SEARCH(), -1, -1)
-        else:
-            screen.blit(img_list[INDEX.BOARD_S()][1], (pos_x, pos_y))
-            dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), -1, -1)
-            dungeon_form.set_action_button(ACTION.SEARCH(), -1, -1)
-
-    def __dispActionButton(screen, img_list, dungeon_form, x: int, y: int, pos_x, pos_y, actionType: int):
-        actionIndex = [0, 2]
-        # DISP BUTTON
-        if hitJudge.hitJudgeSquare(pos_x+25, pos_y+45, 150, 60, x, y):
-            screen.blit(img_list[INDEX.ACTION()][actionIndex[actionType]+1], (pos_x+25, pos_y+45))
-        else:
-            screen.blit(img_list[INDEX.ACTION()][actionIndex[actionType]], (pos_x+25, pos_y+45))
-        # UPDATE BUTTON
-        dungeon_form.set_action_button(actionType, pos_x+25, pos_y+45)
-
-    def __dispButton(screen, img_list, x: int, y: int, pos_x: int, pos_y: int, index: int):
-        if hitJudge.hitJudgeSquare(pos_x, pos_y, 150, 60, x, y):
-            screen.blit(img_list[INDEX.BUTTON()][index+1], (pos_x, pos_y))
-        else:
-            screen.blit(img_list[INDEX.BUTTON()][index], (pos_x, pos_y))

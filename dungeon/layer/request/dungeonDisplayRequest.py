@@ -41,6 +41,8 @@ class DungeonDisplayRequest:
 	_count: int
 	_mouse_x: int
 	_mouse_y: int
+	_act0_touch: bool
+	_act1_touch: bool
 
 	@property
 	def screen(self):
@@ -189,3 +191,11 @@ class DungeonDisplayRequest:
 	@property
 	def mouse_y(self):
 		return self._mouse_y
+
+	@property
+	def act0_touch(self):
+		return self._act0_touch
+
+	@property
+	def act1_touch(self):
+		return self._act1_touch
