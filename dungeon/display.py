@@ -17,7 +17,7 @@ class Display(AbstractDisplay):
     @staticmethod
     def execute(dungeon_form: form.Form, request: dungeonDisplayRequest.DungeonDisplayRequest):
         service = service_display.Display(request)
-        res_radar = service.disp_radar()
+        service.disp_radar()
         res_view = service.disp_view()
         if res_view.is_ok():
             if not (res_view.data[0] is None):
