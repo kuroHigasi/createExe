@@ -71,7 +71,7 @@ class Action:
 	def judge_enemy_touch(self, now_pos, pre_pos, enemy_pos_list, pre_enemy_pos_list):
 		for index in range(0, self._enemy_count, 1):
 			attack_judge_0 = enemy_pos_list[index] == now_pos
-			attack_judge_1 = enemy_pos_list[index].x == pre_pos[0] and enemy_pos_list[index].y == pre_pos[1]
+			attack_judge_1 = enemy_pos_list[index] == pre_pos
 			attack_judge_2 = pre_enemy_pos_list[index] == now_pos
 			if attack_judge_0 or (attack_judge_1 and attack_judge_2):
 				return response.Response(data=(True, index), result=code.Code.OK)

@@ -139,7 +139,7 @@ class Form:
         return self.__map_form.pre_way
 
     def get_pre_pos(self):
-        return [self.__map_form.pre_pos.x, self.__map_form.pre_pos.y]
+        return self.__map_form.pre_pos
 
     def debug_pre_pos(self):
         return [self.__map_form.pre_pos.x, self.__map_form.pre_pos.y]
@@ -160,8 +160,7 @@ class Form:
         return self.__map_form.max_depth
 
     def get_start_pos(self):
-        start_pos = self.__map_form.start_pos
-        return [start_pos.x, start_pos.y]
+        return self.__map_form.start_pos
 
     def create_angle(self):
         now_pos = self.__map_form.now_pos
