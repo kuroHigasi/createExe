@@ -76,7 +76,7 @@ class Display(AbstractDisplay):
             dungeon_form.item_font(),
             dungeon_form.event_font(),
             dungeon_form.is_death(),
-            map.Judge.isStairs(dungeon_map[now_pos[0]][now_pos[1]]),
+            map.Judge.isStairs(dungeon_map[now_pos.x][now_pos.y]),
             dungeon_form.ITEM_GET_FLAG(),
             dungeon_form.get_now_view(),
             dungeon_form.get_situation(),

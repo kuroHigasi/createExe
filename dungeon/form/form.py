@@ -124,7 +124,7 @@ class Form:
         return self.__map_form.now_way
 
     def get_now_pos(self):
-        return [self.__map_form.now_pos.x, self.__map_form.now_pos.y]
+        return self.__map_form.now_pos
 
     def debug_now_pos(self):
         return [self.__map_form.now_pos.x, self.__map_form.now_pos.y]

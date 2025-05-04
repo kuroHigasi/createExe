@@ -56,8 +56,7 @@ class Action:
 
 	def judge_log_flag(self, now_pos, is_diff, is_diff_way, act_flag):
 		if not self._log_flag:
-			if (is_diff and act_flag) or is_diff_way or \
-					(self._start_pos.x == now_pos[0] and self._start_pos.y == now_pos[1]):
+			if (is_diff and act_flag) or is_diff_way or self._start_pos == now_pos:
 				return response.Response(data=True, result=code.Code.OK)
 		return response.Response(data=False, result=code.Code.DO_NOTHING)
 
@@ -71,9 +70,9 @@ class Action:
 
 	def judge_enemy_touch(self, now_pos, pre_pos, enemy_pos_list, pre_enemy_pos_list):
 		for index in range(0, self._enemy_count, 1):
-			attack_judge_0 = enemy_pos_list[index].x == now_pos[0] and enemy_pos_list[index].y == now_pos[1]
+			attack_judge_0 = enemy_pos_list[index] == now_pos
 			attack_judge_1 = enemy_pos_list[index].x == pre_pos[0] and enemy_pos_list[index].y == pre_pos[1]
-			attack_judge_2 = pre_enemy_pos_list[index].x == now_pos[0] and pre_enemy_pos_list[index].y == now_pos[1]
+			attack_judge_2 = pre_enemy_pos_list[index] == now_pos
 			if attack_judge_0 or (attack_judge_1 and attack_judge_2):
 				return response.Response(data=(True, index), result=code.Code.OK)
 		return response.Response(data=(False, -1), result=code.Code.DO_NOTHING)
