@@ -5,6 +5,7 @@ import dungeon.service.component.displayItemBox as displayItemBox
 import dungeon.service.component.displayUseItem as displayUseItem
 import dungeon.service.component.displayButton as displayButton
 import dungeon.service.component.displayNumber as displayNumber
+import dungeon.service.component.displayText as displayText
 import common.layer.response.response as response
 import common.layer.code.code as code
 import pyd.indexDungeon as INDEX
@@ -17,6 +18,7 @@ class Display:
 	def __init__(self, request: dungeonDisplayRequest.DungeonDisplayRequest):
 		self._request = request
 		self._item_font = request.item_font
+		self._event_font = request.event_font
 		self._font = request.font
 		self._screen = request.screen
 		self._img_list = request.img_list
@@ -44,6 +46,8 @@ class Display:
 		self._retry_touch = request.retry_touch
 		self._floor = request.floor
 		self._count = request.count
+		self._log_num = request.log_num
+		self._log_list = request.log_list
 
 	def disp_radar(self):
 		x = 800
@@ -123,4 +127,21 @@ class Display:
 			component_display_number.execute(self._count, pos_x + 90, pos_y+130)
 		return response.Response(data=True, result=code.Code.OK)
 
-
+	def disp_log(self):
+		pos_x = 0
+		pos_y = 600
+		component_disp_text = displayText.DisplayText(
+			self._screen,
+			self._img_list,
+			self._event_font
+		)
+		self._screen.blit(self._img_list[INDEX.BOARD_M()][0], (pos_x, pos_y))
+		text_x = pos_x + 20
+		text_y = pos_y + 30
+		if self._log_num != 0:
+			index = 0
+			for log in self._log_list:
+				if index < 7:
+					component_disp_text.execute(log, text_x, text_y)
+					text_y += 23
+				index += 1

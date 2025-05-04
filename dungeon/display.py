@@ -29,6 +29,7 @@ class Display(AbstractDisplay):
             else:
                 dungeon_form.set_retry_button(-1, -1)
         service.disp_info()
+        service.disp_log()
 
     @staticmethod
     def create_request_data(screen, dungeon_form: form.Form, ope_form, system_form):
@@ -96,21 +97,6 @@ class Display(AbstractDisplay):
         )
 
     @staticmethod
-    def dispConversationText(screen, dungeon_form, x: int, y: int):
-        img_list = dungeon_form.img_list
-        font = dungeon_form.event_font()
-        log = dungeon_form.get_log()
-        screen.blit(img_list[INDEX.BOARD_M()][0], (x, y))
-        (textX, textY) = (x+20, y+30)
-        if dungeon_form.get_log_num() != 0:
-            index = 0
-            for text in log:
-                if index < 7:
-                    Display.__dispText(screen, font, text, textX, textY)
-                    textY += 23
-                index += 1
-
-    @staticmethod
     def dispSystemButton(screen, dungeon_form, ope_form, flash, pos_x, pos_y):
         (x, y) = ope_form.get_mouse()
         img_list = dungeon_form.img_list
@@ -162,8 +148,3 @@ class Display(AbstractDisplay):
             screen.blit(img_list[INDEX.BUTTON()][index+1], (pos_x, pos_y))
         else:
             screen.blit(img_list[INDEX.BUTTON()][index], (pos_x, pos_y))
-
-    def __dispText(screen, font, text, x, y, color=cmn.Colors.white):
-        text_surface = font.render(text, True, color)
-        text_rect = text_surface.get_rect(center=(x+text_surface.get_width() / 2, y))
-        screen.blit(text_surface, text_rect)
