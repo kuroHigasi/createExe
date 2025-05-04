@@ -13,7 +13,12 @@ class Form:
         self.__save_button = button_form.Form(-1, -1, 150, 60)
         self.__retry_button = button_form.Form(-1, -1, 150, 60)
         self.__action_button = \
-            [button_form.Form(-1, -1, 150, 60), button_form.Form(-1, -1, 150, 60)]
+            [button_form.Form(-1, -1, 150, 60),
+             button_form.Form(-1, -1, 150, 60)]
+        self._box_button = \
+            [button_form.Form(-1, -1, 60, 60),
+             button_form.Form(-1, -1, 60, 60),
+             button_form.Form(-1, -1, 60, 60)]
 
     def set_config_button_pos(self, x, y):
         self.__config_button.x = x
@@ -97,3 +102,25 @@ class Form:
         else:
             dbg.ERROR_LOG(ACTION_ERROR_TEXT)
             return 150, 60
+
+    def set_box_button_pos(self, index, x, y):
+        if 0 <= index < 3:
+            self._box_button[index].x = x
+            self._box_button[index].y = y
+        else:
+            self._box_button[index].x = -1
+            self._box_button[index].y = -1
+
+    def get_box_button_pos(self, index):
+        if 0 <= index < 3:
+            return (self._box_button[index].x,
+                    self._box_button[index].y)
+        else:
+            return -1, -1
+
+    def get_box_button_size(self, index):
+        if 0 <= index < 3:
+            return (self._box_button[index].width,
+                    self._box_button[index].height)
+        else:
+            return 60, 60

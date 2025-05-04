@@ -301,16 +301,16 @@ class TestIndexDungeon(unittest.TestCase):
 
 class TestWay(unittest.TestCase):
     def test_0(self):
-        self.assertEqual(WAY.UP(), 0)
+        self.assertEqual(WAY.UP()(), 0)
 
     def test_1(self):
-        self.assertEqual(WAY.RIGHT(), 1)
+        self.assertEqual(WAY.RIGHT()(), 1)
 
     def test_2(self):
-        self.assertEqual(WAY.LEFT(), 2)
+        self.assertEqual(WAY.LEFT()(), 2)
 
     def test_3(self):
-        self.assertEqual(WAY.DOWN(), 3)
+        self.assertEqual(WAY.DOWN()(), 3)
 
     def test_UP_0(self):
         self.assertEqual(WAY.isUp(0), True)

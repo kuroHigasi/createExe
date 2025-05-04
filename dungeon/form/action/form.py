@@ -27,7 +27,6 @@ class Form:
             self.__flag = False
             return True
         else:
-            dbg.ERROR_LOG("[ActionForm.flagOff]フラグを設定していないのに初期化を実施")
             return False
 
     def get_flag(self):

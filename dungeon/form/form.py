@@ -1,15 +1,17 @@
-import dungeon.img as DungeonImg
+import dataclasses
+import dungeon.form.position.form as pos_form
+import dungeon.img as dungeon_img
 # Form
-import dungeon.form.map.form as MapForm
-import dungeon.form.button.form as ButtonForm
-import dungeon.form.action.form as ActionForm
-import dungeon.form.abnormal.form as AbnormalForm
-import dungeon.form.log.form as LogForm
-import dungeon.form.box.form as BoxForm
+import dungeon.form.map.form as map_form
+import dungeon.form.button.form as button_form
+import dungeon.form.action.form as action_form
+import dungeon.form.abnormal.form as abnormal_form
+import dungeon.form.log.form as log_form
+import dungeon.form.box.form as box_form
 # method
 import pyd.createPass as cPass
 import pyd.way as WAY
-import dungeon.common as cmnDungeon
+import dungeon.common as cmn_dungeon
 import common.debug.debug as dbg
 import common.common as cmn
 import pygame
@@ -17,417 +19,360 @@ import math
 import random
 
 
+@dataclasses.dataclass
 class Form:
+    __map_form: map_form.Form
+    __button_form: button_form.Form
+    __action_form: action_form.Form
+    __abnormal_form: abnormal_form.Form
+    __log_form: log_form.Form
+    __box_form: box_form.Form
+    __img_list: list
+    __end_flag: bool
+
     def __init__(self, floor: int):
-        self.__mapForm = MapForm.Form(floor)
-        self.__buttonForm = ButtonForm.Form()
-        self.__actionForm = ActionForm.Form()
-        self.__abnormalForm = AbnormalForm.Form()
-        self.__logForm = LogForm.Form()
-        self.__boxForm = BoxForm.Form()
-        self.__imgList = DungeonImg.Download.dungeonImag()
-        self.__endFlag = False
+        self.__map_form = map_form.Form(floor)
+        self.__button_form = button_form.Form()
+        self.__action_form = action_form.Form()
+        self.__abnormal_form = abnormal_form.Form()
+        self.__log_form = log_form.Form()
+        self.__box_form = box_form.Form()
+        self.__img_list = dungeon_img.Download.dungeonImag()
+        self.__end_flag = False
 
     def reset(self, floor: int):
-        if floor > len(MapForm.dungeon):
-            self.__actionForm.total_count_up()
-            self.__actionForm.count_reset()
-            self.__abnormalForm.recover()
-            self.__logForm.reset()
-            if self.__actionForm.get_flag() is True:
-                self.__actionForm.flag_off()
+        if floor > len(map_form.dungeon):
+            self.__action_form.total_count_up()
+            self.__action_form.count_reset()
+            self.__abnormal_form.recover()
+            self.__log_form.reset()
+            if self.__action_form.get_flag() is True:
+                self.__action_form.flag_off()
             dbg.LOG("最上階へ到達しました")
             return True
         else:
-            self.__mapForm.reset(floor)
-            self.__actionForm.total_count_up()
-            self.__actionForm.count_reset()
-            self.__abnormalForm.recover()
-            self.__logForm.reset()
-            if self.__actionForm.get_flag() is True:
-                self.__actionForm.flag_off()
+            self.__map_form.reset(floor)
+            self.__action_form.total_count_up()
+            self.__action_form.count_reset()
+            self.__abnormal_form.recover()
+            self.__log_form.reset()
+            if self.__action_form.get_flag() is True:
+                self.__action_form.flag_off()
             return False
 
-    def updateWay(self, opeForm):
-        now_way = self.__mapForm.NOW_WAY()
+    def update_way(self, ope_form):
+        now_way = self.__map_form.now_way
         next_way = now_way
-        if now_way == WAY.UP:
-            if opeForm.get_up():
-                next_way = WAY.UP
-            elif opeForm.get_left():
-                next_way = WAY.LEFT
-            elif opeForm.get_right():
-                next_way = WAY.RIGHT
-            elif opeForm.get_down():
-                next_way = WAY.DOWN
-        if now_way == WAY.RIGHT:
-            if opeForm.get_up():
-                next_way = WAY.RIGHT
-            elif opeForm.get_left():
-                next_way = WAY.UP
-            elif opeForm.get_right():
-                next_way = WAY.DOWN
-            elif opeForm.get_down():
-                next_way = WAY.LEFT
-        if now_way == WAY.LEFT:
-            if opeForm.get_up():
-                next_way = WAY.LEFT
-            elif opeForm.get_left():
-                next_way = WAY.DOWN
-            elif opeForm.get_right():
-                next_way = WAY.UP
-            elif opeForm.get_down():
-                next_way = WAY.RIGHT
-        if now_way == WAY.DOWN:
-            if opeForm.get_up():
-                next_way = WAY.DOWN
-            elif opeForm.get_left():
-                next_way = WAY.RIGHT
-            elif opeForm.get_right():
-                next_way = WAY.LEFT
-            elif opeForm.get_down():
-                next_way = WAY.UP
-        self.__mapForm.set_way(next_way)
+        if now_way == WAY.UP():
+            if ope_form.get_up():
+                next_way = WAY.UP()
+            elif ope_form.get_left():
+                next_way = WAY.LEFT()
+            elif ope_form.get_right():
+                next_way = WAY.RIGHT()
+            elif ope_form.get_down():
+                next_way = WAY.DOWN()
+        if now_way == WAY.RIGHT():
+            if ope_form.get_up():
+                next_way = WAY.RIGHT()
+            elif ope_form.get_left():
+                next_way = WAY.UP()
+            elif ope_form.get_right():
+                next_way = WAY.DOWN()
+            elif ope_form.get_down():
+                next_way = WAY.LEFT()
+        if now_way == WAY.LEFT():
+            if ope_form.get_up():
+                next_way = WAY.LEFT()
+            elif ope_form.get_left():
+                next_way = WAY.DOWN()
+            elif ope_form.get_right():
+                next_way = WAY.UP()
+            elif ope_form.get_down():
+                next_way = WAY.RIGHT()
+        if now_way == WAY.DOWN():
+            if ope_form.get_up():
+                next_way = WAY.DOWN()
+            elif ope_form.get_left():
+                next_way = WAY.RIGHT()
+            elif ope_form.get_right():
+                next_way = WAY.LEFT()
+            elif ope_form.get_down():
+                next_way = WAY.UP()
+        self.__map_form.update_way(next_way)
 
-    def go(self):
-        judDepth = self.__mapForm.NOW_POS()[0]
-        judWidth = self.__mapForm.NOW_POS()[1]
-        nowWay = self.__mapForm.NOW_WAY()
-        map = self.__mapForm.MAP()
-        maxWidth = self.__mapForm.MAX_WIDTH()
-        maxDepth = self.__mapForm.MAX_DEPTH()
-        nextPos = []
-        if nowWay == WAY.UP:
-            if cmnDungeon.Common.isPosPath(map, judDepth-1, judWidth, maxWidth, maxDepth):
-                nextPos.insert(0, judDepth-1)
-                nextPos.insert(1, judWidth)
+    def update_pos(self, pos):
+        self.__map_form.update_pos(pos)
+
+    def update_view(self):
+        self.__map_form.update_view()
+
+    def update_situation(self):
+        self.__map_form.update_situation()
+
+    def enemy_move(self):
+        if self.__action_form.get_flag():
+            self.__map_form.enemy_move()
+
+    def get_floor(self):
+        return self.__map_form.floor
+
+    def get_now_way(self):
+        return self.__map_form.now_way
+
+    def debug_now_way(self):
+        return self.__map_form.now_way
+
+    def get_now_pos(self):
+        return self.__map_form.now_pos
+
+    def debug_now_pos(self):
+        return [self.__map_form.now_pos.x, self.__map_form.now_pos.y]
+
+    def get_now_view(self):
+        return self.__map_form.now_view
+
+    def debug_now_view(self):
+        return self.__map_form.now_view
+
+    def debug_pre_way(self):
+        return self.__map_form.pre_way
+
+    def get_pre_pos(self):
+        return self.__map_form.pre_pos
+
+    def debug_pre_pos(self):
+        return [self.__map_form.pre_pos.x, self.__map_form.pre_pos.y]
+
+    def debug_pre_view(self):
+        return self.__map_form.pre_view
+
+    def get_situation(self):
+        return self.__map_form.situation
+
+    def get_dungeon_map(self):
+        return self.__map_form.map
+
+    def get_width_max(self):
+        return self.__map_form.max_width
+
+    def get_depth_max(self):
+        return self.__map_form.max_depth
+
+    def get_start_pos(self):
+        return self.__map_form.start_pos
+
+    def create_angle(self):
+        now_pos = self.__map_form.now_pos
+        goal_pos = self.__map_form.goal_pos
+        now_way = self.__map_form.now_way
+        compass_angle = 0
+        if now_pos.y == goal_pos.y:
+            if now_pos.x < goal_pos.x:
+                compass_angle = Form.__compass_way(180, now_way)
+            elif now_pos.x > goal_pos.x:
+                compass_angle = Form.__compass_way(0, now_way)
             else:
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth)
-        elif nowWay == WAY.RIGHT:
-            if cmnDungeon.Common.isPosPath(map, judDepth, judWidth+1, maxWidth, maxDepth):
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth+1)
+                compass_angle = Form.__compass_way(90, now_way)
+        elif now_pos.y > goal_pos.y:
+            if now_pos.x < goal_pos.x:
+                angel = math.degrees(math.atan((goal_pos.y - now_pos.y)) / (goal_pos.x - now_pos.x))
+                compass_angle = Form.__compass_way(angel + 180, now_way)
+            elif now_pos.x > goal_pos.x:
+                angel = math.degrees(math.atan((goal_pos.y - now_pos.y) / (goal_pos.x - now_pos.x)))
+                compass_angle = Form.__compass_way(angel, now_way)
             else:
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth)
-        elif nowWay == WAY.LEFT:
-            if cmnDungeon.Common.isPosPath(map, judDepth, judWidth-1, maxWidth, maxDepth):
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth-1)
+                compass_angle = Form.__compass_way(90, now_way)
+        elif now_pos.y < goal_pos.y:
+            if now_pos.x < goal_pos.x:
+                angel = math.degrees(math.atan((goal_pos.y - now_pos.y) / (goal_pos.x - now_pos.x)))
+                compass_angle = Form.__compass_way(angel + 180, now_way)
+            elif now_pos.x > goal_pos.x:
+                angel = math.degrees(math.atan((goal_pos.y - now_pos.y) / (now_pos.x - goal_pos.x)))
+                compass_angle = Form.__compass_way(-angel, now_way)
             else:
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth)
-        elif nowWay == WAY.DOWN:
-            if cmnDungeon.Common.isPosPath(map, judDepth+1, judWidth, maxWidth, maxDepth):
-                nextPos.insert(0, judDepth+1)
-                nextPos.insert(1, judWidth)
-            else:
-                nextPos.insert(0, judDepth)
-                nextPos.insert(1, judWidth)
+                compass_angle = Form.__compass_way(270, now_way)
+        return compass_angle
+
+    @staticmethod
+    def __compass_way(compass_way, now_way):
+        if WAY.UP() == now_way:
+            add_way = 0
+        elif WAY.RIGHT() == now_way:
+            add_way = 90
+        elif WAY.LEFT() == now_way:
+            add_way = 270
         else:
-            dbg.ERROR_LOG("[action.go]存在しないWAY")
-        self.__mapForm.updatePos(nextPos)
-
-    def updateView(self):
-        self.__mapForm.updateView()
-
-    def updateSituation(self):
-        self.__mapForm.updateSituation()
-
-    def enemyMove(self):
-        if self.__actionForm.get_flag():
-            self.__mapForm.enemyMove()
-
-    def FLOOR(self):
-        return self.__mapForm.FLOOR()
-
-    def NOW_WAY(self):
-        return self.__mapForm.NOW_WAY()
-
-    def NOW_POS(self):
-        return self.__mapForm.NOW_POS()
-
-    def NOW_VIEW(self):
-        return self.__mapForm.NOW_VIEW()
-
-    def PRE_WAY(self):
-        return self.__mapForm.PRE_WAY()
-
-    def PRE_POS(self):
-        return self.__mapForm.PRE_POS()
-
-    def PRE_VIEW(self):
-        return self.__mapForm.PRE_VIEW()
-
-    def SITUATION(self):
-        return self.__mapForm.SITUATION()
-
-    def MAP(self):
-        return self.__mapForm.MAP()
-
-    def START_POS(self):
-        return self.__mapForm.START_POS()
-
-    def GOAL_POS(self):
-        return self.__mapForm.GOAL_POS()
-
-    def createAngle(self):
-        nowPos = self.__mapForm.NOW_POS()
-        goalPos = self.__mapForm.GOAL_POS()
-        nowWay = self.__mapForm.NOW_WAY()
-        compassAngle = 0
-        if nowPos[1] == goalPos[1]:
-            if nowPos[0] < goalPos[0]:
-                compassAngle = Form.__compassWay(180, nowWay)
-            elif nowPos[0] > goalPos[0]:
-                compassAngle = Form.__compassWay(0, nowWay)
-            else:
-                compassAngle = Form.__compassWay(90, nowWay)
-        elif nowPos[1] > goalPos[1]:
-            if nowPos[0] < goalPos[0]:
-                angel = math.degrees(math.atan((goalPos[1] - nowPos[1])) / (goalPos[0] - nowPos[0]))
-                compassAngle = Form.__compassWay(angel + 180, nowWay)
-            elif nowPos[0] > goalPos[0]:
-                angel = math.degrees(math.atan((goalPos[1] - nowPos[1]) / (goalPos[0] - nowPos[0])))
-                compassAngle = Form.__compassWay(angel, nowWay)
-            else:
-                compassAngle = Form.__compassWay(90, nowWay)
-        elif nowPos[1] < goalPos[1]:
-            if nowPos[0] < goalPos[0]:
-                angel = math.degrees(math.atan((goalPos[1] - nowPos[1]) / (goalPos[0] - nowPos[0])))
-                compassAngle = Form.__compassWay(angel + 180, nowWay)
-            elif nowPos[0] > goalPos[0]:
-                angel = math.degrees(math.atan((goalPos[1] - nowPos[1]) / (nowPos[0] - goalPos[0])))
-                compassAngle = Form.__compassWay(-angel, nowWay)
-            else:
-                compassAngle = Form.__compassWay(270, nowWay)
-        return compassAngle
-
-    def __compassWay(compassWay, nowWay):
-        addWay = 0
-        if WAY.UP == nowWay:
-            addWay = 0
-        elif WAY.RIGHT == nowWay:
-            addWay = 90
-        elif WAY.LEFT == nowWay:
-            addWay = 270
-        else:
-            addWay = 180
-        return compassWay + addWay + random.randint(-2, 2)
-
-    def MAX_WIDTH(self):
-        return self.__mapForm.MAX_WIDTH()
-
-    def MAX_DEPTH(self):
-        return self.__mapForm.MAX_DEPTH()
+            add_way = 180
+        return compass_way + add_way + random.randint(-2, 2)
 
     # [ENEMY] START
-    def disappearanceEnemy(self, index):
-        return self.__mapForm.disappearanceEnemy(index)
+    def disappearance_enemy(self, index):
+        return self.__map_form.disappearance_enemy(index)
 
     def ENEMY_COUNT(self):
-        return self.__mapForm.ENEMY_COUNT()
+        return self.__map_form.get_enemy_count()
 
     def APPEAR_FLAG(self, index):
-        return self.__mapForm.APPEAR_FLAG(index)
+        return self.__map_form.get_appear_flag(index)
 
-    def ENEMIS_TYPE(self, index):
-        return self.__mapForm.ENEMY_TYPE(index)
+    def get_enemy_type(self, index):
+        return self.__map_form.get_enemy_type(index)
 
-    def ENEMIS_POS(self, index):
-        return self.__mapForm.ENEMY_POS(index)
+    def get_enemy_pos(self, index):
+        return self.__map_form.get_enemy_pos(index)
     # [ENEMY] END
 
-    def eventFlagOff(self):
-        self.__mapForm.eventFlagOff()
-
-    def getEventText(self):
-        return Form.__getEventText(self.__mapForm)
+    def event_flag_off(self):
+        self.__map_form.event_flag_off()
 
     # [ITEM] START
-    def searchItem(self):
-        self.__mapForm.getItem()
+    def search_item(self):
+        self.__map_form.get_item()
 
-    def watchBox(self, num):
-        return self.__boxForm.watch(num)
+    def watch_box(self, num):
+        return self.__box_form.watch(num)
 
-    def itemIntoBox(self):
-        return self.__boxForm.item_set(self.__mapForm.getItem())
-
-    def itemSetBox(self, item):
-        return self.__boxForm.item_set(item)
-
-    def ITEM(self):
-        return self.__mapForm.getItem()
+    def item_set_box(self, item: int = -3, load_flag: bool = False):
+        if load_flag:
+            return self.__box_form.item_set(item)
+        else:
+            return self.__box_form.item_set(self.__map_form.get_item())
 
     def ITEM_GET_FLAG(self):
-        return self.__mapForm.ITEM_GET_FLAG()
+        return self.__map_form.get_item_flag()
 
-    def itemFlagOff(self):
-        return self.__mapForm.itemFlagOff()
+    def item_flag_off(self):
+        return self.__map_form.item_flag_off()
 
     def itemBoxPreUpdate(self):
-        return self.__boxForm.update_pre()
-
-    def itemBoxReset(self):
-        return self.__boxForm.reset()
+        return self.__box_form.update_pre()
 
     def itemBoxClear(self):
-        return self.__boxForm.clear()
+        return self.__box_form.clear()
 
-    def itemBoxUse(self, index):
-        return self.__boxForm.use_item(index)
+    def item_box_use(self, index):
+        return self.__box_form.use_item(index)
 
-    def itemBoxButtonUpdate(self, index, x, y):
-        return self.__boxForm.set_box_button_pos(index, x, y)
+    def set_box_button(self, index, x, y):
+        return self.__button_form.set_box_button_pos(index, x, y)
 
-    def BOX_BUTTON(self, index):
-        return self.__boxForm.get_box_button_pos(index) + self.__boxForm.get_box_button_size(index)
+    def get_box_button(self, index):
+        return self.__button_form.get_box_button_pos(index) + self.__button_form.get_box_button_size(index)
 
     def itemBoxUseFlag(self, index):
-        return self.__boxForm.get_use_flag(index)
-
-    def itemBoxDispIndex(self, index):
-        if self.__boxForm.get_use_flag(index):
-            return 1
-        return 0
-
-    def itemBoxPickUp(self, index):
-        return self.__boxForm.pickup(index)
-
-    def itemBoxUseTurnCount(self):
-        return self.__boxForm.use_turn_count_up()
+        return self.__box_form.get_use_flag(index)
 
     def itemBoxFlagOn(self):
-        self.__boxForm.flag_on()
+        self.__box_form.flag_on()
 
     def BOX_FLAG(self):
-        self.__boxForm.get_flag()
+        self.__box_form.get_flag()
     # [ITEM] END
 
-    def IMG_LIST(self):
-        return self.__imgList
+    @property
+    def img_list(self):
+        return self.__img_list
 
     # [ACTION FORM] START
-    def actionFlagOn(self):
-        self.__actionForm.flag_on()
+    def action_flag_on(self):
+        self.__action_form.flag_on()
 
-    def actionFlagOff(self):
-        if self.__actionForm.flag_off():
-            self.__actionForm.count_up()
+    def action_flag_off(self):
+        if self.__action_form.flag_off():
+            self.__action_form.count_up()
+            self.__box_form.use_turn_count_up()
 
-    def ACTION_FLAG(self):
-        return self.__actionForm.get_flag()
+    def get_action_flag(self):
+        return self.__action_form.get_flag()
 
-    def COUNT(self):
-        return self.__actionForm.get_count()
+    def get_count(self):
+        return self.__action_form.get_count()
 
-    def updateTotalCount(self, count: int):
-        return self.__actionForm.count_to_total_count(count)
+    def set_total_count(self, count: int):
+        return self.__action_form.count_to_total_count(count)
 
-    def TOTAL_COUNT(self):
-        return self.__actionForm.get_total_count()
+    def get_total_count(self):
+        return self.__action_form.get_total_count()
     # [ACTION FORM] END
 
     def existDiffWay(self):
-        return self.__mapForm.existDiffWay()
+        return self.__map_form.is_diff_way()
 
     def existDiffPos(self):
-        return self.__mapForm.existDiffPos()
+        return self.__map_form.is_diff_pos()
 
     def existDiffView(self):
-        return self.__mapForm.existDiffView()
+        return self.__map_form.is_diff_view()
 
     # [SYSTEM BUTTON] START
-    def updateConfigButton(self, x, y):
-        self.__buttonForm.set_config_button_pos(x, y)
+    def set_config_button(self, x, y):
+        self.__button_form.set_config_button_pos(x, y)
 
-    def resetConfigButton(self):
-        self.__buttonForm.set_config_button_pos(-1, -1)
+    def get_config_button(self):
+        return self.__button_form.get_config_button_pos() + self.__button_form.get_config_button_size()
 
-    def CONFIG_BUTTON(self):
-        return self.__buttonForm.get_config_button_pos() + self.__buttonForm.get_config_button_size()
+    def set_save_button(self, x, y):
+        self.__button_form.set_save_button_pos(x, y)
 
-    def updateHomeButton(self, x, y):
-        self.__buttonForm.set_home_button_pos(x, y)
-
-    def resetHomeButton(self):
-        self.__buttonForm.set_home_button_pos(-1, -1)
-
-    def HOME_BUTTON(self):
-        return self.__buttonForm.get_home_button_pos() + self.__buttonForm.get_home_button_size()
-
-    def updateExitButton(self, x, y):
-        self.__buttonForm.set_exit_button_pos(x, y)
-
-    def EXIT_BUTTON(self):
-        return self.__buttonForm.get_exit_button_pos() + self.__buttonForm.get_exit_button_size()
+    def get_save_button(self):
+        return self.__button_form.get_save_button_pos() + self.__button_form.get_save_button_size()
     # [SYSTEM BUTTON] END
 
     # [ACTION BUTTON] START
-    def updateRetryButton(self, x, y):
-        self.__buttonForm.set_retry_button_pos(x, y)
+    def set_retry_button(self, x, y):
+        self.__button_form.set_retry_button_pos(x, y)
 
-    def RETRY_BUTTON(self):
-        return self.__buttonForm.get_retry_button_pos() + self.__buttonForm.get_retry_button_size()
+    def get_retry_button(self):
+        return self.__button_form.get_retry_button_pos() + self.__button_form.get_retry_button_size()
 
-    def updateSaveButton(self, x, y):
-        self.__buttonForm.set_save_button_pos(x, y)
+    def set_action_button(self, index, x, y):
+        self.__button_form.set_action_button_pos(index, x, y)
 
-    def SAVE_BUTTON(self):
-        return self.__buttonForm.get_save_button_pos() + self.__buttonForm.get_save_button_size()
-
-    def updateActionButton(self, actIndex, x, y):
-        self.__buttonForm.set_action_button_pos(actIndex, x, y)
-
-    def resetActionButton(self, actIndex):
-        self.__buttonForm.set_action_button_pos(actIndex, -1, -1)
-
-    def ACTION_BUTTON(self, actIndex):
-        return self.__buttonForm.get_action_button_pos(actIndex) + self.__buttonForm.get_action_button_size(actIndex)
+    def get_action_button(self, index):
+        return self.__button_form.get_action_button_pos(index) + self.__button_form.get_action_button_size(index)
     # [ACTION BUTTON] END
 
     # ゲーム終了 処理
     def death(self):
-        return self.__abnormalForm.death()
+        return self.__abnormal_form.death()
 
-    def IS_DEATH(self):
-        return self.__abnormalForm.IS_DEATH()
+    def is_death(self):
+        return self.__abnormal_form.IS_DEATH()
 
-    def offEndFlag(self):
-        self.__endFlag = False
+    @property
+    def end_flag(self):
+        return self.__end_flag
 
-    def onEndFlag(self):
-        dbg.LOG("ゲーム クリア!")
-        self.__endFlag = True
-
-    def END_FLAG(self):
-        return self.__endFlag
+    @end_flag.setter
+    def end_flag(self, flag_: bool):
+        if flag_:
+            dbg.LOG("ゲーム クリア!")
+        self.__end_flag = flag_
 
     # [LOG] START
-    def resetLog(self):
-        self.__logForm.reset()
+    def log_reset(self):
+        self.__log_form.reset()
 
-    def updateLog(self):
-        (text, type) = Form.__getEventText(self.__mapForm)
+    def log_update(self):
+        (text, event_type) = self.__map_form.get_event_text()
         if "" != text:
-            self.__logForm.add_log(type + text)
+            self.__log_form.add_log(event_type + text)
 
-    def LOG(self):
-        return self.__logForm.get_log()
+    def get_log(self):
+        return self.__log_form.get_log()
 
-    def logFlagOff(self):
-        self.__logForm.flag_off()
+    def log_flag_off(self):
+        self.__log_form.flag_off()
 
-    def logFlagOn(self):
-        self.__logForm.flag_on()
+    def log_flag_on(self):
+        self.__log_form.flag_on()
 
-    def UPDATE_LOG_FLAG(self):
-        return self.__logForm.get_flag()
+    def get_log_flag(self):
+        return self.__log_form.get_flag()
 
-    def LOG_NUM(self):
-        return self.__logForm.get_log_num()
+    def get_log_num(self):
+        return self.__log_form.get_log_num()
     # [LOG] END
 
     # [FONT] START
@@ -445,18 +390,15 @@ class Form:
     # [FONT] END
 
     # [SAVE/LOAD] START
-    def CREATE_INPUTDATA(self):
-        data0 = str(self.__mapForm.FLOOR())
-        data1 = str(self.__actionForm.get_total_count())
-        data2 = str(self.__boxForm.get_pre_num())
-        (item0, itemNum0) = self.__boxForm.pre_watch(0)
+    def create_input_data(self):
+        data0 = str(self.__map_form.floor)
+        data1 = str(self.__action_form.get_total_count())
+        data2 = str(self.__box_form.get_pre_num())
+        (item0, itemNum0) = self.__box_form.pre_watch(0)
         data3 = str(item0) + "," + str(itemNum0)
-        (item1, itemNum1) = self.__boxForm.pre_watch(1)
+        (item1, itemNum1) = self.__box_form.pre_watch(1)
         data4 = str(item1) + "," + str(itemNum1)
-        (item2, itemNum2) = self.__boxForm.pre_watch(2)
+        (item2, itemNum2) = self.__box_form.pre_watch(2)
         data5 = str(item2) + "," + str(itemNum2)
         return data0 + "," + data1 + "," + data2 + "," + data3 + "," + data4 + "," + data5
-
-    def __getEventText(mapForm):
-        return mapForm.getEventText()
     # [SAVE/LOAD] END
