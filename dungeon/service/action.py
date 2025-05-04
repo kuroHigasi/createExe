@@ -1,65 +1,78 @@
+import copy
+
 import dungeon.layer.request.dungeonActionRequest as dungeonActionRequest
+import dungeon.service.component.actionNextPos as actionNextPos
+import dungeon.form.position.form as pos_form
 import common.layer.response.response as response
 import common.layer.code.code as code
 
 
 class Action:
 	def __init__(self, request: dungeonActionRequest.DungeonActionRequest):
-		self._request = request
 		self._is_death = request.is_death
 		self._act_button = [request.act0_click, request.act1_click]
 		self._box_button = [request.box0_click, request.box1_click, request.box2_click]
 		self._retry_click = request.retry_click
-		self.is_go_action_on = request.is_go_action_on
-		self.is_step_action_on = request.is_step_action_on
+		self._is_go_action_on = request.is_go_action_on
+		self._is_step_action_on = request.is_step_action_on
+		self._start_pos = pos_form.Form(request.start_pos_x, request.start_pos_y)
+		self._now_pos = pos_form.Form(request.now_pos_x, request.now_pos_y)
+		self._now_way = request.now_way
+		self._dungeon_map = request.dungeon_map
+		self._width_max = request.width_max
+		self._depth_max = request.depth_max
+		self._enemy_count = request.enemy_count
+		self._log_flag = request.log_flag
+		self._box_flag = request.box_flag
 
 	def action_enemy_move(self):
-		if 0 < self._request.enemy_count:
+		if 0 < self._enemy_count:
 			return response.Response(data=True, result=code.Code.OK)
 		return response.Response(data=False, result=code.Code.DO_NOTHING)
 
-	def action_move(self, dungeon_form, ope_form):
+	def action_player_move(self, act_flag):
+		now_pos = self._now_pos
+		next_pos = copy.deepcopy(self._now_pos)
+		reset_flag = False
+		next_act_flag = act_flag
 		if not self._is_death:  # 死亡時は行動しない
-			if self.is_go_action_on:
-				ope_form.space_off()  # 処理が連続で判定されないように実施
-				ope_form.enter_off()  # 処理が連続で判定されないように実施
+			if self._is_go_action_on:
+				reset_flag = True
 				# 更新(前進時)
-				dungeon_form.go()
-				if not (dungeon_form.existDiffPos()) and not (dungeon_form.ACTION_FLAG()):
-					dungeon_form.actionFlagOn()
-			elif self.is_step_action_on:
-				ope_form.space_off()  # 処理が連続で判定されないように実施
-				ope_form.enter_off()  # 処理が連続で判定されないように実施
-				if not (dungeon_form.ACTION_FLAG()):
-					dungeon_form.actionFlagOn()
+				next_pos, move_flag = \
+					actionNextPos.ActionNextPos(
+						self._dungeon_map,
+						self._width_max,
+						self._depth_max
+					).execute(now_pos, self._now_way)
+				if move_flag and not act_flag: next_act_flag = True
+			elif self._is_step_action_on:
+				reset_flag = True
+				if not act_flag: next_act_flag = True
 			else:
-				if dungeon_form.ACTION_FLAG():
-					dungeon_form.actionFlagOff()
+				if act_flag: next_act_flag = False
 			# 更新(毎ターン)
-			dungeon_form.updateWay(ope_form)
-			dungeon_form.updateSituation()
-			dungeon_form.updateView()
+		return response.Response(data=(next_pos, reset_flag, next_act_flag), result=code.Code.OK)
 
 	def judge_log_flag(self, now_pos, is_diff, is_diff_way, act_flag):
-		if not self._request.log_flag:
-			if (is_diff and act_flag) or is_diff_way or \
-					self._request.start_pos_x == now_pos[0] and self._request.start_pos_y == now_pos[1]:
+		if not self._log_flag:
+			if (is_diff and act_flag) or is_diff_way or self._start_pos == now_pos:
 				return response.Response(data=True, result=code.Code.OK)
 		return response.Response(data=False, result=code.Code.DO_NOTHING)
 
 	def judge_item_box_flag(self, is_diff):
-		if is_diff and self._request.box_flag:
-			if not self._request.log_flag:
+		if is_diff and self._box_flag:
+			if not self._log_flag:
 				return response.Response(data=True, result=code.Code.OK)
-		elif self._request.box_flag and not self._request.log_flag:
+		elif self._box_flag and not self._log_flag:
 			return response.Response(data=True, result=code.Code.OK)
 		return response.Response(data=False, result=code.Code.DO_NOTHING)
 
 	def judge_enemy_touch(self, now_pos, pre_pos, enemy_pos_list, pre_enemy_pos_list):
-		for index in range(0, self._request.enemy_count, 1):
-			attack_judge_0 = enemy_pos_list[index][0] == now_pos[0] and enemy_pos_list[index][1] == now_pos[1]
-			attack_judge_1 = enemy_pos_list[index][0] == pre_pos[0] and enemy_pos_list[index][1] == pre_pos[1]
-			attack_judge_2 = pre_enemy_pos_list[index][0] == now_pos[0] and pre_enemy_pos_list[index][1] == now_pos[1]
+		for index in range(0, self._enemy_count, 1):
+			attack_judge_0 = enemy_pos_list[index] == now_pos
+			attack_judge_1 = enemy_pos_list[index] == pre_pos
+			attack_judge_2 = pre_enemy_pos_list[index] == now_pos
 			if attack_judge_0 or (attack_judge_1 and attack_judge_2):
 				return response.Response(data=(True, index), result=code.Code.OK)
 		return response.Response(data=(False, -1), result=code.Code.DO_NOTHING)

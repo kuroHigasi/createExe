@@ -10,6 +10,12 @@ class DungeonActionRequest:
 	_box_flag: bool
 	_start_pos_x: int
 	_start_pos_y: int
+	_now_pos_x: int
+	_now_pos_y: int
+	_now_way: int
+	_width_max: int
+	_depth_max: int
+	_dungeon_map: list
 	_enemy_count: int
 	_act0_click: bool
 	_act1_click: bool
@@ -45,6 +51,30 @@ class DungeonActionRequest:
 	@property
 	def start_pos_y(self):
 		return self._start_pos_y
+
+	@property
+	def now_pos_x(self):
+		return self._now_pos_x
+
+	@property
+	def now_pos_y(self):
+		return self._now_pos_y
+
+	@property
+	def now_way(self):
+		return self._now_way
+
+	@property
+	def width_max(self):
+		return self._width_max
+
+	@property
+	def depth_max(self):
+		return self._depth_max
+
+	@property
+	def dungeon_map(self):
+		return self._dungeon_map
 
 	@property
 	def enemy_count(self):
