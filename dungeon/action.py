@@ -49,7 +49,7 @@ class Action(abstractAction.AbstractAction):
         # ENEMY ACTION(MOVE)
         pre_enemy_pos_list = []
         for index in range(0, dungeon_form.ENEMY_COUNT(), 1):
-            pre_enemy_pos_list.insert(index, dungeon_form.ENEMIS_POS(index))
+            pre_enemy_pos_list.insert(index, dungeon_form.get_enemy_pos(index))
         res_enemy_move = service.action_enemy_move()
         if res_enemy_move.is_ok():
             dungeon_form.enemy_move()
@@ -57,11 +57,11 @@ class Action(abstractAction.AbstractAction):
         pre_pos = dungeon_form.get_pre_pos()
         enemy_pos_list = []
         for index in range(0, dungeon_form.ENEMY_COUNT(), 1):
-            enemy_pos_list.insert(index, dungeon_form.ENEMIS_POS(index))
+            enemy_pos_list.insert(index, dungeon_form.get_enemy_pos(index))
         res_enemy_touch = service.judge_enemy_touch(now_pos, pre_pos, enemy_pos_list, pre_enemy_pos_list)
         if res_enemy_touch.is_ok():
             flag, index = res_enemy_touch.data
-            enemy_type = dungeon_form.ENEMIS_TYPE(index)
+            enemy_type = dungeon_form.get_enemy_type(index)
             dungeon_form.disappearance_enemy(index)
             if enemy_type == ENEMY_TYPE.DANGER():
                 dungeon_form.death()

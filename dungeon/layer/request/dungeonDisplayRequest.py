@@ -1,5 +1,4 @@
 import dataclasses
-import common.common as cmn
 
 
 @dataclasses.dataclass

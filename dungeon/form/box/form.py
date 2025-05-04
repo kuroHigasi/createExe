@@ -125,26 +125,6 @@ class Form:
         else:
             return False
 
-    def pickup(self, index):
-        if index < self.__max and 0 < self.__num:
-            if self._box_use_flag[index]:
-                if self.__box_use_turn[index] == 0:
-                    self._box_use_flag[index] = False
-                    self.__box_num[index] -= 1
-                    if self.__box_num[index] == 0:
-                        self.__num -= 1
-                        self.__box[index] = -1
-                    return -1, 0
-                elif self.__box_use_turn[index] == -2:
-                    return self.__box[index], self.__box_num[index]
-                else:
-                    # アイテム 使用期間中
-                    return self.__box[index], self.__box_num[index]
-            else:
-                return -1, 0
-        else:
-            return -1, 0
-
     def flag_on(self):
         self.__flag = True
 
@@ -154,12 +134,33 @@ class Form:
     def use_turn_count_up(self):
         if self.__flag:
             self.__flag = False
-            if self.__box_use_turn[0] != -1:
+        if self._box_use_flag[0]:
+            if -1 < self.__box_use_turn[0]:
                 self.__box_use_turn[0] -= 1
-            if self.__box_use_turn[1] != -1:
+            if self.__box_use_turn[0] == 0:
+                self._box_use_flag[0] = False
+                self.__box_num[0] -= 1
+                if self.__box_num[0] == 0:
+                    self.__num -= 1
+                    self.__box[0] = -1
+        if self._box_use_flag[1]:
+            if -1 < self.__box_use_turn[1]:
                 self.__box_use_turn[1] -= 1
-            if self.__box_use_turn[2] != -1:
+            if self.__box_use_turn[1] == 0:
+                self._box_use_flag[1] = False
+                self.__box_num[1] -= 1
+                if self.__box_num[1] == 0:
+                    self.__num -= 1
+                    self.__box[1] = -1
+        if self._box_use_flag[2]:
+            if -1 < self.__box_use_turn[2]:
                 self.__box_use_turn[2] -= 1
+            if self.__box_use_turn[2] == 0:
+                self._box_use_flag[2] = False
+                self.__box_num[2] -= 1
+                if self.__box_num[2] == 0:
+                    self.__num -= 1
+                    self.__box[2] = -1
 
     def get_pre_num(self):
         return self.__pre_num

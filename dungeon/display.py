@@ -43,7 +43,7 @@ class Display(AbstractDisplay):
 
     @staticmethod
     def create_request_data(screen, dungeon_form: form.Form, ope_form, system_form):
-        dungeon_form.searchItem()
+        dungeon_form.search_item()
         (mouse_x, mouse_y) = ope_form.get_mouse()
         dungeon_map = dungeon_form.get_dungeon_map()
         now_pos = dungeon_form.get_now_pos()
@@ -54,16 +54,16 @@ class Display(AbstractDisplay):
         count = 0
         for index in range(0, dungeon_form.ENEMY_COUNT(), 1):
             if dungeon_form.APPEAR_FLAG(index):
-                enemy_pos_list.insert(count, dungeon_form.ENEMIS_POS(index))
-                enemy_type_list.insert(count, dungeon_form.ENEMIS_TYPE(index))
+                enemy_pos_list.insert(count, dungeon_form.get_enemy_pos(index))
+                enemy_type_list.insert(count, dungeon_form.get_enemy_type(index))
                 enemy_index_list.insert(count, index)
                 count += 1
         (config_x, config_y, config_width, config_height) = dungeon_form.get_config_button()
         (save_x, save_y, save_width, save_height) = dungeon_form.get_save_button()
         (retry_x, retry_y, retry_width, retry_height) = dungeon_form.get_retry_button()
-        box0_item, box0_num = dungeon_form.watchBox(0)
-        box1_item, box1_num = dungeon_form.watchBox(1)
-        box2_item, box2_num = dungeon_form.watchBox(2)
+        box0_item, box0_num = dungeon_form.watch_box(0)
+        box1_item, box1_num = dungeon_form.watch_box(1)
+        box2_item, box2_num = dungeon_form.watch_box(2)
         (box0_x, box0_y, box0_width, box0_height) = dungeon_form.BOX_BUTTON(0)
         (box1_x, box1_y, box1_width, box1_height) = dungeon_form.BOX_BUTTON(1)
         (box2_x, box2_y, box2_width, box2_height) = dungeon_form.BOX_BUTTON(2)

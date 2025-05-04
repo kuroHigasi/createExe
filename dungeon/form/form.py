@@ -217,10 +217,10 @@ class Form:
     def APPEAR_FLAG(self, index):
         return self.__map_form.get_appear_flag(index)
 
-    def ENEMIS_TYPE(self, index):
+    def get_enemy_type(self, index):
         return self.__map_form.get_enemy_type(index)
 
-    def ENEMIS_POS(self, index):
+    def get_enemy_pos(self, index):
         return self.__map_form.get_enemy_pos(index)
     # [ENEMY] END
 
@@ -228,10 +228,10 @@ class Form:
         self.__map_form.event_flag_off()
 
     # [ITEM] START
-    def searchItem(self):
+    def search_item(self):
         self.__map_form.get_item()
 
-    def watchBox(self, num):
+    def watch_box(self, num):
         return self.__box_form.watch(num)
 
     def item_set_box(self, item: int = -3, load_flag: bool = False):
@@ -264,9 +264,6 @@ class Form:
     def itemBoxUseFlag(self, index):
         return self.__box_form.get_use_flag(index)
 
-    def itemBoxPickUp(self, index):
-        return self.__box_form.pickup(index)
-
     def itemBoxFlagOn(self):
         self.__box_form.flag_on()
 
@@ -285,6 +282,7 @@ class Form:
     def action_flag_off(self):
         if self.__action_form.flag_off():
             self.__action_form.count_up()
+            self.__box_form.use_turn_count_up()
 
     def get_action_flag(self):
         return self.__action_form.get_flag()
