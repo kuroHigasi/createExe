@@ -1,7 +1,7 @@
 import copy
 
 import dungeon.layer.request.dungeonActionRequest as dungeonActionRequest
-import dungeon.service.component.action as action_component
+import dungeon.service.component.actionNextPos as actionNextPos
 import dungeon.form.position.form as pos_form
 import common.layer.response.response as response
 import common.layer.code.code as code
@@ -39,12 +39,12 @@ class Action:
 			if self._is_go_action_on:
 				reset_flag = True
 				# 更新(前進時)
-				way = self._now_way
-				dungeon_map = self._dungeon_map
-				width_max = self._width_max
-				depth_max = self._depth_max
 				next_pos, move_flag = \
-					action_component.Action.get_player_next_pos(now_pos, way, dungeon_map, width_max, depth_max)
+					actionNextPos.ActionNextPos(
+						self._dungeon_map,
+						self._width_max,
+						self._depth_max
+					).execute(now_pos, self._now_way)
 				if move_flag and not act_flag: next_act_flag = True
 			elif self._is_step_action_on:
 				reset_flag = True
