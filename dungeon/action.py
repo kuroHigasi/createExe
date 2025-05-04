@@ -45,7 +45,7 @@ class Action(abstractAction.AbstractAction):
         # USE ITEM BOX
         res_item = service.box_button_click()
         if res_item.is_ok():
-            dungeon_form.itemBoxUse(res_item.data)
+            dungeon_form.item_box_use(res_item.data)
         # ENEMY ACTION(MOVE)
         pre_enemy_pos_list = []
         for index in range(0, dungeon_form.ENEMY_COUNT(), 1):
@@ -80,8 +80,8 @@ class Action(abstractAction.AbstractAction):
                 if dungeon_form.ITEM_GET_FLAG():
                     if dungeon_form.item_set_box():
                         dbg.LOG("=====ITEM GET=====")
-                        dungeon_form.itemFlagOff()
-                        dungeon_form.eventFlagOff()
+                        dungeon_form.item_flag_off()
+                        dungeon_form.event_flag_off()
                 dungeon_form.set_action_button(ACTION.SEARCH(), -1, -1)
         # BUTTON CLICK(RETRY)
         res_retry_click = service.retry_button_click()
@@ -102,9 +102,9 @@ class Action(abstractAction.AbstractAction):
         (act0_x, act0_y, act0_width, act0_height) = dungeon_form.get_action_button(0)
         (act1_x, act1_y, act1_width, act1_height) = dungeon_form.get_action_button(1)
         (retry_x, retry_y, retry_width, retry_height) = dungeon_form.get_retry_button()
-        (box0_x, box0_y, box0_width, box0_height) = dungeon_form.BOX_BUTTON(0)
-        (box1_x, box1_y, box1_width, box1_height) = dungeon_form.BOX_BUTTON(1)
-        (box2_x, box2_y, box2_width, box2_height) = dungeon_form.BOX_BUTTON(2)
+        (box0_x, box0_y, box0_width, box0_height) = dungeon_form.get_box_button(0)
+        (box1_x, box1_y, box1_width, box1_height) = dungeon_form.get_box_button(1)
+        (box2_x, box2_y, box2_width, box2_height) = dungeon_form.get_box_button(2)
         return dungeonActionRequest.DungeonActionRequest(
             dungeon_form.is_death(),
             (space and go_key_type == 0) or (enter and go_key_type == 1),

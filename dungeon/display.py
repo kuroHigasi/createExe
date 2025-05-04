@@ -16,7 +16,7 @@ class Display(AbstractDisplay):
         if res_view.is_ok():
             if not (res_view.data[0] is None):
                 (index, pos_x, pos_y) = res_view.data[0]
-                dungeon_form.itemBoxButtonUpdate(index, pos_x, pos_y)
+                dungeon_form.set_box_button(index, pos_x, pos_y)
             if not (res_view.data[1] is None):
                 (pos_x, pos_y) = res_view.data[1]
                 dungeon_form.set_retry_button(pos_x, pos_y)
@@ -64,9 +64,9 @@ class Display(AbstractDisplay):
         box0_item, box0_num = dungeon_form.watch_box(0)
         box1_item, box1_num = dungeon_form.watch_box(1)
         box2_item, box2_num = dungeon_form.watch_box(2)
-        (box0_x, box0_y, box0_width, box0_height) = dungeon_form.BOX_BUTTON(0)
-        (box1_x, box1_y, box1_width, box1_height) = dungeon_form.BOX_BUTTON(1)
-        (box2_x, box2_y, box2_width, box2_height) = dungeon_form.BOX_BUTTON(2)
+        (box0_x, box0_y, box0_width, box0_height) = dungeon_form.get_box_button(0)
+        (box1_x, box1_y, box1_width, box1_height) = dungeon_form.get_box_button(1)
+        (box2_x, box2_y, box2_width, box2_height) = dungeon_form.get_box_button(2)
         (act0_x, act0_y, act0_width, act0_height) = dungeon_form.get_action_button(ACTION.GO_UP_THE_STAIRS())
         (act1_x, act1_y, act1_width, act1_height) = dungeon_form.get_action_button(ACTION.SEARCH())
         return dungeonDisplayRequest.DungeonDisplayRequest(

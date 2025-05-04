@@ -10,7 +10,6 @@ class Form:
     __pre_num: int
     __box: list
     __box_num: list
-    _box_button: list
     _box_use_flag: list
     __box_use_turn: list
     __flag: bool
@@ -23,10 +22,6 @@ class Form:
         self.__pre_num = 1
         self.__box = [typeItem.RADER(), -1, -1]
         self.__box_num = [1, 0, 0]
-        self._box_button = \
-            [button_form.Form(-1, -1, 60, 60),
-             button_form.Form(-1, -1, 60, 60),
-             button_form.Form(-1, -1, 60, 60)]
         self._box_use_flag = [True, False, False]
         self.__box_use_turn = [-2, -1, -1]
         self.__flag = False
@@ -37,9 +32,6 @@ class Form:
         self.__box = [self.__pre_box[0], self.__pre_box[1], self.__pre_box[2]]
         self.__box_num = [self.__pre_box_num[0], self.__pre_box_num[1], self.__pre_box_num[2]]
         self.__num = self.__pre_num
-        for index in range(0, 3, 1):
-            self._box_button[index].x = -1
-            self._box_button[index].y = -1
         self._box_use_flag = [True, False, False]
         self.__box_use_turn = [-2, -1, -1]
 
@@ -50,9 +42,6 @@ class Form:
         self.__box = [typeItem.RADER(), -1, -1]
         self.__box_num = [1, 0, 0]
         self.__num = 1
-        for index in range(0, 3, 1):
-            self._box_button[index].x = -1
-            self._box_button[index].y = -1
         self._box_use_flag = [True, False, False]
         self.__box_use_turn = [-2, -1, -1]
 
@@ -89,29 +78,6 @@ class Form:
         self.__pre_box = [self.__box[0], self.__box[1], self.__box[2]]
         self.__pre_box_num = [self.__box_num[0], self.__box_num[1], self.__box_num[2]]
         self.__pre_num = self.__num
-
-    def set_box_button_pos(self, index, x, y):
-        if index < self.__max and 0 < self.__num:
-            if self.__box[index] != -1:
-                self._box_button[index].x = x
-                self._box_button[index].y = y
-            else:
-                self._box_button[index].x = -1
-                self._box_button[index].y = -1
-
-    def get_box_button_pos(self, index):
-        if index < self.__max and 0 < self.__num:
-            return (self._box_button[index].x,
-                    self._box_button[index].y)
-        else:
-            return -1, -1
-
-    def get_box_button_size(self, index):
-        if index < self.__max and 0 < self.__num:
-            return (self._box_button[index].width,
-                    self._box_button[index].height)
-        else:
-            return 60, 60
 
     def use_item(self, index):
         if index < self.__max and 0 < self.__num:

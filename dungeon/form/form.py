@@ -224,7 +224,7 @@ class Form:
         return self.__map_form.get_enemy_pos(index)
     # [ENEMY] END
 
-    def eventFlagOff(self):
+    def event_flag_off(self):
         self.__map_form.event_flag_off()
 
     # [ITEM] START
@@ -243,7 +243,7 @@ class Form:
     def ITEM_GET_FLAG(self):
         return self.__map_form.get_item_flag()
 
-    def itemFlagOff(self):
+    def item_flag_off(self):
         return self.__map_form.item_flag_off()
 
     def itemBoxPreUpdate(self):
@@ -252,14 +252,14 @@ class Form:
     def itemBoxClear(self):
         return self.__box_form.clear()
 
-    def itemBoxUse(self, index):
+    def item_box_use(self, index):
         return self.__box_form.use_item(index)
 
-    def itemBoxButtonUpdate(self, index, x, y):
-        return self.__box_form.set_box_button_pos(index, x, y)
+    def set_box_button(self, index, x, y):
+        return self.__button_form.set_box_button_pos(index, x, y)
 
-    def BOX_BUTTON(self, index):
-        return self.__box_form.get_box_button_pos(index) + self.__box_form.get_box_button_size(index)
+    def get_box_button(self, index):
+        return self.__button_form.get_box_button_pos(index) + self.__button_form.get_box_button_size(index)
 
     def itemBoxUseFlag(self, index):
         return self.__box_form.get_use_flag(index)
