@@ -4,6 +4,7 @@ import dungeon.service.component.displayRadar as displayRadar
 import dungeon.service.component.displayItemBox as displayItemBox
 import dungeon.service.component.displayUseItem as displayUseItem
 import dungeon.service.component.displayButton as displayButton
+import dungeon.service.component.displayNumber as displayNumber
 import common.layer.response.response as response
 import common.layer.code.code as code
 import pyd.indexDungeon as INDEX
@@ -16,6 +17,7 @@ class Display:
 	def __init__(self, request: dungeonDisplayRequest.DungeonDisplayRequest):
 		self._request = request
 		self._item_font = request.item_font
+		self._font = request.font
 		self._screen = request.screen
 		self._img_list = request.img_list
 		self._is_death = request.is_death
@@ -40,6 +42,8 @@ class Display:
 		self._mouse_y = request.mouse_y
 		self._compass_angle = request.compass_angle
 		self._retry_touch = request.retry_touch
+		self._floor = request.floor
+		self._count = request.count
 
 	def disp_radar(self):
 		x = 800
@@ -97,3 +101,26 @@ class Display:
 			).execute(12, self._retry_touch, pos_x+350, pos_y+270)
 			ret_data_list[1] = pos_x+350, pos_y+270
 		return response.Response(data=ret_data_list, result=code.Code.OK)
+
+	def disp_info(self):
+		pos_x = 800
+		pos_y = 200
+		if self._is_death:
+			self._screen(self._img_list[INDEX.BOARD_S()][1], (pos_x, pos_y))
+		else:
+			component_display_number = displayNumber.DisplayNumber(
+				self._screen,
+				self._img_list,
+				self._font
+			)
+			self._screen.blit(self._img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
+			# FLOOR
+			self._screen.blit(self._img_list[INDEX.TEXT5()][img.Select.TEXT_FLASH(self._text_flash) + 3], (pos_x + 60, pos_y + 20))
+			component_display_number.execute(self._floor, pos_x + 90, pos_y+60)
+			# ACTION COUNT
+			self._screen.blit(self._img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(self._text_flash) + 3], (pos_x + 27, pos_y + 90))
+			self._screen.blit(self._img_list[INDEX.TEXT5()][img.Select.TEXT_FLASH(self._text_flash) + 6], (pos_x + 103, pos_y + 90))
+			component_display_number.execute(self._count, pos_x + 90, pos_y+130)
+		return response.Response(data=True, result=code.Code.OK)
+
+

@@ -37,6 +37,8 @@ class DungeonDisplayRequest:
 	_box2_use: bool
 	_box2_touch: bool
 	_compass_angle: int
+	_floor: int
+	_count: int
 	_mouse_x: int
 	_mouse_y: int
 
@@ -171,6 +173,14 @@ class DungeonDisplayRequest:
 	@property
 	def compass_angle(self):
 		return self._compass_angle
+
+	@property
+	def floor(self):
+		return self._floor
+
+	@property
+	def count(self):
+		return self._count
 
 	@property
 	def mouse_x(self):

@@ -52,6 +52,5 @@ class Display:
         dungeonDisp.Display.execute(dungeon_form, req)
         flash = system_form.FLASH
         dungeonDisp.Display.dispConversationText(screen, dungeon_form, 0, 600)
-        dungeonDisp.Display.dispInfo(screen, dungeon_form, flash, 800, 200)
         dungeonDisp.Display.dispActionButton(screen, dungeon_form, ope_form, flash, 800, 400)
         dungeonDisp.Display.dispSystemButton(screen, dungeon_form, ope_form, flash, 800, 600)

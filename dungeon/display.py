@@ -28,6 +28,7 @@ class Display(AbstractDisplay):
                 dungeon_form.set_retry_button(pos_x, pos_y)
             else:
                 dungeon_form.set_retry_button(-1, -1)
+        service.disp_info()
 
     @staticmethod
     def create_request_data(screen, dungeon_form: form.Form, ope_form, system_form):
@@ -88,27 +89,11 @@ class Display(AbstractDisplay):
             dungeon_form.itemBoxUseFlag(2),
             hitJudge.hitJudgeSquare(box2_x, box2_y, box2_width, box2_height, mouse_x, mouse_y),
             dungeon_form.create_angle(),
+            dungeon_form.get_floor(),
+            dungeon_form.get_count(),
             mouse_x,
             mouse_y
         )
-
-    @staticmethod
-    def dispInfo(screen, dungeon_form, flash, pos_x: int, pos_y: int):
-        floor = dungeon_form.get_floor()
-        font = dungeon_form.font()
-        img_list = dungeon_form.img_list
-        numberPosX = pos_x+90
-        if not (dungeon_form.is_death()):
-            screen.blit(img_list[INDEX.BOARD_S()][0], (pos_x, pos_y))
-            # FLOOR
-            screen.blit(img_list[INDEX.TEXT5()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 60, pos_y + 20))
-            Display.__dispNumber(screen, font, floor, numberPosX, pos_y+60)
-            # ACTION COUNT
-            screen.blit(img_list[INDEX.TEXT6()][img.Select.TEXT_FLASH(flash(1)) + 3], (pos_x + 27, pos_y + 90))
-            screen.blit(img_list[INDEX.TEXT5()][img.Select.TEXT_FLASH(flash(1)) + 6], (pos_x + 103, pos_y + 90))
-            Display.__dispNumber(screen, font, dungeon_form.get_count(), numberPosX, pos_y+130)
-        else:
-            screen.blit(img_list[INDEX.BOARD_S()][1], (pos_x, pos_y))
 
     @staticmethod
     def dispConversationText(screen, dungeon_form, x: int, y: int):
@@ -181,10 +166,4 @@ class Display(AbstractDisplay):
     def __dispText(screen, font, text, x, y, color=cmn.Colors.white):
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect(center=(x+text_surface.get_width() / 2, y))
-        screen.blit(text_surface, text_rect)
-
-    def __dispNumber(screen, font, number, x, y, color=cmn.Colors.white):
-        text_surface = font.render(str(number), True, color)
-        numCount = len(str(number))
-        text_rect = text_surface.get_rect(center=(x+text_surface.get_width() / 2 - ((numCount - 1) * 6), y))
         screen.blit(text_surface, text_rect)
