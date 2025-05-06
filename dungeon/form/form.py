@@ -1,5 +1,4 @@
 import dataclasses
-import dungeon.form.position.form as pos_form
 import dungeon.img as dungeon_img
 # Form
 import dungeon.form.map.form as map_form
