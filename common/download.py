@@ -152,6 +152,7 @@ class Download:
         sound_list: list = []
         sound_list.insert(0, Download.__load_mp3("common", "CLICK", 0))
         sound_list.insert(1, Download.__load_mp3("common", "TEST", 0))
+        sound_list.insert(2, Download.__load_mp3("common", "WALK", 0))
         return sound_list
 
     @staticmethod

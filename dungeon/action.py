@@ -21,6 +21,7 @@ class Action(abstractAction.AbstractAction):
                 ope_form.enter_off()
             if action_flag:
                 dungeon_form.action_flag_on()
+                dungeon_form.walk_flag = True
             else:
                 dungeon_form.action_flag_off()
             dungeon_form.update_pos([next_pos.x, next_pos.y])

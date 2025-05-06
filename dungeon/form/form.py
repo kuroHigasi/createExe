@@ -29,6 +29,7 @@ class Form:
     __box_form: box_form.Form
     __img_list: list
     __end_flag: bool
+    __walk_flag: bool
 
     def __init__(self, floor: int):
         self.__map_form = map_form.Form(floor)
@@ -39,6 +40,7 @@ class Form:
         self.__box_form = box_form.Form()
         self.__img_list = dungeon_img.Download.dungeonImag()
         self.__end_flag = False
+        self.__walk_flag = False
 
     def reset(self, floor: int):
         if floor > len(map_form.dungeon):
@@ -402,3 +404,11 @@ class Form:
         data5 = str(item2) + "," + str(itemNum2)
         return data0 + "," + data1 + "," + data2 + "," + data3 + "," + data4 + "," + data5
     # [SAVE/LOAD] END
+
+    @property
+    def walk_flag(self):
+        return self.__walk_flag
+
+    @walk_flag.setter
+    def walk_flag(self, flag):
+        self.__walk_flag = flag
