@@ -11,7 +11,6 @@ import dungeon.form.box.form as box_form
 # method
 import pyd.createPass as cPass
 import pyd.way as WAY
-import dungeon.common as cmn_dungeon
 import common.debug.debug as dbg
 import common.common as cmn
 import pygame
