@@ -1,5 +1,4 @@
 import dataclasses
-import dungeon.form.position.form as pos_form
 import dungeon.img as dungeon_img
 # Form
 import dungeon.form.map.form as map_form
@@ -11,7 +10,6 @@ import dungeon.form.box.form as box_form
 # method
 import pyd.createPass as cPass
 import pyd.way as WAY
-import dungeon.common as cmn_dungeon
 import common.debug.debug as dbg
 import common.common as cmn
 import pygame
@@ -29,6 +27,8 @@ class Form:
     __box_form: box_form.Form
     __img_list: list
     __end_flag: bool
+    __walk_flag: bool
+    __search_flag: bool
 
     def __init__(self, floor: int):
         self.__map_form = map_form.Form(floor)
@@ -39,6 +39,8 @@ class Form:
         self.__box_form = box_form.Form()
         self.__img_list = dungeon_img.Download.dungeonImag()
         self.__end_flag = False
+        self.__walk_flag = False
+        self.__search_flag = False
 
     def reset(self, floor: int):
         if floor > len(map_form.dungeon):
@@ -394,11 +396,27 @@ class Form:
         data0 = str(self.__map_form.floor)
         data1 = str(self.__action_form.get_total_count())
         data2 = str(self.__box_form.get_pre_num())
-        (item0, itemNum0) = self.__box_form.pre_watch(0)
-        data3 = str(item0) + "," + str(itemNum0)
-        (item1, itemNum1) = self.__box_form.pre_watch(1)
-        data4 = str(item1) + "," + str(itemNum1)
-        (item2, itemNum2) = self.__box_form.pre_watch(2)
-        data5 = str(item2) + "," + str(itemNum2)
+        (item0, item0_num) = self.__box_form.pre_watch(0)
+        data3 = str(item0) + "," + str(item0_num)
+        (item1, item1_num) = self.__box_form.pre_watch(1)
+        data4 = str(item1) + "," + str(item1_num)
+        (item2, item2_num) = self.__box_form.pre_watch(2)
+        data5 = str(item2) + "," + str(item2_num)
         return data0 + "," + data1 + "," + data2 + "," + data3 + "," + data4 + "," + data5
     # [SAVE/LOAD] END
+
+    @property
+    def walk_flag(self):
+        return self.__walk_flag
+
+    @walk_flag.setter
+    def walk_flag(self, flag):
+        self.__walk_flag = flag
+
+    @property
+    def search_flag(self):
+        return self.__search_flag
+
+    @search_flag.setter
+    def search_flag(self, flag):
+        self.__search_flag = flag
