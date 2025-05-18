@@ -36,13 +36,12 @@ class Action(abstractAction.AbstractAction):
         is_diff = (is_diff_way | is_diff_pos | is_diff_view)
         act_flag = dungeon_form.get_action_flag()
         res_log = service.judge_log_flag(now_pos, is_diff, is_diff_way, act_flag)
-        if res_log.is_ok() and res_log.data:
+        if res_log.is_ok() and res_log.data is not None and res_log.data:
             dungeon_form.log_flag_on()
         # UPDATE FLAG (BOX FLAG)
         res_box = service.judge_item_box_flag(is_diff)
-        if res_box.is_ok():
-            if res_box.data:
-                dungeon_form.itemBoxFlagOn()
+        if res_box.is_ok() and res_box.data is not None and res_box.data:
+            dungeon_form.itemBoxFlagOn()
         # USE ITEM BOX
         res_item = service.box_button_click()
         if res_item.is_ok():
@@ -61,7 +60,7 @@ class Action(abstractAction.AbstractAction):
             enemy_pos_list.insert(index, dungeon_form.get_enemy_pos(index))
         res_enemy_touch = service.judge_enemy_touch(now_pos, pre_pos, enemy_pos_list, pre_enemy_pos_list)
         if res_enemy_touch.is_ok():
-            flag, index = res_enemy_touch.data
+            _, index = res_enemy_touch.data
             enemy_type = dungeon_form.get_enemy_type(index)
             dungeon_form.disappearance_enemy(index)
             if enemy_type == ENEMY_TYPE.DANGER():
@@ -78,11 +77,11 @@ class Action(abstractAction.AbstractAction):
                     dungeon_form.itemBoxPreUpdate()
                 dungeon_form.set_action_button(ACTION.GO_UP_THE_STAIRS(), -1, -1)
             if search_flag:
-                if dungeon_form.ITEM_GET_FLAG():
-                    if dungeon_form.item_set_box():
-                        dbg.LOG("=====ITEM GET=====")
-                        dungeon_form.item_flag_off()
-                        dungeon_form.event_flag_off()
+                if dungeon_form.ITEM_GET_FLAG() and dungeon_form.item_set_box():
+                    dbg.LOG("=====ITEM GET=====")
+                    dungeon_form.item_flag_off()
+                    dungeon_form.event_flag_off()
+                    dungeon_form.search_flag = True
                 dungeon_form.set_action_button(ACTION.SEARCH(), -1, -1)
         # BUTTON CLICK(RETRY)
         res_retry_click = service.retry_button_click()

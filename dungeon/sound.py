@@ -9,13 +9,17 @@ class Sound(abstractSound.AbstractSound):
 	def execute(dungeon_form, request):
 		service = service_sound.Sound(request)
 		res = service.start()
-		if res.is_ok():
-			dungeon_form.walk_flag = False
+		if res.is_ok() and res.data is not None:
+			if res.data == 0:
+				dungeon_form.walk_flag = False
+			if res.data == 1:
+				dungeon_form.search_flag = False
 
 	@staticmethod
 	def create_request_data(sound_form, dungeon_form: main_form.Form, ope_form, config_form):
 		return dungeonSoundRequest.DungeonSoundRequest(
 			sound_form.sound_list,
 			config_form.get_volume(),
-			dungeon_form.walk_flag
+			dungeon_form.walk_flag,
+			dungeon_form.search_flag
 		)
