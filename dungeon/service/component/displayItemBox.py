@@ -16,13 +16,14 @@ class DisplayItemBox:
 		self._box_num = len(item_list)
 		self._item_font = item_font
 
-	def execute(self, pos_x, pos_y, x, y):
+	def execute(self, pos_x, pos_y, mouse_x, mouse_y):
 		screen = self._screen
 		item_font = self._item_font
 		color_ = cmn.Colors.black
 		pos_x_list = [pos_x, pos_x+60, pos_x+120]
 		img_list = self._img_list
 		ret_data = (-1, -1, -1)
+		disp_item_name_flag = False
 		for index in range(0, self._box_num, 1):
 			item = self._box_item_list[index]
 			item_num = self._box_num_list[index]
@@ -42,7 +43,11 @@ class DisplayItemBox:
 				if not self._box_use_list[index]:
 					screen.blit(img_list[INDEX.BOX_TAG()][0], (pos_x_list[index], pos_y-20))
 			if text != "":
-				self.__disp_text(screen, item_font, text, x+10, y-10, color_)
+				disp_item_name_flag = True
+				disp_item_name = text
+		# アイテム名 表示
+		if disp_item_name_flag:
+			self.__disp_text(screen, item_font, disp_item_name, mouse_x+10, mouse_y-10, color_)
 		return response.Response(data=ret_data, result=code.Code.OK)
 
 	@staticmethod
