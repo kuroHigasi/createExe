@@ -53,6 +53,8 @@ exe = EXE(
     Tree('data\\fonts',prefix='data\\fonts'),
     Tree('data\\mp3\\common\\CLICK',prefix='data\\mp3\\common\\CLICK'),
     Tree('data\\mp3\\common\\TEST',prefix='data\\mp3\\common\\TEST'),
+    Tree('data\\mp3\\common\\SEARCH',prefix='data\\mp3\\common\\SEARCH'),
+    Tree('data\\mp3\\common\\WALK',prefix='data\\mp3\\common\\WALK'),
     a.scripts,
     a.binaries,
     a.datas,
