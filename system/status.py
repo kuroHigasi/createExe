@@ -11,11 +11,11 @@ class Status:
     @staticmethod
     def execute(status_form, system_form, ope_form):
         now_status = status_form.now_status
-        config_form = system_form.CONFIG_FORM()
-        save_form = system_form.SAVE_FORM()
-        dungeon_form = system_form.DUNGEON_FORM()
-        home_form = system_form.HOME_FORM()
-        end_form = system_form.END_FORM()
+        config_form = system_form.config_form
+        save_form = system_form.save_form
+        dungeon_form = system_form.dungeon_form
+        home_form = system_form.home_form
+        end_form = system_form.end_form
         # ステータス毎 処理分岐
         if now_status == STATUS.EXIT():
             dbg.LOG("[main.STATUS]終了ステータスのため何もしない")
@@ -40,14 +40,14 @@ class Status:
             status_form.update_status(STATUS.HOME())
 
     @staticmethod
-    def init(status_form, systemForm, operationForm):
+    def init(status_form, system_form, operation_form):
         now_status = status_form.now_status
         pre_status = status_form.pre_status
-        configForm = systemForm.CONFIG_FORM()
-        saveForm = systemForm.SAVE_FORM()
-        dungeonForm = systemForm.DUNGEON_FORM()
+        config_form = system_form.config_form
+        save_form = system_form.save_form
+        dungeon_form = system_form.dungeon_form
         # ステータス遷移タイミング 初期化 共通処理
-        Status.__change_init(pre_status, now_status, operationForm, configForm)
+        Status.__change_init(pre_status, now_status, operation_form, config_form)
         # ステータス毎 処理分岐
         if now_status == STATUS.EXIT():
             if pre_status != STATUS.EXIT():
@@ -57,31 +57,31 @@ class Status:
                 dbg.LOG("[main.END]初期化処理なし")
         elif now_status == STATUS.HOME():
             if pre_status != STATUS.HOME():
-                ConfigStatus.Status.load_config(configForm)
+                ConfigStatus.Status.load_config(config_form)
         elif now_status == STATUS.CONFIG():
             if pre_status != STATUS.CONFIG():
-                ConfigStatus.Status.config_form_get_status(configForm, pre_status)
-                ConfigStatus.Status.load_config(configForm)
+                ConfigStatus.Status.config_form_get_status(config_form, pre_status)
+                ConfigStatus.Status.load_config(config_form)
         elif now_status == STATUS.SAVE():
             if pre_status != STATUS.SAVE():
-                save_status.Status.initialize(saveForm, pre_status)
+                save_status.Status.initialize(save_form, pre_status)
                 if pre_status == STATUS.DUNGEON():
-                    save_status.Status.update_input_data(saveForm, dungeonForm)
+                    save_status.Status.update_input_data(save_form, dungeon_form)
                 else:
-                    save_status.Status.reset_input_data(saveForm)
+                    save_status.Status.reset_input_data(save_form)
         elif now_status == STATUS.DUNGEON():
             if pre_status == STATUS.HOME():
-                DungeonStatus.Status.fromHomeReset(dungeonForm)
+                DungeonStatus.Status.fromHomeReset(dungeon_form)
             if pre_status == STATUS.SAVE():
-                DungeonStatus.Status.fromSaveConvert(dungeonForm, saveForm.OUTPUT_DATA())
+                DungeonStatus.Status.fromSaveConvert(dungeon_form, save_form.OUTPUT_DATA())
         else:
             dbg.ERROR_LOG("[Main.STATUS]存在しないステータス: "+str(now_status))
             status_form.update_status(STATUS.HOME())
 
     @staticmethod
-    def __change_init(preStatus, now_status, operationForm, configForm):
-        if preStatus != now_status:
-            operationForm.reset_mouse_click_l()
-            operationForm.reset_mouse_click_r()
-            configForm.update_pre_way_key_type()
-            configForm.update_pre_go_key_type()
+    def __change_init(pre_status, now_status, operation_form, config_form):
+        if pre_status != now_status:
+            operation_form.reset_mouse_click_l()
+            operation_form.reset_mouse_click_r()
+            config_form.update_pre_way_key_type()
+            config_form.update_pre_go_key_type()

@@ -47,7 +47,7 @@ class Display(AbstractDisplay):
         (mouse_x, mouse_y) = ope_form.get_mouse()
         dungeon_map = dungeon_form.get_dungeon_map()
         now_pos = dungeon_form.get_now_pos()
-        flash = system_form.FLASH
+        flash = system_form.flash
         enemy_pos_list = []
         enemy_type_list = []
         enemy_index_list = []

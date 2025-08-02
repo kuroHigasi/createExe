@@ -8,11 +8,11 @@ import dungeon.sound as sound_dungeon
 class Sound:
 	@staticmethod
 	def execute(status_form, system_form, ope_form):
-		home_form = system_form.HOME_FORM()
-		sound_form = system_form.SOUND_FORM()
-		config_form = system_form.CONFIG_FORM()
-		save_form = system_form.SAVE_FORM()
-		dungeon_form = system_form.DUNGEON_FORM()
+		home_form = system_form.home_form
+		sound_form = system_form.sound_form()
+		config_form = system_form.config_form
+		save_form = system_form.save_form
+		dungeon_form = system_form.dungeon_form
 		now_status = status_form.now_status
 		# ステータス毎 処理分岐
 		if now_status is STATUS.HOME():

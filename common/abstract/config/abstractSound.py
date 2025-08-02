@@ -1,7 +1,7 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, ABC
 
 
-class AbstractSound(ABCMeta):
+class AbstractSound(ABCMeta, ABC):
 	@staticmethod
 	@abstractmethod
 	def execute(sound_form, config_form, request):
