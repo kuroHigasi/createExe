@@ -13,7 +13,9 @@ hitJudgeSquare (PyObject *self, PyObject *args) {
   if (!PyArg_ParseTuple(args, "iiiiii", &x, &y, &size_x, &size_y, &hit_x, &hit_y)) {
     return Py_BuildValue("O", Py_False);    
   }
-  if ((x <= hit_x && hit_x <= (x+size_x))&&
+  if ((x != -1) &&
+      (y != -1) &&
+      (x <= hit_x && hit_x <= (x+size_x)) &&
       (y <= hit_y && hit_y <= (y+size_y)))
     return Py_BuildValue("O", Py_True);
   return Py_BuildValue("O", Py_False);
