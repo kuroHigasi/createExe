@@ -1,42 +1,57 @@
-import dungeon.form.form as DungeonForm
-import common.home.form.form as HomeForm
+import dataclasses
+import dungeon.form.form as dungeon_form
+import common.home.form.form as home_form
 import common.config.form.form as ConfigForm
 import common.end.form.form as EndForm
 import common.save.form.form as SaveForm
 import common.sound.form as SoundForm
 
 
-class SystemForm:
+@dataclasses.dataclass
+class Form:
+    _flash: list
+    _dungeon_form: dungeon_form.Form
+    _config_form = ConfigForm.Form()
+    _home_form = home_form.Form()
+    _end_form = EndForm.Form()
+    _save_form = SaveForm.Form()
+    _sound_form = SoundForm.Form()
+
     def __init__(self, flash=[]):
-        self.__flash = flash
-        self.__DungeonForm = DungeonForm.Form(1)
-        self.__ConfigForm = ConfigForm.Form()
-        self.__HomeForm = HomeForm.Form()
-        self.__EndForm = EndForm.Form()
-        self.__SaveForm = SaveForm.Form()
-        self.__SoundForm = SoundForm.Form()
+        self._flash = flash
+        self._dungeon_form = dungeon_form.Form(1)
+        self._config_form = ConfigForm.Form()
+        self._home_form = home_form.Form()
+        self._end_form = EndForm.Form()
+        self._save_form = SaveForm.Form()
+        self._sound_form = SoundForm.Form()
 
-    def FLASH(self, index=0):
-        return self.__flash[index].flash()
+    def flash(self, index=0):
+        return self._flash[index].flash()
 
-    def countupFlash(self):
-        for i in range(0, len(self.__flash), 1):
-            self.__flash[i].countup()
+    def countup_flash(self):
+        for i in range(0, len(self._flash), 1):
+            self._flash[i].countup()
 
-    def DUNGEON_FORM(self):
-        return self.__DungeonForm
+    @property
+    def dungeon_form(self):
+        return self._dungeon_form
 
-    def CONFIG_FORM(self):
-        return self.__ConfigForm
+    @property
+    def config_form(self):
+        return self._config_form
 
-    def HOME_FORM(self):
-        return self.__HomeForm
+    @property
+    def home_form(self):
+        return self._home_form
 
-    def END_FORM(self):
-        return self.__EndForm
+    @property
+    def end_form(self):
+        return self._end_form
 
-    def SAVE_FORM(self):
-        return self.__SaveForm
+    @property
+    def save_form(self):
+        return self._save_form
 
-    def SOUND_FORM(self):
-        return self.__SoundForm
+    def sound_form(self):
+        return self._sound_form

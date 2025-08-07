@@ -1,7 +1,7 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, ABC
 
 
-class AbstractStatus(ABCMeta):
+class AbstractStatus(ABCMeta, ABC):
 	@staticmethod
 	@abstractmethod
 	def execute(status_form, request):

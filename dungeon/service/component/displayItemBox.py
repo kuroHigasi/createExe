@@ -22,21 +22,22 @@ class DisplayItemBox:
 		color_ = cmn.Colors.black
 		pos_x_list = [pos_x, pos_x+60, pos_x+120]
 		img_list = self._img_list
-		ret_data = (-1, -1, -1)
+		ret_data = [(-1, -1, -1), (-1, -1, -1), (-1, -1, -1)]
 		for index in range(0, self._box_num, 1):
 			item = self._box_item_list[index]
 			item_num = self._box_num_list[index]
 			text = ""
 			screen.blit(img_list[INDEX.BOX()][0], (pos_x_list[index], pos_y))
+			# アイテムが存在している場合、アイテムをBOXに表示
 			if item != -1:
 				screen.blit(img_list[INDEX.ITEM()][item], (pos_x_list[index]+5, pos_y+5))
+				ret_data[index] = (item, pos_x_list[index], pos_y)
 			if self._box_use_list[index]:
 				screen.blit(img_list[INDEX.BOX()][1], (pos_x_list[index], pos_y))
-				ret_data = (index, -1, -1)
 			else:
 				if item != -1:
 					self.__disp_text(screen, item_font, str(item_num), pos_x_list[index]+2, pos_y+10, color_)
-					ret_data = (index, pos_x_list[index], pos_y)
+					ret_data[index] = (item, pos_x_list[index], pos_y)
 			if self._box_touch_list[index]:
 				text = ITEM.getText(item) + ":" + str(item_num)
 				if not self._box_use_list[index]:

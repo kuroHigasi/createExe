@@ -108,9 +108,10 @@ class Display:
 				self._screen,
 				self._img_list
 			).execute(12, self._retry_touch, pos_x+350, pos_y+270)
-			ret_data_list[1] = pos_x+350, pos_y+270
+			ret_data_list[1] = (pos_x+350, pos_y+270)
 		return response.Response(data=ret_data_list, result=code.Code.OK)
 
+	# 情報の表示
 	def disp_info(self):
 		pos_x = 800
 		pos_y = 200
@@ -132,6 +133,7 @@ class Display:
 			component_display_number.execute(self._count, pos_x + 90, pos_y+130)
 		return response.Response(data=True, result=code.Code.OK)
 
+	# ログの表示
 	def disp_log(self):
 		pos_x = 0
 		pos_y = 600
@@ -152,6 +154,7 @@ class Display:
 				index += 1
 		return response.Response(data=True, result=code.Code.OK)
 
+	# SYSTEMボタンの表示
 	def disp_system_button(self):
 		pos_x = 800
 		pos_y = 600
@@ -168,6 +171,7 @@ class Display:
 		ret_data[1] = (pos_x + 25, pos_y + 115)
 		return response.Response(data=ret_data, result=code.Code.OK)
 
+	# ACTIONボタンの表示
 	def disp_action_button(self):
 		pos_x = 800
 		pos_y = 400

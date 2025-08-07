@@ -14,11 +14,11 @@ class Display:
         now_status = status_form.now_status
         pre_status = status_form.pre_status
         # FORM
-        dungeon_form = system_form.DUNGEON_FORM()
-        end_form = system_form.END_FORM()
-        save_form = system_form.SAVE_FORM()
-        config_form = system_form.CONFIG_FORM()
-        home_form = system_form.HOME_FORM()
+        dungeon_form = system_form.dungeon_form
+        end_form = system_form.end_form
+        save_form = system_form.save_form
+        config_form = system_form.config_form
+        home_form = system_form.home_form
         if now_status == STATUS.EXIT():
             dbg.LOG("[main.DISP]終了ステータスのため何もしない")
         elif now_status == STATUS.END():

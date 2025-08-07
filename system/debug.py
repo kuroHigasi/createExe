@@ -9,19 +9,19 @@ import pygame
 class Debug:
     @staticmethod
     def execute(status_form: status_form_.Form, system_form: system_form_, key):
-        nowStatus = status_form.now_status
-        homeForm = system_form.HOME_FORM()
-        dungeon_form = system_form.DUNGEON_FORM()
+        now_status = status_form.now_status
+        home_form = system_form.home_form
+        dungeon_form = system_form.dungeon_form
         if key == pygame.K_x:
-            if nowStatus == STATUS.DUNGEON():
+            if now_status == STATUS.DUNGEON():
                 dun_dbg.Debug.show_situation(dungeon_form)
         elif key == pygame.K_c:
-            sound_list = homeForm.sound_list
+            sound_list = home_form.sound_list
             dbg.ERROR_LOG(str(list[0]))
             pygame.mixer.music.load(sound_list[0])
             pygame.mixer.music.play()
         else:
-            if nowStatus == STATUS.DUNGEON():
+            if now_status == STATUS.DUNGEON():
                 dun_dbg.Debug.show_position(dungeon_form)
                 dun_dbg.Debug.show_way(dungeon_form)
                 dun_dbg.Debug.show_view(dungeon_form)

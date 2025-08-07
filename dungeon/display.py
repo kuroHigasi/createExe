@@ -15,8 +15,9 @@ class Display(AbstractDisplay):
         res_view = service.disp_view()
         if res_view.is_ok():
             if not (res_view.data[0] is None):
-                (index, pos_x, pos_y) = res_view.data[0]
-                dungeon_form.set_box_button(index, pos_x, pos_y)
+                for i in range(0, len(res_view.data[0]), 1):
+                    (index, pos_x, pos_y) = res_view.data[0][i]
+                    dungeon_form.set_box_button(i, pos_x, pos_y)
             if not (res_view.data[1] is None):
                 (pos_x, pos_y) = res_view.data[1]
                 dungeon_form.set_retry_button(pos_x, pos_y)
@@ -47,7 +48,7 @@ class Display(AbstractDisplay):
         (mouse_x, mouse_y) = ope_form.get_mouse()
         dungeon_map = dungeon_form.get_dungeon_map()
         now_pos = dungeon_form.get_now_pos()
-        flash = system_form.FLASH
+        flash = system_form.flash
         enemy_pos_list = []
         enemy_type_list = []
         enemy_index_list = []
